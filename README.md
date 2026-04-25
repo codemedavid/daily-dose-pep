@@ -1,13 +1,13 @@
-# Peptivate.ph - Premium Peptide E-commerce Platform
+# Orozep PH - Premium Peptide E-commerce Platform
 
 A modern, professional e-commerce platform for selling research-grade peptides. Built with React, TypeScript, Vite, and Supabase.
 
 ## 🎨 Design Theme
 
-- **Primary Colors:** Dark Blue (#2563eb), Light Blue (#60a5fa), and White (#ffffff)
-- **Accent Colors:** Indigo (#6366f1) and Sky Blue (#0ea5e9)
+- **Primary Colors:** Pink (#E25C95), Blush (#FCD3E5), and White (#ffffff)
+- **Accent Colors:** Rose (#C73D7A) and Maroon (#5B1838)
 - **Typography:** Inter font family for clean, professional look
-- **Style:** Professional medical/pharmaceutical aesthetic with corporate blue theme
+- **Style:** Professional medical/pharmaceutical aesthetic with a polished pink theme
 
 ## 🧪 Features
 
@@ -322,14 +322,14 @@ For technical support or questions:
 **Version:** 2.0.0  
 **Last Updated:** January 10, 2025  
 **Framework:** React 18 + TypeScript + Vite + Supabase  
-**Theme:** Blue & White Professional Medical Aesthetic
+**Theme:** Pink & White Professional Medical Aesthetic
 # MyPeptideJourney
 # kaedra
 # Kaedraa2
 # kaedraa4
 # peptide-kaedra
 # putangina-gumana-ka-na
-# peptivate
+# orozep-ph
 # HP-GLOW
 # peptalkph
 # peptide-pulse
@@ -343,4 +343,5 @@ For technical support or questions:
 # the-babe-studio
 # IgorotaPepGlow
 # biorich
-# pepbabe
+# orozep-ph
+# orozep
