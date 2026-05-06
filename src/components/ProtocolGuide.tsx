@@ -1,9 +1,15 @@
 import React, { useState } from 'react';
-import { ArrowLeft, FlaskConical, Syringe, Thermometer, Clock, AlertTriangle, ChevronDown, ChevronUp, BookOpen } from 'lucide-react';
+import { ArrowLeft, FlaskConical, Syringe, Thermometer, Clock, ChevronDown, ChevronUp, BookOpen } from 'lucide-react';
 import Header from './Header';
 import Footer from './Footer';
 import { useCart } from '../hooks/useCart';
 import { useProtocols } from '../hooks/useProtocols';
+
+const GOLD = '#B8941F';
+const INK = '#0A0A0A';
+const MUTED = '#6b6b6b';
+const LINE = 'rgba(10,10,10,0.08)';
+const SURFACE = '#fafaf7';
 
 const ProtocolGuide: React.FC = () => {
     const { cartItems } = useCart();
@@ -19,201 +25,276 @@ const ProtocolGuide: React.FC = () => {
         window.location.href = '/';
     };
 
-    // Filter only active protocols
     const activeProtocols = protocols.filter(p => p.active);
-
-    // Get unique categories
     const categories = ['all', ...Array.from(new Set(activeProtocols.map(p => p.category)))];
-
-    // Filter by selected category
     const filteredProtocols = selectedCategory === 'all'
         ? activeProtocols
         : activeProtocols.filter(p => p.category === selectedCategory);
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-[#FADADD] via-[#FDF5F7] to-white">
+        <div className="min-h-screen" style={{ background: '#ffffff' }}>
             <Header
                 cartItemsCount={cartItems.reduce((sum, item) => sum + item.quantity, 0)}
                 onCartClick={() => { }}
                 onMenuClick={handleBackToHome}
             />
 
-            <main className="container mx-auto px-4 py-8 max-w-4xl">
-                {/* Back Button */}
-                <button
-                    onClick={handleBackToHome}
-                    className="flex items-center gap-2 text-charcoal-600 hover:text-rose-500 transition-colors mb-6 group"
-                >
-                    <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
-                    <span className="text-sm font-medium">Back to Home</span>
-                </button>
+            {/* Editorial top band */}
+            <div
+                className="relative overflow-hidden"
+                style={{ background: INK }}
+            >
+                <div
+                    className="absolute -top-32 -right-32 w-96 h-96 rounded-full pointer-events-none"
+                    style={{ background: `radial-gradient(circle, ${GOLD}, transparent 70%)`, opacity: 0.18, filter: 'blur(40px)' }}
+                />
+                <div className="container mx-auto px-5 md:px-8 py-16 md:py-20 max-w-4xl relative z-10">
+                    <button
+                        onClick={handleBackToHome}
+                        className="inline-flex items-center gap-2 text-xs font-sans font-medium uppercase tracking-[0.12em] mb-8 group"
+                        style={{ color: 'rgba(255,255,255,0.7)' }}
+                    >
+                        <ArrowLeft className="w-3.5 h-3.5 group-hover:-translate-x-1 transition-transform" />
+                        Back to Shop
+                    </button>
 
-                {/* Header */}
-                <div className="text-center mb-10">
-                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/80 backdrop-blur-sm border border-brand-200 shadow-soft mb-4">
-                        <BookOpen className="w-4 h-4 text-rose-500" />
-                        <span className="text-xs font-medium text-charcoal-700 uppercase tracking-widest">Protocol Guide</span>
+                    <div className="text-center">
+                        <div
+                            className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-5"
+                            style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.12)' }}
+                        >
+                            <BookOpen className="w-3.5 h-3.5" style={{ color: GOLD }} />
+                            <span className="text-[10px] font-sans font-semibold uppercase tracking-[0.18em]" style={{ color: '#F5E6C8' }}>
+                                Protocol Guide
+                            </span>
+                        </div>
+                        <h1
+                            className="font-heading font-light text-white mb-4"
+                            style={{ fontSize: 'clamp(2rem, 4.5vw, 3.25rem)', letterSpacing: '-0.02em' }}
+                        >
+                            Peptide <em className="italic" style={{ color: GOLD }}>protocols</em>
+                        </h1>
+                        <p
+                            className="font-sans text-sm md:text-base max-w-2xl mx-auto leading-relaxed"
+                            style={{ color: 'rgba(255,255,255,0.65)' }}
+                        >
+                            Reference dosage frameworks for research peptides. Always consult a qualified healthcare professional before any protocol.
+                        </p>
                     </div>
-                    <h1 className="font-heading text-3xl sm:text-4xl font-bold text-charcoal-900 mb-3">
-                        Peptide Protocol Guide
-                    </h1>
-                    <p className="text-charcoal-600 max-w-2xl mx-auto">
-                        General dosage guidelines and protocols for peptides. Always consult with a healthcare professional before use.
-                    </p>
                 </div>
+            </div>
 
-
+            <main className="container mx-auto px-5 md:px-8 py-14 md:py-20 max-w-4xl">
 
                 {/* General Guidelines */}
-                <div className="bg-white rounded-2xl shadow-soft border border-brand-100 p-6 mb-8">
-                    <h2 className="font-heading text-xl font-semibold text-charcoal-900 mb-4 flex items-center gap-2">
-                        <Syringe className="w-5 h-5 text-rose-500" />
-                        General Injection Guidelines
-                    </h2>
-                    <ul className="space-y-3 text-sm text-charcoal-700">
-                        <li className="flex items-start gap-2">
-                            <span className="w-1.5 h-1.5 rounded-full bg-rose-400 mt-2 flex-shrink-0"></span>
-                            <span><strong>Reconstitution:</strong> Use bacteriostatic water. Add slowly along the vial wall, don't shake.</span>
-                        </li>
-                        <li className="flex items-start gap-2">
-                            <span className="w-1.5 h-1.5 rounded-full bg-rose-400 mt-2 flex-shrink-0"></span>
-                            <span><strong>Injection sites:</strong> Rotate between abdomen, thigh, and upper arm.</span>
-                        </li>
-                        <li className="flex items-start gap-2">
-                            <span className="w-1.5 h-1.5 rounded-full bg-rose-400 mt-2 flex-shrink-0"></span>
-                            <span><strong>Needle size:</strong> 29-31 gauge insulin syringes for subcutaneous injections.</span>
-                        </li>
-                        <li className="flex items-start gap-2">
-                            <span className="w-1.5 h-1.5 rounded-full bg-rose-400 mt-2 flex-shrink-0"></span>
-                            <span><strong>Timing:</strong> Most peptides are best taken on an empty stomach or before bed.</span>
-                        </li>
+                <section
+                    className="rounded-2xl p-6 md:p-8 mb-6"
+                    style={{ background: SURFACE, border: `1px solid ${LINE}` }}
+                >
+                    <div className="flex items-center gap-3 mb-5">
+                        <div
+                            className="w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0"
+                            style={{ background: INK }}
+                        >
+                            <Syringe className="w-4 h-4" style={{ color: GOLD }} />
+                        </div>
+                        <h2 className="font-heading font-semibold text-lg md:text-xl" style={{ color: INK }}>
+                            General Injection Guidelines
+                        </h2>
+                    </div>
+                    <ul className="space-y-3 font-sans text-sm" style={{ color: '#2a2a2a' }}>
+                        {[
+                            ['Reconstitution', "Use bacteriostatic water. Add slowly along the vial wall, don't shake."],
+                            ['Injection sites', 'Rotate between abdomen, thigh, and upper arm.'],
+                            ['Needle size', '29–31 gauge insulin syringes for subcutaneous injections.'],
+                            ['Timing', 'Most peptides are best taken on an empty stomach or before bed.'],
+                        ].map(([k, v]) => (
+                            <li key={k} className="flex items-start gap-3">
+                                <span className="w-1.5 h-1.5 rounded-full mt-2 flex-shrink-0" style={{ background: GOLD }} />
+                                <span><strong style={{ color: INK }}>{k}:</strong> {v}</span>
+                            </li>
+                        ))}
                     </ul>
-                </div>
+                </section>
 
                 {/* Storage Guidelines */}
-                <div className="bg-white rounded-2xl shadow-soft border border-brand-100 p-6 mb-8">
-                    <h2 className="font-heading text-xl font-semibold text-charcoal-900 mb-4 flex items-center gap-2">
-                        <Thermometer className="w-5 h-5 text-rose-500" />
-                        Storage Guidelines
-                    </h2>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
-                        <div className="bg-brand-50 rounded-xl p-4">
-                            <p className="font-semibold text-charcoal-800 mb-1">Lyophilized (Powder)</p>
-                            <p className="text-charcoal-600">Store at -20°C for long-term. Stable at 2-8°C for weeks.</p>
+                <section
+                    className="rounded-2xl p-6 md:p-8 mb-12"
+                    style={{ background: SURFACE, border: `1px solid ${LINE}` }}
+                >
+                    <div className="flex items-center gap-3 mb-5">
+                        <div
+                            className="w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0"
+                            style={{ background: INK }}
+                        >
+                            <Thermometer className="w-4 h-4" style={{ color: GOLD }} />
                         </div>
-                        <div className="bg-brand-50 rounded-xl p-4">
-                            <p className="font-semibold text-charcoal-800 mb-1">Reconstituted</p>
-                            <p className="text-charcoal-600">Refrigerate at 2-8°C. Use within 14-28 days depending on peptide.</p>
-                        </div>
+                        <h2 className="font-heading font-semibold text-lg md:text-xl" style={{ color: INK }}>
+                            Storage Guidelines
+                        </h2>
                     </div>
-                </div>
-
-                {/* Protocol Cards */}
-                <h2 className="font-heading text-xl font-semibold text-charcoal-900 mb-4 flex items-center gap-2">
-                    <FlaskConical className="w-5 h-5 text-rose-500" />
-                    Peptide Protocols
-                </h2>
-
-                {/* Category Filter Dropdown */}
-                <div className="mb-6">
-                    <label className="block text-sm font-medium text-charcoal-600 mb-2">Filter by Category</label>
-                    <select
-                        value={selectedCategory}
-                        onChange={(e) => setSelectedCategory(e.target.value)}
-                        className="w-full sm:w-64 px-4 py-3 rounded-xl bg-white border border-brand-200 text-charcoal-800 font-medium shadow-soft focus:ring-2 focus:ring-rose-500 focus:border-transparent transition-all cursor-pointer"
-                    >
-                        {categories.map((category) => (
-                            <option key={category} value={category}>
-                                {category === 'all' ? '📋 All Categories' : category}
-                            </option>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
+                        {[
+                            ['Lyophilized (Powder)', 'Store at -20°C for long-term. Stable at 2–8°C for weeks.'],
+                            ['Reconstituted', 'Refrigerate at 2–8°C. Use within 14–28 days depending on peptide.'],
+                        ].map(([title, body]) => (
+                            <div key={title} className="rounded-xl p-4" style={{ background: '#ffffff', border: `1px solid ${LINE}` }}>
+                                <p className="font-heading font-semibold mb-1" style={{ color: INK }}>{title}</p>
+                                <p className="font-sans" style={{ color: MUTED }}>{body}</p>
+                            </div>
                         ))}
-                    </select>
-                    <p className="text-xs text-charcoal-500 mt-1">{filteredProtocols.length} protocol(s) found</p>
+                    </div>
+                </section>
+
+                {/* Section heading */}
+                <div className="flex items-end justify-between flex-wrap gap-4 mb-6">
+                    <div>
+                        <p className="text-[10px] font-sans font-semibold uppercase tracking-[0.18em]" style={{ color: GOLD }}>
+                            Catalogue
+                        </p>
+                        <div
+                            className="my-2"
+                            style={{ width: 32, height: 1, background: GOLD }}
+                        />
+                        <h2 className="font-heading font-light text-2xl md:text-3xl" style={{ color: INK, letterSpacing: '-0.01em' }}>
+                            Peptide protocols
+                        </h2>
+                    </div>
+
+                    <div className="w-full sm:w-auto">
+                        <select
+                            value={selectedCategory}
+                            onChange={(e) => setSelectedCategory(e.target.value)}
+                            className="w-full sm:w-64 px-4 py-3 rounded-full font-sans text-sm font-medium cursor-pointer focus:outline-none"
+                            style={{
+                                background: '#ffffff',
+                                border: `1px solid ${LINE}`,
+                                color: INK,
+                            }}
+                        >
+                            {categories.map((category) => (
+                                <option key={category} value={category}>
+                                    {category === 'all' ? 'All categories' : category}
+                                </option>
+                            ))}
+                        </select>
+                        <p className="text-[11px] font-sans mt-2 text-right" style={{ color: MUTED }}>
+                            {filteredProtocols.length} protocol{filteredProtocols.length !== 1 ? 's' : ''}
+                        </p>
+                    </div>
                 </div>
 
                 {loading ? (
-                    <div className="flex items-center justify-center py-12">
-                        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-rose-500"></div>
+                    <div className="flex items-center justify-center py-16">
+                        <div className="animate-spin rounded-full h-8 w-8 border-2" style={{ borderColor: LINE, borderTopColor: GOLD }} />
                     </div>
                 ) : filteredProtocols.length === 0 ? (
-                    <div className="bg-white rounded-2xl shadow-soft border border-brand-100 p-8 text-center">
-                        <p className="text-charcoal-500">No protocols found in this category.</p>
+                    <div
+                        className="rounded-2xl p-12 text-center"
+                        style={{ background: SURFACE, border: `1px solid ${LINE}` }}
+                    >
+                        <p className="font-sans text-sm" style={{ color: MUTED }}>No protocols found in this category.</p>
                     </div>
                 ) : (
-                    <div className="space-y-4">
-                        {filteredProtocols.map((protocol) => (
-                            <div
-                                key={protocol.id}
-                                className="bg-white rounded-2xl shadow-soft border border-brand-100 overflow-hidden"
-                            >
-                                <button
-                                    onClick={() => toggleProtocol(protocol.id)}
-                                    className="w-full p-5 flex items-center justify-between text-left hover:bg-brand-50/50 transition-colors"
+                    <div className="space-y-3">
+                        {filteredProtocols.map((protocol) => {
+                            const isOpen = expandedProtocol === protocol.id;
+                            return (
+                                <div
+                                    key={protocol.id}
+                                    className="rounded-2xl overflow-hidden transition-all"
+                                    style={{
+                                        background: '#ffffff',
+                                        border: `1px solid ${isOpen ? 'rgba(184,148,31,0.35)' : LINE}`,
+                                        boxShadow: isOpen ? '0 8px 30px -12px rgba(10,10,10,0.12)' : 'none',
+                                    }}
                                 >
-                                    <div>
-                                        <span className="text-xs font-medium text-rose-500 uppercase tracking-wider">{protocol.category}</span>
-                                        <h3 className="font-heading text-lg font-semibold text-charcoal-900 mt-1">{protocol.name}</h3>
-                                    </div>
-                                    {expandedProtocol === protocol.id ? (
-                                        <ChevronUp className="w-5 h-5 text-charcoal-400" />
-                                    ) : (
-                                        <ChevronDown className="w-5 h-5 text-charcoal-400" />
-                                    )}
-                                </button>
-
-                                {expandedProtocol === protocol.id && (
-                                    <div className="px-5 pb-5 border-t border-brand-100">
-                                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-4 mb-4">
-                                            <div className="bg-brand-50 rounded-xl p-3">
-                                                <p className="text-xs text-charcoal-500 uppercase tracking-wider">Dosage</p>
-                                                <p className="text-sm font-semibold text-charcoal-800 mt-1">{protocol.dosage}</p>
-                                            </div>
-                                            <div className="bg-brand-50 rounded-xl p-3">
-                                                <p className="text-xs text-charcoal-500 uppercase tracking-wider flex items-center gap-1">
-                                                    <Clock className="w-3 h-3" /> Frequency
-                                                </p>
-                                                <p className="text-sm font-semibold text-charcoal-800 mt-1">{protocol.frequency}</p>
-                                            </div>
-                                            <div className="bg-brand-50 rounded-xl p-3">
-                                                <p className="text-xs text-charcoal-500 uppercase tracking-wider">Duration</p>
-                                                <p className="text-sm font-semibold text-charcoal-800 mt-1">{protocol.duration}</p>
-                                            </div>
+                                    <button
+                                        onClick={() => toggleProtocol(protocol.id)}
+                                        className="w-full p-5 md:p-6 flex items-center justify-between text-left transition-colors"
+                                    >
+                                        <div>
+                                            <span className="text-[10px] font-sans font-semibold uppercase tracking-[0.14em]" style={{ color: GOLD }}>
+                                                {protocol.category}
+                                            </span>
+                                            <h3 className="font-heading font-semibold text-base md:text-lg mt-1" style={{ color: INK }}>
+                                                {protocol.name}
+                                            </h3>
                                         </div>
-
-                                        {protocol.notes && protocol.notes.length > 0 && (
-                                            <div className="mb-4">
-                                                <p className="text-xs text-charcoal-500 uppercase tracking-wider mb-2">Protocol Notes</p>
-                                                <ul className="space-y-2">
-                                                    {protocol.notes.map((note, idx) => (
-                                                        <li key={idx} className="flex items-start gap-2 text-sm text-charcoal-700">
-                                                            <span className="w-1.5 h-1.5 rounded-full bg-rose-400 mt-2 flex-shrink-0"></span>
-                                                            {note}
-                                                        </li>
-                                                    ))}
-                                                </ul>
-                                            </div>
+                                        {isOpen ? (
+                                            <ChevronUp className="w-5 h-5" style={{ color: INK }} />
+                                        ) : (
+                                            <ChevronDown className="w-5 h-5" style={{ color: MUTED }} />
                                         )}
+                                    </button>
 
-                                        {protocol.storage && (
-                                            <div className="bg-amber-50 rounded-xl p-3">
-                                                <p className="text-xs text-amber-700 flex items-center gap-1">
-                                                    <Thermometer className="w-3 h-3" />
-                                                    <strong>Storage:</strong> {protocol.storage}
-                                                </p>
+                                    {isOpen && (
+                                        <div className="px-5 pb-5 md:px-6 md:pb-6" style={{ borderTop: `1px solid ${LINE}` }}>
+                                            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-5 mb-5">
+                                                {[
+                                                    ['Dosage', protocol.dosage, null],
+                                                    ['Frequency', protocol.frequency, <Clock className="w-3 h-3" />],
+                                                    ['Duration', protocol.duration, null],
+                                                ].map(([label, val, icon]) => (
+                                                    <div key={label as string} className="rounded-xl p-4" style={{ background: SURFACE }}>
+                                                        <p className="text-[10px] font-sans font-semibold uppercase tracking-[0.12em] flex items-center gap-1" style={{ color: MUTED }}>
+                                                            {icon as React.ReactNode}
+                                                            {label as string}
+                                                        </p>
+                                                        <p className="font-heading text-sm font-semibold mt-1.5" style={{ color: INK }}>
+                                                            {val as string}
+                                                        </p>
+                                                    </div>
+                                                ))}
                                             </div>
-                                        )}
-                                    </div>
-                                )}
-                            </div>
-                        ))}
+
+                                            {protocol.notes && protocol.notes.length > 0 && (
+                                                <div className="mb-4">
+                                                    <p className="text-[10px] font-sans font-semibold uppercase tracking-[0.14em] mb-3" style={{ color: GOLD }}>
+                                                        Protocol Notes
+                                                    </p>
+                                                    <ul className="space-y-2">
+                                                        {protocol.notes.map((note, idx) => (
+                                                            <li key={idx} className="flex items-start gap-3 font-sans text-sm" style={{ color: '#2a2a2a' }}>
+                                                                <span className="w-1.5 h-1.5 rounded-full mt-2 flex-shrink-0" style={{ background: GOLD }} />
+                                                                {note}
+                                                            </li>
+                                                        ))}
+                                                    </ul>
+                                                </div>
+                                            )}
+
+                                            {protocol.storage && (
+                                                <div
+                                                    className="rounded-xl p-4 flex items-start gap-3"
+                                                    style={{ background: INK }}
+                                                >
+                                                    <Thermometer className="w-4 h-4 mt-0.5 flex-shrink-0" style={{ color: GOLD }} />
+                                                    <p className="font-sans text-xs leading-relaxed" style={{ color: 'rgba(255,255,255,0.85)' }}>
+                                                        <strong style={{ color: '#fff' }}>Storage:</strong> {protocol.storage}
+                                                    </p>
+                                                </div>
+                                            )}
+                                        </div>
+                                    )}
+                                </div>
+                            );
+                        })}
                     </div>
                 )}
 
                 {/* CTA */}
-                <div className="text-center mt-10">
+                <div className="text-center mt-14">
                     <a
                         href="/calculator"
-                        className="inline-flex items-center gap-2 px-6 py-3 bg-rose-500 hover:bg-rose-600 text-white font-semibold rounded-2xl shadow-lg transition-all"
+                        className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full font-sans font-semibold text-sm tracking-wide transition-all"
+                        style={{
+                            background: INK,
+                            color: '#fff',
+                            boxShadow: '0 4px 14px rgba(10,10,10,0.18)',
+                        }}
+                        onMouseEnter={(e) => { e.currentTarget.style.background = GOLD; }}
+                        onMouseLeave={(e) => { e.currentTarget.style.background = INK; }}
                     >
                         <FlaskConical className="w-4 h-4" />
                         Use Peptide Calculator

@@ -71,7 +71,7 @@ const FAQ: React.FC = () => {
                     <button
                         onClick={() => setActiveCategory(null)}
                         className={`px-6 py-2.5 rounded-full text-sm font-bold transition-all border shadow-sm ${activeCategory === null
-                            ? 'bg-navy-900 text-black border-navy-900 shadow-md transform scale-105'
+                            ? 'bg-navy-900 text-white border-navy-900 shadow-md transform scale-105'
                             : 'bg-white text-black border-navy-900 hover:bg-navy-50'
                             }`}
                     >

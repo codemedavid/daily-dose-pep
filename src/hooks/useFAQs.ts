@@ -203,13 +203,15 @@ export const useFAQsAdmin = () => {
     const fetchAllFAQs = async () => {
         try {
             setLoading(true);
+            setError(null);
             const { data, error: fetchError } = await supabase
                 .from('faqs')
                 .select('*')
                 .order('order_index', { ascending: true });
 
             if (fetchError) {
-                console.warn('FAQs table not found:', fetchError.message);
+                console.error('FAQ fetch failed:', fetchError);
+                setError(fetchError.message);
                 setFaqs([]);
             } else {
                 setFaqs(data || []);

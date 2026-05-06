@@ -5,36 +5,36 @@
 @tailwind utilities;
 
 /* ─────────────────────────────────────────────
-   Orozep PH — Pink Clinical Glow
-   Pink × Rose × Maroon
+   LUXXBIO LABS — Luxury Black & Gold
+   Black × Onyx × Metallic Gold
 ───────────────────────────────────────────── */
 :root {
-  --pink:        #F5A0BE;
-  --pink-light:  #FCD3E5;
-  --pink-deep:   #E25C95;
-  --pink-bg:     #FFEAF3;
+  --pink:        #D4AF37;
+  --pink-light:  #FFE388;
+  --pink-deep:   #B8941F;
+  --pink-bg:     #1F1F1F;
 
-  --rose:        #F9B7D2;
-  --rose-light:  #FFEAF3;
-  --rose-deep:   #C73D7A;
-  --rose-bg:     #FFF7FB;
+  --rose:        #E5BE3A;
+  --rose-light:  #121212;
+  --rose-deep:   #957515;
+  --rose-bg:     #0A0A0A;
 
-  --maroon:        #5B2828;
-  --maroon-deep:   #421C1C;
-  --maroon-soft:   #8B3A3A;
-  --maroon-copper: #8B4423;
+  --maroon:        #0A0A0A;
+  --maroon-deep:   #000000;
+  --maroon-soft:   #1F1F1F;
+  --maroon-copper: #D4AF37;
 
-  --cream:       #FFF7FB;
-  --warm-white:  #FFF0F7;
-  --surface:     #FFEAF3;
+  --cream:       #0A0A0A;
+  --warm-white:  #121212;
+  --surface:     #1F1F1F;
 
-  --text:        #5B2828;
-  --text-mid:    #7E3434;
-  --text-soft:   #B96A6A;
+  --text:        #F5E6C8;
+  --text-mid:    #E5BE3A;
+  --text-soft:   #B8941F;
 
-  --border:      rgba(91,40,40,0.10);
-  --border-pink: rgba(245,160,190,0.40);
-  --border-rose: rgba(226,92,149,0.28);
+  --border:      rgba(212,175,55,0.18);
+  --border-pink: rgba(212,175,55,0.45);
+  --border-rose: rgba(184,148,31,0.35);
 }
 
 @layer base {
@@ -49,94 +49,101 @@
 
   h1, h2, h3, h4, h5, h6 {
     @apply font-heading font-medium tracking-tight;
-    color: var(--maroon);
+    color: #0A0A0A;
     line-height: 1.1;
   }
 }
 
 @layer components {
 
-  /* Primary CTA — pink gradient */
+  /* Primary CTA — gold gradient on black */
   .btn-mint {
     @apply inline-flex items-center justify-center gap-2 px-8 py-3.5
-           rounded-full font-sans font-medium text-sm text-white
+           rounded-full font-sans font-medium text-sm
            transition-all duration-200 select-none tracking-wide;
-    background: linear-gradient(135deg, #F593BC 0%, #E25C95 52%, #C73D7A 100%);
-    box-shadow: 0 4px 18px rgba(245,160,190,0.40);
+    background: linear-gradient(135deg, #F5D04D 0%, #D4AF37 52%, #B8941F 100%);
+    color: #0A0A0A;
+    box-shadow: 0 4px 18px rgba(212,175,55,0.40);
     letter-spacing: 0.02em;
   }
   .btn-mint:hover {
-    background: linear-gradient(135deg, #C73D7A 0%, #E25C95 50%, #9A2A5C 100%);
-    box-shadow: 0 6px 24px rgba(245,160,190,0.50);
+    background: linear-gradient(135deg, #FFE388 0%, #F5D04D 50%, #D4AF37 100%);
+    box-shadow: 0 6px 24px rgba(212,175,55,0.55);
     transform: translateY(-1px);
   }
   .btn-mint:active { transform: translateY(0); }
 
-  /* Secondary — blush */
+  /* Secondary — onyx with gold border */
   .btn-pink {
     @apply inline-flex items-center justify-center gap-2 px-8 py-3.5
            rounded-full font-sans font-medium text-sm
            transition-all duration-200 select-none tracking-wide;
-    background: var(--pink-bg);
-    color: var(--maroon);
+    background: #1F1F1F;
+    color: #D4AF37;
     letter-spacing: 0.02em;
-    border: 1px solid rgba(226,92,149,0.28);
+    border: 1px solid rgba(212,175,55,0.45);
   }
   .btn-pink:hover {
-    background: #FCD3E5;
+    background: #2E2E2E;
+    border-color: #D4AF37;
     transform: translateY(-1px);
   }
 
-  /* ── Ghost / Outline (maroon) ── */
+  /* ── Ghost / Outline (gold) ── */
   .btn-outline {
     @apply inline-flex items-center justify-center gap-2 px-8 py-3.5
            rounded-full font-sans font-medium text-sm border
            transition-all duration-200 select-none tracking-wide;
     border-color: var(--border-pink);
-    color: var(--maroon);
+    color: #D4AF37;
     background: transparent;
     letter-spacing: 0.02em;
   }
   .btn-outline:hover {
-    background: var(--pink-bg);
+    background: rgba(212,175,55,0.08);
     border-color: var(--pink);
   }
 
   .btn-outline-dark {
     @apply inline-flex items-center justify-center gap-2 px-8 py-3.5
-           rounded-full font-sans font-medium text-sm border border-white/30 text-white
+           rounded-full font-sans font-medium text-sm border text-white
            transition-all duration-200 select-none tracking-wide;
-    background: rgba(255,255,255,0.08);
+    border-color: rgba(212,175,55,0.45);
+    background: rgba(0,0,0,0.40);
     backdrop-filter: blur(8px);
     letter-spacing: 0.02em;
   }
   .btn-outline-dark:hover {
-    background: rgba(255,255,255,0.16);
-    border-color: rgba(255,255,255,0.5);
+    background: rgba(212,175,55,0.12);
+    border-color: #D4AF37;
   }
 
   /* ── Card ── */
   .card {
     @apply bg-white rounded-2xl transition-all duration-300;
+    background: #121212;
+    color: #F5E6C8;
     border: 1px solid var(--border);
-    box-shadow: 0 1px 4px rgba(91,40,40,0.05);
+    box-shadow: 0 1px 4px rgba(0,0,0,0.50);
   }
   .card:hover {
     border-color: var(--border-pink);
-    box-shadow: 0 8px 32px rgba(245,160,190,0.18), 0 2px 8px rgba(226,92,149,0.10);
+    box-shadow: 0 8px 32px rgba(212,175,55,0.18), 0 2px 8px rgba(0,0,0,0.50);
     transform: translateY(-3px);
   }
 
   /* ── Input ── */
   .input-field {
-    @apply w-full px-4 py-3 bg-white font-sans text-sm
-           placeholder-charcoal-400 text-charcoal-800
+    @apply w-full px-4 py-3 font-sans text-sm
            focus:outline-none transition-all rounded-xl;
+    background: #1F1F1F;
+    color: #F5E6C8;
     border: 1px solid var(--border);
   }
+  .input-field::placeholder { color: #757575; }
   .input-field:focus {
     border-color: var(--pink);
-    box-shadow: 0 0 0 3px rgba(245,160,190,0.18);
+    box-shadow: 0 0 0 3px rgba(212,175,55,0.20);
   }
 
   /* ── Section label ── */
@@ -154,21 +161,23 @@
   /* ── Tag / Pill ── */
   .pill-pink {
     @apply inline-flex items-center gap-1.5 text-xs font-sans font-medium px-3 py-1 rounded-full;
-    background: var(--pink-bg);
-    color: var(--pink-deep);
+    background: rgba(212,175,55,0.12);
+    color: #D4AF37;
+    border: 1px solid rgba(212,175,55,0.30);
   }
   .pill-mint {
     @apply inline-flex items-center gap-1.5 text-xs font-sans font-medium px-3 py-1 rounded-full;
-    background: var(--rose-bg);
-    color: var(--rose-deep);
+    background: rgba(212,175,55,0.08);
+    color: #E5BE3A;
+    border: 1px solid rgba(212,175,55,0.25);
   }
 
   /* btn-primary alias */
   .btn-primary { @apply btn-mint; }
 
-  /* Pink shimmer */
+  /* Gold shimmer */
   .holo-text {
-    background: linear-gradient(135deg, #9A2A5C 0%, #E25C95 35%, #F593BC 65%, #C73D7A 100%);
+    background: linear-gradient(135deg, #957515 0%, #D4AF37 35%, #FFE388 65%, #B8941F 100%);
     background-size: 200% 200%;
     -webkit-background-clip: text;
     background-clip: text;
@@ -177,7 +186,7 @@
   }
 
   .holo-bg {
-    background: linear-gradient(135deg, #FFF7FB 0%, #FCD3E5 50%, #FFEAF3 100%);
+    background: linear-gradient(135deg, #0A0A0A 0%, #1F1F1F 50%, #121212 100%);
     background-size: 200% 200%;
     animation: shimmer 8s ease-in-out infinite;
   }
@@ -207,9 +216,9 @@
 
 /* ── Scrollbar ── */
 ::-webkit-scrollbar        { width: 6px; }
-::-webkit-scrollbar-track  { background: #FFEAF3; }
-::-webkit-scrollbar-thumb  { background: linear-gradient(180deg, #F9B7D2, #E25C95); border-radius: 8px; }
-::-webkit-scrollbar-thumb:hover { background: linear-gradient(180deg, #F593BC, #C73D7A); }
+::-webkit-scrollbar-track  { background: #0A0A0A; }
+::-webkit-scrollbar-thumb  { background: linear-gradient(180deg, #D4AF37, #B8941F); border-radius: 8px; }
+::-webkit-scrollbar-thumb:hover { background: linear-gradient(180deg, #FFE388, #D4AF37); }
 
 /* ── Selection ── */
-::selection { background: #FCD3E5; color: var(--maroon); }
+::selection { background: #D4AF37; color: #0A0A0A; }

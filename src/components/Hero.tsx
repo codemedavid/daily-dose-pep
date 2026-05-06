@@ -20,12 +20,12 @@ const Hero: React.FC<HeroProps> = ({ onShopAll }) => {
   }, []);
 
   return (
-    <section className="relative overflow-hidden bg-[#fff7fb]">
+    <section className="relative overflow-hidden bg-[#0A0A0A]">
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            'linear-gradient(180deg, #fff7fb 0%, #fff0f7 46%, #ffeaf3 100%)',
+            'linear-gradient(180deg, #0A0A0A 0%, #121212 46%, #1F1F1F 100%)',
         }}
       />
       <div
@@ -44,8 +44,8 @@ const Hero: React.FC<HeroProps> = ({ onShopAll }) => {
       <div className="relative z-10 container mx-auto px-5 md:px-8">
         <div className="mx-auto flex min-h-[580px] max-w-4xl flex-col items-center justify-center py-20 text-center md:min-h-[640px]">
           <img
-            src="/orozeplogo.jpg"
-            alt="Orozep PH"
+            src="/luxxbio-logo.png"
+            alt="LUXXBIO LABS"
             className={`mb-6 h-28 w-28 rounded-3xl object-cover shadow-pink transition-all duration-700 sm:h-32 sm:w-32 ${
               visible ? 'translate-y-0 scale-100 opacity-100' : 'translate-y-3 scale-95 opacity-0'
             }`}
@@ -57,14 +57,14 @@ const Hero: React.FC<HeroProps> = ({ onShopAll }) => {
               visible ? 'translate-y-0 opacity-100' : 'translate-y-3 opacity-0'
             }`}
             style={{
-              color: '#9a2a5c',
+              color: '#6F560E',
               letterSpacing: '0.18em',
               border: '1px solid rgba(245,160,190,0.34)',
               boxShadow: '0 10px 26px rgba(245,160,190,0.12)',
             }}
           >
-            <span className="h-1.5 w-1.5 rounded-full" style={{ background: '#61c8c2' }} />
-            Orozep Peptides
+            <span className="h-1.5 w-1.5 rounded-full" style={{ background: '#D4AF37' }} />
+            LUXXBIO Peptides
           </p>
 
           <h1
@@ -72,7 +72,7 @@ const Hero: React.FC<HeroProps> = ({ onShopAll }) => {
               visible ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'
             }`}
             style={{
-              color: '#5b2828',
+              color: '#F5E6C8',
               lineHeight: 0.94,
               letterSpacing: 0,
               transitionDelay: '70ms',
@@ -82,8 +82,8 @@ const Hero: React.FC<HeroProps> = ({ onShopAll }) => {
             <span
               className="block italic"
               style={{
-                color: '#c73d7a',
-                textShadow: '0 14px 36px rgba(245,160,190,0.22)',
+                color: '#D4AF37',
+                textShadow: '0 14px 36px rgba(212,175,55,0.35)',
               }}
             >
               beautifully verified.
@@ -95,7 +95,7 @@ const Hero: React.FC<HeroProps> = ({ onShopAll }) => {
               visible ? 'scale-x-100 opacity-100' : 'scale-x-50 opacity-0'
             }`}
             style={{
-              background: 'linear-gradient(90deg, #f9b7d2, #61c8c2)',
+              background: 'linear-gradient(90deg, #E5BE3A, #D4AF37)',
               transitionDelay: '120ms',
             }}
           />
@@ -104,7 +104,7 @@ const Hero: React.FC<HeroProps> = ({ onShopAll }) => {
             className={`mt-7 max-w-2xl font-sans text-base leading-8 transition-all duration-700 md:text-lg ${
               visible ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'
             }`}
-            style={{ color: '#7e3434', transitionDelay: '150ms' }}
+            style={{ color: '#E5E5E5', transitionDelay: '150ms' }}
           >
             A refined peptide shopping experience with verified product details, straightforward protocols, and discreet nationwide delivery.
           </p>
@@ -119,7 +119,7 @@ const Hero: React.FC<HeroProps> = ({ onShopAll }) => {
               onClick={onShopAll}
               className="inline-flex items-center justify-center gap-2 rounded-full px-8 py-4 font-sans text-sm font-semibold text-white transition-all duration-200 hover:-translate-y-0.5"
               style={{
-                background: 'linear-gradient(135deg, #f593bc 0%, #e25c95 52%, #c73d7a 100%)',
+                background: 'linear-gradient(135deg, #F5D04D 0%, #B8941F 52%, #957515 100%)',
                 boxShadow: '0 14px 34px rgba(226,92,149,0.30)',
               }}
             >
@@ -130,7 +130,7 @@ const Hero: React.FC<HeroProps> = ({ onShopAll }) => {
               href="/coa"
               className="inline-flex items-center justify-center rounded-full bg-white px-8 py-4 font-sans text-sm font-semibold transition-all duration-200 hover:-translate-y-0.5"
               style={{
-                color: '#9a2a5c',
+                color: '#6F560E',
                 border: '1px solid rgba(245,160,190,0.40)',
                 boxShadow: '0 10px 24px rgba(91,40,40,0.07)',
               }}
@@ -140,18 +140,19 @@ const Hero: React.FC<HeroProps> = ({ onShopAll }) => {
           </div>
 
           <div
-            className={`mt-10 flex flex-wrap items-center justify-center gap-x-5 gap-y-3 rounded-full bg-white/62 px-5 py-3 transition-all duration-700 ${
+            className={`mt-10 flex flex-wrap items-center justify-center gap-x-5 gap-y-3 rounded-full px-5 py-3 transition-all duration-700 ${
               visible ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'
             }`}
             style={{
-              border: '1px solid rgba(245,160,190,0.28)',
-              boxShadow: '0 14px 36px rgba(245,160,190,0.12)',
+              background: 'rgba(31,31,31,0.85)',
+              border: '1px solid rgba(212,175,55,0.35)',
+              boxShadow: '0 14px 36px rgba(212,175,55,0.18)',
               transitionDelay: '280ms',
             }}
           >
             {TRUST_ITEMS.map(({ icon: Icon, label }) => (
-              <div key={label} className="flex items-center gap-2 font-sans text-sm font-medium" style={{ color: '#7e3434' }}>
-                <Icon className="h-4 w-4 flex-shrink-0" style={{ color: '#61c8c2' }} />
+              <div key={label} className="flex items-center gap-2 font-sans text-sm font-medium" style={{ color: '#F5E6C8' }}>
+                <Icon className="h-4 w-4 flex-shrink-0" style={{ color: '#D4AF37' }} />
                 <span>{label}</span>
               </div>
             ))}

@@ -2,6 +2,12 @@ import React, { useState } from 'react';
 import { Search, Package, Truck, CheckCircle, Clock, AlertCircle, ArrowRight, ExternalLink, ArrowLeft } from 'lucide-react';
 import { supabase } from '../lib/supabase';
 
+const GOLD = '#B8941F';
+const INK = '#0A0A0A';
+const MUTED = '#6b6b6b';
+const LINE = 'rgba(10,10,10,0.08)';
+const SURFACE = '#fafaf7';
+
 interface TrackingOrder {
     id: string;
     order_number: string | null;
@@ -38,23 +44,17 @@ const OrderTracking: React.FC = () => {
         setHasSearched(true);
 
         try {
-            // Use secure RPC function to fetch order
             const { data, error } = await supabase
-                .rpc('get_order_details', {
-                    order_id_input: orderId.trim()
-                })
+                .rpc('get_order_details', { order_id_input: orderId.trim() })
                 .single();
 
             if (error) {
-                // If no rows returned by function, it usually returns a different error or null data depending on setup,
-                // but .single() will throw if 0 rows.
                 if (error.code === 'PGRST116') {
                     setError('Order not found. Please check your Order ID and try again.');
                 } else {
                     throw error;
                 }
             } else if (data) {
-                // RPC returns the row directly when using single()
                 setOrder(data as TrackingOrder);
             } else {
                 setError('Order not found.');
@@ -70,122 +70,214 @@ const OrderTracking: React.FC = () => {
     const getStatusStep = (status: string) => {
         const steps = ['new', 'confirmed', 'processing', 'shipped', 'delivered'];
         const statusIndex = steps.indexOf(status);
-        // If cancelled, it's a special state
         if (status === 'cancelled') return -1;
         return statusIndex;
     };
 
     const currentStep = order ? getStatusStep(order.order_status) : 0;
 
+    const providerLabel = (p: string | null) => {
+        switch (p) {
+            case 'lbc': return 'LBC Express';
+            case 'lalamove': return 'Lalamove';
+            case 'maxim': return 'Maxim';
+            case 'spx': return 'SPX Express';
+            case 'jt': return 'J&T Express';
+            default: return 'J&T Express';
+        }
+    };
+
+    const trackHref = (p: string | null, num: string) => {
+        switch (p) {
+            case 'lbc': return `https://www.lbcexpress.com/track/?tracking_no=${num}`;
+            case 'lalamove': return 'https://web.lalamove.com/';
+            case 'maxim': return 'https://taximaxim.com/';
+            case 'spx': return 'https://spx.ph/track';
+            default: return `https://www.jtexpress.ph/trajectoryQuery?bills=${num}`;
+        }
+    };
+
     return (
-        <div className="min-h-screen bg-gradient-to-br from-white via-gold-50/10 to-white py-12 px-4 sm:px-6 lg:px-8">
-            <div className="max-w-3xl mx-auto">
-                {/* Back Button */}
-                <a
-                    href="/"
-                    className="inline-flex items-center gap-2 text-gray-600 hover:text-navy-900 mb-6 group"
-                >
-                    <ArrowLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
-                    <span className="font-medium">Back to Shop</span>
-                </a>
+        <div className="min-h-screen" style={{ background: '#ffffff' }}>
+            {/* Editorial header */}
+            <div className="relative overflow-hidden" style={{ background: INK }}>
+                <div
+                    className="absolute -top-32 -right-32 w-96 h-96 rounded-full pointer-events-none"
+                    style={{ background: `radial-gradient(circle, ${GOLD}, transparent 70%)`, opacity: 0.18, filter: 'blur(40px)' }}
+                />
+                <div className="container mx-auto px-5 md:px-8 py-14 md:py-20 max-w-3xl relative z-10">
+                    <a
+                        href="/"
+                        className="inline-flex items-center gap-2 text-xs font-sans font-medium uppercase tracking-[0.12em] mb-8 group"
+                        style={{ color: 'rgba(255,255,255,0.7)' }}
+                    >
+                        <ArrowLeft className="w-3.5 h-3.5 group-hover:-translate-x-1 transition-transform" />
+                        Back to Shop
+                    </a>
 
-                <div className="text-center mb-10">
-                    <h1 className="text-3xl font-bold text-navy-900 mb-4">Track Your Order</h1>
-                    <p className="text-gray-600">Enter your Order Number to check the current status of your package.</p>
+                    <div className="text-center">
+                        <div
+                            className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-5"
+                            style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.12)' }}
+                        >
+                            <Truck className="w-3.5 h-3.5" style={{ color: GOLD }} />
+                            <span className="text-[10px] font-sans font-semibold uppercase tracking-[0.18em]" style={{ color: '#F5E6C8' }}>
+                                Order Tracking
+                            </span>
+                        </div>
+                        <h1
+                            className="font-heading font-light text-white mb-4"
+                            style={{ fontSize: 'clamp(2rem, 4.5vw, 3.25rem)', letterSpacing: '-0.02em' }}
+                        >
+                            Track your <em className="italic" style={{ color: GOLD }}>order</em>
+                        </h1>
+                        <p
+                            className="font-sans text-sm md:text-base max-w-xl mx-auto leading-relaxed"
+                            style={{ color: 'rgba(255,255,255,0.65)' }}
+                        >
+                            Enter your order number to check the current status of your shipment.
+                        </p>
+                    </div>
                 </div>
+            </div>
 
-                {/* Search Box */}
-                <div className="bg-white rounded-2xl shadow-xl p-6 md:p-8 mb-8 border-2 border-navy-700/30">
-                    <form onSubmit={handleTrack} className="flex flex-col md:flex-row gap-4">
+            <main className="container mx-auto px-5 md:px-8 py-12 md:py-16 max-w-3xl">
+
+                {/* Search */}
+                <div
+                    className="rounded-2xl p-5 md:p-6 mb-8"
+                    style={{ background: SURFACE, border: `1px solid ${LINE}` }}
+                >
+                    <form onSubmit={handleTrack} className="flex flex-col md:flex-row gap-3">
                         <div className="flex-1 relative">
-                            <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4" style={{ color: MUTED }} />
                             <input
                                 type="text"
                                 value={orderId}
                                 onChange={(e) => setOrderId(e.target.value)}
-                                placeholder="Enter Order Number (e.g., TBS-1234)"
-                                className="w-full pl-12 pr-4 py-3 rounded-xl border-2 border-gray-200 focus:border-navy-900 focus:ring-2 focus:ring-gold-500/20 outline-none transition-all text-lg text-gray-900"
+                                placeholder="Enter order number (e.g., TBS-1234)"
+                                className="w-full pl-11 pr-4 py-3.5 rounded-full font-sans text-sm focus:outline-none transition-all"
+                                style={{
+                                    background: '#ffffff',
+                                    border: `1px solid ${LINE}`,
+                                    color: INK,
+                                }}
                             />
                         </div>
                         <button
                             type="submit"
                             disabled={loading || !orderId.trim()}
-                            className="bg-teal-500 hover:bg-teal-600 text-white px-8 py-3 rounded-xl font-bold text-lg shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                            className="px-7 py-3.5 rounded-full font-sans font-semibold text-sm tracking-wide flex items-center justify-center gap-2 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                            style={{
+                                background: INK,
+                                color: '#fff',
+                                boxShadow: '0 4px 14px rgba(10,10,10,0.18)',
+                            }}
+                            onMouseEnter={(e) => { if (!e.currentTarget.disabled) e.currentTarget.style.background = GOLD; }}
+                            onMouseLeave={(e) => { e.currentTarget.style.background = INK; }}
                         >
                             {loading ? (
                                 <>
-                                    <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                                    Searching...
+                                    <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                                    Searching
                                 </>
                             ) : (
                                 <>
                                     Track Order
-                                    <ArrowRight className="w-5 h-5" />
+                                    <ArrowRight className="w-4 h-4" />
                                 </>
                             )}
                         </button>
                     </form>
                 </div>
 
-                {/* Results */}
+                {/* Error */}
                 {error && (
-                    <div className="bg-red-50 border border-red-200 rounded-xl p-4 flex items-center gap-3 text-red-700 animate-fade-in">
-                        <AlertCircle className="w-5 h-5" />
-                        <p>{error}</p>
+                    <div
+                        className="rounded-xl p-4 flex items-center gap-3 mb-6"
+                        style={{ background: '#fdf2f2', border: '1px solid rgba(180,30,30,0.18)', color: '#7a1e1e' }}
+                    >
+                        <AlertCircle className="w-5 h-5 flex-shrink-0" />
+                        <p className="font-sans text-sm">{error}</p>
                     </div>
                 )}
 
+                {/* Order */}
                 {hasSearched && order && (
-                    <div className="space-y-6 animate-fade-in">
+                    <div className="space-y-5">
                         {/* Status Card */}
-                        <div className="bg-white rounded-2xl shadow-xl border-2 border-navy-700/30 overflow-hidden">
-                            <div className="bg-navy-900 p-6 flex flex-col md:flex-row md:items-center justify-between gap-4 text-white">
+                        <div
+                            className="rounded-2xl overflow-hidden"
+                            style={{ background: '#ffffff', border: `1px solid ${LINE}`, boxShadow: '0 8px 30px -12px rgba(10,10,10,0.10)' }}
+                        >
+                            <div
+                                className="p-6 md:p-7 flex flex-col md:flex-row md:items-center justify-between gap-4"
+                                style={{ background: INK }}
+                            >
                                 <div>
-                                    <p className="text-white text-sm font-semibold uppercase tracking-wider mb-1">Order Status</p>
-                                    <h2 className="text-2xl font-bold capitalize flex items-center gap-2 text-white">
-                                        {order.order_status === 'new' && <Clock className="w-6 h-6" />}
-                                        {order.order_status === 'confirmed' && <CheckCircle className="w-6 h-6 text-gold-400" />}
-                                        {order.order_status === 'processing' && <Package className="w-6 h-6 text-pink-400" />}
-                                        {order.order_status === 'shipped' && <Truck className="w-6 h-6 text-green-400" />}
-                                        {order.order_status === 'delivered' && <CheckCircle className="w-6 h-6 text-green-500" />}
-                                        {order.order_status === 'cancelled' && <AlertCircle className="w-6 h-6 text-red-500" />}
+                                    <p className="text-[10px] font-sans font-semibold uppercase tracking-[0.18em] mb-2" style={{ color: GOLD }}>
+                                        Order Status
+                                    </p>
+                                    <h2 className="font-heading font-semibold text-2xl capitalize flex items-center gap-2.5 text-white">
+                                        {order.order_status === 'new' && <Clock className="w-5 h-5" style={{ color: GOLD }} />}
+                                        {order.order_status === 'confirmed' && <CheckCircle className="w-5 h-5" style={{ color: GOLD }} />}
+                                        {order.order_status === 'processing' && <Package className="w-5 h-5" style={{ color: GOLD }} />}
+                                        {order.order_status === 'shipped' && <Truck className="w-5 h-5" style={{ color: GOLD }} />}
+                                        {order.order_status === 'delivered' && <CheckCircle className="w-5 h-5" style={{ color: '#9bd99b' }} />}
+                                        {order.order_status === 'cancelled' && <AlertCircle className="w-5 h-5" style={{ color: '#e57373' }} />}
                                         {order.order_status}
                                     </h2>
                                 </div>
-                                <div className="text-right">
-                                    <p className="text-gray-400 text-sm">Order Number</p>
-                                    <p className="font-mono text-lg">{order.order_number || order.id.slice(0, 8).toUpperCase()}</p>
+                                <div className="text-left md:text-right">
+                                    <p className="text-[10px] font-sans font-semibold uppercase tracking-[0.14em]" style={{ color: 'rgba(255,255,255,0.55)' }}>
+                                        Order Number
+                                    </p>
+                                    <p className="font-mono text-base mt-1" style={{ color: '#fff' }}>
+                                        {order.order_number || order.id.slice(0, 8).toUpperCase()}
+                                    </p>
                                 </div>
                             </div>
 
                             <div className="p-6 md:p-8">
-                                {/* Progress Bar */}
+                                {/* Progress */}
                                 {order.order_status !== 'cancelled' ? (
                                     <div className="mb-8">
                                         <div className="relative">
-                                            <div className="absolute top-1/2 left-0 w-full h-1 bg-gray-200 -translate-y-1/2 rounded-full" />
+                                            <div className="absolute top-4 left-0 w-full h-[2px] -translate-y-1/2 rounded-full" style={{ background: LINE }} />
                                             <div
-                                                className="absolute top-1/2 left-0 h-1 bg-gold-500 -translate-y-1/2 rounded-full transition-all duration-500"
-                                                style={{ width: `${Math.min(100, Math.max(0, currentStep * 25))}%` }}
+                                                className="absolute top-4 left-0 h-[2px] -translate-y-1/2 rounded-full transition-all duration-500"
+                                                style={{ width: `${Math.min(100, Math.max(0, currentStep * 25))}%`, background: GOLD }}
                                             />
-
                                             <div className="relative flex justify-between">
                                                 {['Placed', 'Confirmed', 'Processing', 'Shipped', 'Delivered'].map((step, index) => {
                                                     const isCompleted = index <= currentStep;
                                                     const isCurrent = index === currentStep;
-
                                                     return (
                                                         <div key={step} className="flex flex-col items-center gap-2">
-                                                            <div className={`w-8 h-8 rounded-full flex items-center justify-center border-2 transition-all duration-300 bg-white ${isCompleted ? 'border-navy-900 text-gold-600' : 'border-gray-300 text-gray-300'
-                                                                } ${isCurrent ? 'ring-4 ring-gold-500/20 scale-110' : ''}`}>
+                                                            <div
+                                                                className="w-8 h-8 rounded-full flex items-center justify-center transition-all"
+                                                                style={{
+                                                                    background: isCompleted ? GOLD : '#ffffff',
+                                                                    border: `2px solid ${isCompleted ? GOLD : LINE}`,
+                                                                    boxShadow: isCurrent ? `0 0 0 4px rgba(184,148,31,0.18)` : 'none',
+                                                                    transform: isCurrent ? 'scale(1.1)' : 'scale(1)',
+                                                                }}
+                                                            >
                                                                 {index < currentStep ? (
-                                                                    <CheckCircle className="w-5 h-5 fill-gold-50" />
+                                                                    <CheckCircle className="w-4 h-4" style={{ color: '#fff' }} />
                                                                 ) : (
-                                                                    <div className={`w-3 h-3 rounded-full ${isCompleted ? 'bg-gold-500' : 'bg-gray-300'}`} />
+                                                                    <div
+                                                                        className="w-2 h-2 rounded-full"
+                                                                        style={{ background: isCompleted ? '#fff' : '#d0d0d0' }}
+                                                                    />
                                                                 )}
                                                             </div>
-                                                            <span className={`text-xs md:text-sm font-medium ${isCompleted ? 'text-navy-900' : 'text-gray-400'
-                                                                }`}>{step}</span>
+                                                            <span
+                                                                className="text-[10px] md:text-xs font-sans font-medium uppercase tracking-wide text-center"
+                                                                style={{ color: isCompleted ? INK : MUTED }}
+                                                            >
+                                                                {step}
+                                                            </span>
                                                         </div>
                                                     );
                                                 })}
@@ -193,130 +285,110 @@ const OrderTracking: React.FC = () => {
                                         </div>
                                     </div>
                                 ) : (
-                                    <div className="bg-red-50 rounded-xl p-4 border border-red-100 text-red-800 mb-6 flex items-center gap-3">
-                                        <AlertCircle className="w-6 h-6 text-red-600" />
+                                    <div
+                                        className="rounded-xl p-4 mb-6 flex items-center gap-3"
+                                        style={{ background: '#fdf2f2', border: '1px solid rgba(180,30,30,0.18)' }}
+                                    >
+                                        <AlertCircle className="w-5 h-5 flex-shrink-0" style={{ color: '#a83232' }} />
                                         <div>
-                                            <p className="font-bold">Order Cancelled</p>
-                                            <p className="text-sm">This order has been cancelled. Please contact support if you think this is a mistake.</p>
+                                            <p className="font-heading font-semibold text-sm" style={{ color: '#7a1e1e' }}>Order Cancelled</p>
+                                            <p className="font-sans text-xs mt-0.5" style={{ color: '#7a1e1e' }}>
+                                                Please contact support if you think this is a mistake.
+                                            </p>
                                         </div>
                                     </div>
                                 )}
 
-                                {/* Tracking Details Block */}
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                    <div className="bg-gray-50 rounded-xl p-5 border border-gray-200">
-                                        <h3 className="font-bold text-navy-900 mb-4 flex items-center gap-2">
-                                            <Truck className="w-5 h-5 text-gold-600" />
+                                {/* Details */}
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    {/* Tracking */}
+                                    <div className="rounded-xl p-5" style={{ background: SURFACE, border: `1px solid ${LINE}` }}>
+                                        <h3 className="font-heading font-semibold text-sm mb-4 flex items-center gap-2" style={{ color: INK }}>
+                                            <Truck className="w-4 h-4" style={{ color: GOLD }} />
                                             Tracking Information
                                         </h3>
 
                                         {order.tracking_number ? (
                                             <div className="space-y-4">
                                                 <div>
-                                                    <p className="text-xs text-gray-500 uppercase font-bold tracking-wider mb-1">
-                                                        Tracking {order.shipping_provider === 'lbc' ? 'Number' : 'ID'} ({
-                                                            order.shipping_provider === 'lbc' ? 'LBC Express' :
-                                                                order.shipping_provider === 'lalamove' ? 'Lalamove' :
-                                                                    order.shipping_provider === 'maxim' ? 'Maxim' :
-                                                                        order.shipping_provider === 'spx' ? 'SPX Express' : 'J&T Express'
-                                                        })
+                                                    <p className="text-[10px] font-sans font-semibold uppercase tracking-[0.12em] mb-1.5" style={{ color: MUTED }}>
+                                                        Tracking · {providerLabel(order.shipping_provider)}
                                                     </p>
-                                                    <p className="text-xl font-mono font-bold text-navy-900 tracking-wide">{order.tracking_number}</p>
+                                                    <p className="font-mono text-base font-semibold tracking-wide" style={{ color: INK }}>
+                                                        {order.tracking_number}
+                                                    </p>
                                                 </div>
 
-                                                {order.shipping_provider === 'lbc' ? (
-                                                    <a
-                                                        href={`https://www.lbcexpress.com/track/?tracking_no=${order.tracking_number}`}
-                                                        target="_blank"
-                                                        rel="noopener noreferrer"
-                                                        className="block w-full py-3 text-white text-center rounded-lg font-bold transition-colors shadow-md hover:shadow-lg flex items-center justify-center gap-2 bg-red-600 hover:bg-red-700"
-                                                    >
-                                                        Track on LBC Express
-                                                        <ExternalLink className="w-4 h-4" />
-                                                    </a>
-                                                ) : order.shipping_provider === 'lalamove' ? (
-                                                    <a
-                                                        href="https://web.lalamove.com/"
-                                                        target="_blank"
-                                                        rel="noopener noreferrer"
-                                                        className="block w-full py-3 text-white text-center rounded-lg font-bold transition-colors shadow-md hover:shadow-lg flex items-center justify-center gap-2 bg-orange-500 hover:bg-orange-600"
-                                                    >
-                                                        Open Lalamove App/Web
-                                                        <ExternalLink className="w-4 h-4" />
-                                                    </a>
-                                                ) : order.shipping_provider === 'maxim' ? (
-                                                    <a
-                                                        href="https://taximaxim.com/"
-                                                        target="_blank"
-                                                        rel="noopener noreferrer"
-                                                        className="block w-full py-3 text-white text-center rounded-lg font-bold transition-colors shadow-md hover:shadow-lg flex items-center justify-center gap-2 bg-yellow-500 hover:bg-yellow-600 text-black"
-                                                    >
-                                                        Open Maxim App/Web
-                                                        <ExternalLink className="w-4 h-4" />
-                                                    </a>
-                                                ) : (
-                                                    <a
-                                                        href={order.shipping_provider === 'spx'
-                                                            ? `https://spx.ph/track`
-                                                            : `https://www.jtexpress.ph/trajectoryQuery?bills=${order.tracking_number}`}
-                                                        target="_blank"
-                                                        rel="noopener noreferrer"
-                                                        className={`block w-full py-3 text-white text-center rounded-lg font-bold transition-colors shadow-md hover:shadow-lg flex items-center justify-center gap-2 ${order.shipping_provider === 'spx' ? 'bg-orange-500 hover:bg-orange-600' : 'bg-red-600 hover:bg-red-700'
-                                                            }`}
-                                                    >
-                                                        Track on {order.shipping_provider === 'spx' ? 'SPX Express' : 'J&T Express'}
-                                                        <ExternalLink className="w-4 h-4" />
-                                                    </a>
-                                                )}
+                                                <a
+                                                    href={trackHref(order.shipping_provider, order.tracking_number)}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className="block w-full py-3 text-center rounded-full font-sans font-semibold text-xs tracking-wide transition-all flex items-center justify-center gap-2"
+                                                    style={{ background: INK, color: '#fff' }}
+                                                    onMouseEnter={(e) => { e.currentTarget.style.background = GOLD; }}
+                                                    onMouseLeave={(e) => { e.currentTarget.style.background = INK; }}
+                                                >
+                                                    Track on {providerLabel(order.shipping_provider)}
+                                                    <ExternalLink className="w-3.5 h-3.5" />
+                                                </a>
                                             </div>
                                         ) : (
-                                            <div className="text-center py-4 text-gray-500">
-                                                <Truck className="w-10 h-10 mx-auto mb-2 opacity-20" />
-                                                <p>No tracking number available yet.</p>
-                                                <p className="text-xs mt-1">Check back later when your order is shipped.</p>
+                                            <div className="text-center py-6">
+                                                <Truck className="w-8 h-8 mx-auto mb-2" style={{ color: '#d0d0d0' }} />
+                                                <p className="font-sans text-sm" style={{ color: MUTED }}>No tracking number yet.</p>
+                                                <p className="font-sans text-xs mt-1" style={{ color: '#9a9a9a' }}>
+                                                    Check back when your order is shipped.
+                                                </p>
                                             </div>
                                         )}
                                     </div>
 
+                                    {/* Right column */}
                                     <div className="space-y-4">
                                         {order.shipping_note && (
-                                            <div className="bg-pink-50 rounded-xl p-5 border border-pink-100">
-                                                <h3 className="font-bold text-navy-900 mb-2 flex items-center gap-2">
-                                                    <Package className="w-4 h-4 text-pink-600" />
+                                            <div
+                                                className="rounded-xl p-5"
+                                                style={{ background: INK }}
+                                            >
+                                                <h3 className="font-heading font-semibold text-sm mb-2 flex items-center gap-2 text-white">
+                                                    <Package className="w-4 h-4" style={{ color: GOLD }} />
                                                     Shipping Update
                                                 </h3>
-                                                <p className="text-gray-700 text-sm leading-relaxed">{order.shipping_note}</p>
+                                                <p className="font-sans text-xs leading-relaxed" style={{ color: 'rgba(255,255,255,0.78)' }}>
+                                                    {order.shipping_note}
+                                                </p>
                                             </div>
                                         )}
 
-                                        <div className="bg-white rounded-xl p-5 border-2 border-gray-100">
-                                            <h3 className="font-bold text-navy-900 mb-3 text-sm uppercase tracking-wider border-b pb-2">Order Summary</h3>
-                                            <div className="space-y-2 mb-4">
+                                        <div className="rounded-xl p-5" style={{ background: '#ffffff', border: `1px solid ${LINE}` }}>
+                                            <h3 className="font-heading font-semibold text-[10px] uppercase tracking-[0.14em] mb-3 pb-2" style={{ color: GOLD, borderBottom: `1px solid ${LINE}` }}>
+                                                Order Summary
+                                            </h3>
+                                            <div className="space-y-2 mb-3">
                                                 {order.order_items.map((item, idx) => (
-                                                    <div key={idx} className="flex justify-between text-sm">
-                                                        <span className="text-gray-600">{item.quantity}x {item.product_name}</span>
+                                                    <div key={idx} className="flex justify-between font-sans text-sm" style={{ color: '#2a2a2a' }}>
+                                                        <span>{item.quantity}× {item.product_name}</span>
                                                     </div>
                                                 ))}
                                             </div>
-                                            <div className="flex justify-between items-center pt-2 border-t border-gray-100 font-bold text-lg text-navy-900">
+                                            {order.discount_applied && order.discount_applied > 0 && (
+                                                <div className="flex justify-between font-sans text-xs pt-2 mb-1" style={{ color: GOLD }}>
+                                                    <span>Discount ({order.promo_code || 'Promo'})</span>
+                                                    <span>−₱{order.discount_applied.toLocaleString()}</span>
+                                                </div>
+                                            )}
+                                            <div className="flex justify-between items-center pt-3 font-heading font-semibold text-base" style={{ color: INK, borderTop: `1px solid ${LINE}` }}>
                                                 <span>Total</span>
                                                 <span>₱{(order.total_price + (order.shipping_fee || 0)).toLocaleString()}</span>
                                             </div>
-                                            {order.discount_applied && order.discount_applied > 0 && (
-                                                <div className="flex justify-between items-center pt-2 text-sm text-green-600 font-medium">
-                                                    <span>Discount ({order.promo_code || 'Promo'}):</span>
-                                                    <span>-₱{order.discount_applied.toLocaleString()}</span>
-                                                </div>
-                                            )}
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
                         </div>
                     </div>
                 )}
-            </div>
+            </main>
         </div>
     );
 };

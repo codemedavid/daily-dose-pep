@@ -89,7 +89,7 @@ vi.mock('../hooks/useCategories', () => ({
 vi.mock('../hooks/useSiteSettings', () => ({
   useSiteSettings: () => ({
     settings: {
-      site_name: 'Orozep PH',
+      site_name: 'LUXXBIO LABS',
       site_logo: '',
       site_description: 'Premium peptides',
       currency: '₱',

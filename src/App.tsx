@@ -17,7 +17,6 @@ const FAQ = lazy(() => import('./components/FAQ'));
 const PeptideCalculator = lazy(() => import('./components/PeptideCalculator'));
 const OrderTracking = lazy(() => import('./components/OrderTracking'));
 const ProtocolGuide = lazy(() => import('./components/ProtocolGuide'));
-const ReviewsPage = lazy(() => import('./components/ReviewsPage'));
 
 import { useMenu } from './hooks/useMenu';
 // import { useCOAPageSetting } from './hooks/useCOAPageSetting';
@@ -44,7 +43,7 @@ function MainApp() {
         : menuItems.filter(item => item.category === selectedCategory);
 
     return (
-        <div className="min-h-screen bg-white font-inter flex flex-col">
+        <div className="min-h-screen bg-charcoal-900 font-inter flex flex-col">
             <Header
                 cartItemsCount={cart.getTotalItems()}
                 onCartClick={() => handleViewChange('cart')}
@@ -113,7 +112,6 @@ function App() {
                     <Route path="/calculator" element={<PeptideCalculator />} />
                     <Route path="/track-order" element={<OrderTracking />} />
                     <Route path="/protocols" element={<ProtocolGuide />} />
-                    <Route path="/reviews" element={<ReviewsPage />} />
                     <Route path="/admin" element={<AdminDashboard />} />
                 </Routes>
             </Suspense>

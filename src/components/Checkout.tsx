@@ -296,7 +296,7 @@ const Checkout: React.FC<CheckoutProps> = ({ cartItems, totalPrice, onBack }) =>
             });
 
             const orderDetails = `
-✨ OROZEP PH - NEW ORDER
+✨ LUXXBIO LABS - NEW ORDER
 
 📅 ORDER DATE & TIME
 ${dateTimeStamp}
@@ -347,7 +347,7 @@ ${paymentMethod?.name || 'N/A'}
 ${paymentProofUrl ? 'Screenshot attached to order.' : 'Pending'}
 
 📱 CONTACT METHOD
-WhatsApp / Viber (+63 917 996 6191) or Facebook Messenger (m.me/britt.arellano.7)
+WhatsApp / Viber (+63 999 820 7315) or Facebook Messenger (m.me/britt.arellano.7)
 
 📋 ORDER NUMBER: ${customOrderNumber}
 
@@ -369,7 +369,7 @@ Please confirm this order. Thank you!
 
             // Auto-open WhatsApp
             setTimeout(() => {
-                const whatsappUrl = `https://wa.me/639179966191?text=${encodeURIComponent(orderDetails)}`;
+                const whatsappUrl = `https://wa.me/639998207315?text=${encodeURIComponent(orderDetails)}`;
                 window.open(whatsappUrl, '_blank');
             }, 1500);
         } catch (error) {
@@ -391,12 +391,12 @@ Please confirm this order. Thank you!
     };
 
     const handleOpenContact = () => {
-        const contactUrl = `https://wa.me/639179966191?text=${encodeURIComponent(orderMessage)}`;
+        const contactUrl = `https://wa.me/639998207315?text=${encodeURIComponent(orderMessage)}`;
         window.open(contactUrl, '_blank');
     };
 
     const handleOpenViber = () => {
-        const viberUrl = `viber://chat?number=%2B639179966191`;
+        const viberUrl = `viber://chat?number=%2B639998207315`;
         window.open(viberUrl, '_blank');
     };
 
@@ -500,7 +500,7 @@ Please confirm this order. Thank you!
                             </button>
 
                             <p className="text-sm text-gray-500">
-                                Your order details are auto-copied. If no app opens, send the copied message to <span className="font-bold">+63 917 996 6191 on WhatsApp/Viber</span> or <span className="font-bold">m.me/britt.arellano.7 on Messenger</span>.
+                                Your order details are auto-copied. If no app opens, send the copied message to <span className="font-bold">+63 999 820 7315 on WhatsApp/Viber</span> or <span className="font-bold">m.me/britt.arellano.7 on Messenger</span>.
                             </p>
                         </div>
 

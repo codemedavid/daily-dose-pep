@@ -7,98 +7,97 @@ export default {
   theme: {
     extend: {
       colors: {
-        // ── Orozep PH — Pink Clinical Glow ──
-        // Pink-first palette with maroon contrast for readable medical commerce UI.
-        'theme-bg':   '#FFF7FB',
-        'theme-text': '#5B2828',
+        // ── LUXXBIO LABS — Luxury Black & Gold ──
+        // Black-first palette with metallic gold accents for a premium clinical UI.
+        'theme-bg':   '#0A0A0A',
+        'theme-text': '#F5E6C8',
 
-        // Light Pink (primary brand — blush, sweet, cute)
+        // Gold (primary brand accent — metallic, luxurious)
+        // Token name kept as "pink" so existing utility classes still resolve.
         'pink': {
-          DEFAULT: '#F5A0BE',
-          50:  '#FFF7FB',
-          100: '#FFEAF3',
-          200: '#FCD3E5',
-          300: '#F9B7D2',
-          400: '#F593BC',
-          500: '#F5A0BE',
-          600: '#E25C95',
-          700: '#C73D7A',
-          800: '#9A2A5C',
-          900: '#5B1838',
+          DEFAULT: '#D4AF37',
+          50:  '#FFF9E6',
+          100: '#FFF0BF',
+          200: '#FFE388',
+          300: '#F5D04D',
+          400: '#E5BE3A',
+          500: '#D4AF37',
+          600: '#B8941F',
+          700: '#957515',
+          800: '#6F560E',
+          900: '#4A3908',
         },
 
-        // Backward-compatible aliases for older components that still use
-        // brand/navy utility classes.
+        // Backward-compatible aliases (gold).
         'brand': {
-          DEFAULT: '#F5A0BE',
-          50:  '#FFF7FB',
-          100: '#FFEAF3',
-          200: '#FCD3E5',
-          300: '#F9B7D2',
-          400: '#F593BC',
-          500: '#F5A0BE',
-          600: '#E25C95',
-          700: '#C73D7A',
-          800: '#9A2A5C',
-          900: '#5B1838',
+          DEFAULT: '#D4AF37',
+          50:  '#FFF9E6',
+          100: '#FFF0BF',
+          200: '#FFE388',
+          300: '#F5D04D',
+          400: '#E5BE3A',
+          500: '#D4AF37',
+          600: '#B8941F',
+          700: '#957515',
+          800: '#6F560E',
+          900: '#4A3908',
         },
 
-        // Soft rose secondary. Token name kept as "mint" so existing class references
-        // (bg-mint-100, text-mint-700, surface-mint, btn-mint, shadow-mint) still resolve.
+        // Secondary gold (kept as "mint" token).
         'mint': {
-          DEFAULT: '#F9B7D2',
-          50:  '#FFF7FB',
-          100: '#FFEAF3',
-          200: '#FCD3E5',
-          300: '#F9B7D2',
-          400: '#F593BC',
-          500: '#F5A0BE',
-          600: '#E25C95',
-          700: '#C73D7A',
-          800: '#9A2A5C',
-          900: '#5B1838',
+          DEFAULT: '#E5BE3A',
+          50:  '#FFF9E6',
+          100: '#FFF0BF',
+          200: '#FFE388',
+          300: '#F5D04D',
+          400: '#E5BE3A',
+          500: '#D4AF37',
+          600: '#B8941F',
+          700: '#957515',
+          800: '#6F560E',
+          900: '#4A3908',
         },
 
-        // Maroon (text & dark surfaces — matches logo lettering)
+        // Black (text & dark surfaces — matches logo background)
         // Token name kept as "charcoal" so existing references continue working.
         'charcoal': {
-          DEFAULT: '#5B2828',
-          50:  '#FBF5F4',
-          100: '#F4E4E4',
-          200: '#E5C0C0',
-          300: '#D29797',
-          400: '#B96A6A',
-          500: '#9C4848',
-          600: '#7E3434',
-          700: '#5E2828',
-          800: '#421C1C',
-          900: '#2D1212',
+          DEFAULT: '#0A0A0A',
+          50:  '#F5F5F5',
+          100: '#E0E0E0',
+          200: '#BDBDBD',
+          300: '#9E9E9E',
+          400: '#757575',
+          500: '#424242',
+          600: '#2E2E2E',
+          700: '#1F1F1F',
+          800: '#121212',
+          900: '#0A0A0A',
         },
 
         'navy': {
-          DEFAULT: '#5B2828',
-          50:  '#FBF5F4',
-          100: '#F4E4E4',
-          200: '#E5C0C0',
-          300: '#D29797',
-          400: '#B96A6A',
-          500: '#9C4848',
-          600: '#7E3434',
-          700: '#5E2828',
-          800: '#421C1C',
-          900: '#2D1212',
+          DEFAULT: '#0A0A0A',
+          50:  '#F5F5F5',
+          100: '#E0E0E0',
+          200: '#BDBDBD',
+          300: '#9E9E9E',
+          400: '#757575',
+          500: '#424242',
+          600: '#2E2E2E',
+          700: '#1F1F1F',
+          800: '#121212',
+          900: '#0A0A0A',
         },
 
         // Utility
-        'cream':         '#FFF7FB',
-        'warm-white':    '#FFF0F7',
-        'surface':       '#FFEAF3',
-        'surface-mint':  '#FFEAF3',
-        'gold':          '#8B4423', // logo copper-maroon accent
-        'maroon':        '#6B2C2C',
-        'maroon-light':  '#8B3A3A',
-        'baby-pink':     '#FCD3E5',
-        'blush':         '#FCD3E5',
+        'cream':         '#0A0A0A',
+        'warm-white':    '#121212',
+        'surface':       '#1F1F1F',
+        'surface-mint':  '#1F1F1F',
+        'gold':          '#D4AF37',
+        'maroon':        '#0A0A0A',
+        'maroon-light':  '#1F1F1F',
+        'baby-pink':     '#FFE388',
+        'blush':         '#FFF0BF',
       },
 
       fontFamily: {
@@ -115,14 +114,14 @@ export default {
       },
 
       boxShadow: {
-        'xs':      '0 1px 2px rgba(91,40,40,0.05)',
-        'sm':      '0 2px 6px rgba(91,40,40,0.07)',
-        'DEFAULT': '0 2px 12px rgba(91,40,40,0.08)',
-        'md':      '0 4px 20px rgba(91,40,40,0.09)',
-        'lg':      '0 8px 36px rgba(91,40,40,0.10)',
-        'pink':    '0 6px 24px rgba(245,160,190,0.32)',
-        'mint':    '0 6px 24px rgba(226,92,149,0.24)',
-        'card':    '0 0 0 1px rgba(91,40,40,0.06), 0 4px 18px rgba(245,160,190,0.10)',
+        'xs':      '0 1px 2px rgba(0,0,0,0.40)',
+        'sm':      '0 2px 6px rgba(0,0,0,0.45)',
+        'DEFAULT': '0 2px 12px rgba(0,0,0,0.50)',
+        'md':      '0 4px 20px rgba(0,0,0,0.55)',
+        'lg':      '0 8px 36px rgba(0,0,0,0.60)',
+        'pink':    '0 6px 24px rgba(212,175,55,0.32)',
+        'mint':    '0 6px 24px rgba(212,175,55,0.24)',
+        'card':    '0 0 0 1px rgba(212,175,55,0.18), 0 4px 18px rgba(0,0,0,0.45)',
       },
 
       borderRadius: {

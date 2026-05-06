@@ -17,49 +17,49 @@ const WHY_ITEMS = [
     icon: FlaskConical,
     title: 'Pharmaceutical Grade',
     desc: 'Every peptide is synthesized to pharmaceutical-grade standards with verified purity certificates from accredited labs.',
-    iconColor: '#E25C95',
+    iconColor: '#B8941F',
     iconBg: '#E3F1FE',
-    accent: '#E25C95',
+    accent: '#B8941F',
   },
   {
     icon: ShieldCheck,
     title: 'Third-Party Tested',
     desc: 'Independent COA testing on every batch ensures what is on the label is exactly what you receive — nothing more, nothing less.',
-    iconColor: '#E25C95',
-    iconBg: '#FFEAF3',
-    accent: '#E25C95',
+    iconColor: '#B8941F',
+    iconBg: '#1F1F1F',
+    accent: '#B8941F',
   },
   {
     icon: Truck,
     title: 'Nationwide Delivery',
     desc: 'Fast, discreet delivery across all regions of the Philippines with real-time order tracking from dispatch to your door.',
-    iconColor: '#E25C95',
+    iconColor: '#B8941F',
     iconBg: '#E3F1FE',
-    accent: '#E25C95',
+    accent: '#B8941F',
   },
   {
     icon: BadgeCheck,
     title: 'Expert Protocols',
     desc: 'Access evidence-based dosing guides, reconstitution protocols, and storage best practices developed with medical professionals.',
-    iconColor: '#E25C95',
-    iconBg: '#FFEAF3',
-    accent: '#E25C95',
+    iconColor: '#B8941F',
+    iconBg: '#1F1F1F',
+    accent: '#B8941F',
   },
   {
     icon: Microscope,
     title: 'Research-Backed',
     desc: 'Our catalog features only peptides with established research profiles, ensuring your wellness journey is built on science.',
-    iconColor: '#E25C95',
+    iconColor: '#B8941F',
     iconBg: '#E3F1FE',
-    accent: '#E25C95',
+    accent: '#B8941F',
   },
   {
     icon: Package,
     title: 'Secure Packaging',
     desc: 'Temperature-controlled packaging and cold-chain logistics protect peptide integrity from our facility to your hands.',
-    iconColor: '#E25C95',
-    iconBg: '#FFEAF3',
-    accent: '#E25C95',
+    iconColor: '#B8941F',
+    iconBg: '#1F1F1F',
+    accent: '#B8941F',
   },
 ];
 
@@ -105,18 +105,23 @@ const Menu: React.FC<MenuProps> = ({ menuItems, addToCart, cartItems }) => {
         />
       )}
 
-      <div className="min-h-screen" style={{ background: '#FFF7FB' }}>
+      <div className="min-h-screen" style={{ background: '#ffffff' }}>
 
         {/* ── Hero ── */}
         <Hero onShopAll={() => productsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })} />
 
-  
+        {/* ── Soft transition: hero (dark) → catalog (white) ── */}
+        <div
+          aria-hidden="true"
+          className="h-24 md:h-32 -mt-px"
+          style={{ background: 'linear-gradient(to bottom, #0A0A0A 0%, #1a1a1a 30%, #6b6b6b 65%, #ffffff 100%)' }}
+        />
 
         {/* ── Products Section ── */}
         <section
           className="py-20 md:py-24"
           ref={productsRef}
-          style={{ background: '#FFF7FB' }}
+          style={{ background: '#ffffff' }}
         >
           <div className="container mx-auto px-5 md:px-8">
 
@@ -127,7 +132,7 @@ const Menu: React.FC<MenuProps> = ({ menuItems, addToCart, cartItems }) => {
                 <div className="divider mb-4" style={{ margin: '0 0 1rem 0' }} />
                 <h2
                   className="font-heading font-light"
-                  style={{ fontSize: 'clamp(1.9rem, 3.5vw, 2.75rem)', color: '#5B2828' }}
+                  style={{ fontSize: 'clamp(1.9rem, 3.5vw, 2.75rem)', color: '#0A0A0A' }}
                 >
                   Our Peptide Collection
                 </h2>
@@ -154,7 +159,7 @@ const Menu: React.FC<MenuProps> = ({ menuItems, addToCart, cartItems }) => {
                     value={sortBy}
                     onChange={e => setSortBy(e.target.value as 'name' | 'price' | 'purity')}
                     className="flex-1 bg-transparent text-sm font-sans font-medium focus:outline-none"
-                    style={{ color: '#7E3434' }}
+                    style={{ color: '#1F1F1F' }}
                   >
                     <option value="name">Sort: Name</option>
                     <option value="price">Sort: Price</option>
@@ -172,13 +177,13 @@ const Menu: React.FC<MenuProps> = ({ menuItems, addToCart, cartItems }) => {
               {searchQuery && (
                 <>
                   <span style={{ color: '#E5C0C0' }}>·</span>
-                  <span className="font-sans text-xs" style={{ color: '#9C4848' }}>
-                    Results for <strong style={{ color: '#5B2828' }}>"{searchQuery}"</strong>
+                  <span className="font-sans text-xs" style={{ color: '#424242' }}>
+                    Results for <strong style={{ color: '#0A0A0A' }}>"{searchQuery}"</strong>
                   </span>
                   <button
                     onClick={() => setSearchQuery('')}
                     className="font-sans text-xs font-medium hover:underline"
-                    style={{ color: '#E25C95' }}
+                    style={{ color: '#B8941F' }}
                   >
                     Clear
                   </button>
@@ -192,11 +197,11 @@ const Menu: React.FC<MenuProps> = ({ menuItems, addToCart, cartItems }) => {
                 <div className="bg-white rounded-2xl p-14 max-w-sm mx-auto"
                   style={{ border: '1px solid rgba(91,40,40,0.07)' }}>
                   <div className="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-5"
-                    style={{ background: '#FFEAF3' }}>
-                    <Package className="w-8 h-8" style={{ color: '#FCD3E5' }} />
+                    style={{ background: '#1F1F1F' }}>
+                    <Package className="w-8 h-8" style={{ color: '#FFE388' }} />
                   </div>
-                  <h3 className="font-heading font-semibold text-lg mb-2" style={{ color: '#5B2828' }}>No products found</h3>
-                  <p className="font-sans text-sm mb-6" style={{ color: '#9C4848' }}>
+                  <h3 className="font-heading font-semibold text-lg mb-2" style={{ color: '#0A0A0A' }}>No products found</h3>
+                  <p className="font-sans text-sm mb-6" style={{ color: '#424242' }}>
                     {searchQuery ? `No results for "${searchQuery}".` : 'No products available right now.'}
                   </p>
                   {searchQuery && (
@@ -224,15 +229,15 @@ const Menu: React.FC<MenuProps> = ({ menuItems, addToCart, cartItems }) => {
 
         {/* ── CTA Banner — soft luxury gradient ── */}
         <section className="py-20 md:py-24 relative overflow-hidden">
-          {/* Gradient background — pink to mint */}
+          {/* Gradient background — gold gradient */}
           <div
             className="absolute inset-0"
-            style={{ background: 'linear-gradient(135deg, #FFEAF3 0%, #FCD3E5 35%, #E3F1FE 75%, #E3F1FE 100%)' }}
+            style={{ background: 'linear-gradient(135deg, #1F1F1F 0%, #FFE388 35%, #E3F1FE 75%, #E3F1FE 100%)' }}
           />
 
           {/* Decorative blobs */}
           <div className="absolute -top-20 -left-20 w-80 h-80 rounded-full pointer-events-none"
-            style={{ background: 'radial-gradient(circle, #FCD3E5, transparent 65%)', opacity: 0.5, filter: 'blur(40px)' }} />
+            style={{ background: 'radial-gradient(circle, #FFE388, transparent 65%)', opacity: 0.5, filter: 'blur(40px)' }} />
           <div className="absolute -bottom-20 -right-20 w-80 h-80 rounded-full pointer-events-none"
             style={{ background: 'radial-gradient(circle, #C7E2FB, transparent 65%)', opacity: 0.45, filter: 'blur(40px)' }} />
 
@@ -241,12 +246,12 @@ const Menu: React.FC<MenuProps> = ({ menuItems, addToCart, cartItems }) => {
             <div className="divider mb-6" />
             <h2
               className="font-heading font-light mb-5"
-              style={{ fontSize: 'clamp(1.9rem, 4vw, 3rem)', color: '#5B2828' }}
+              style={{ fontSize: 'clamp(1.9rem, 4vw, 3rem)', color: '#0A0A0A' }}
             >
               Ready to start your<br />
-              <em className="italic" style={{ color: '#E25C95' }}>peptide journey?</em>
+              <em className="italic" style={{ color: '#B8941F' }}>peptide journey?</em>
             </h2>
-            <p className="font-sans text-sm leading-relaxed mb-9" style={{ color: '#9C4848' }}>
+            <p className="font-sans text-sm leading-relaxed mb-9" style={{ color: '#424242' }}>
               Browse our full catalog of pharmaceutical-grade peptides, read dosing protocols, and order with confidence — shipped fast, anywhere in the Philippines.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">

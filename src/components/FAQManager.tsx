@@ -7,9 +7,10 @@ interface FAQManagerProps {
 }
 
 const FAQManager: React.FC<FAQManagerProps> = ({ onBack }) => {
-    const { faqs, loading, addFAQ, updateFAQ, deleteFAQ, refetch } = useFAQsAdmin();
+    const { faqs, loading, error: fetchError, addFAQ, updateFAQ, deleteFAQ } = useFAQsAdmin();
     const [editingId, setEditingId] = useState<string | null>(null);
     const [isAdding, setIsAdding] = useState(false);
+    const [saving, setSaving] = useState(false);
     const [formData, setFormData] = useState({
         question: '',
         answer: '',
@@ -42,6 +43,12 @@ const FAQManager: React.FC<FAQManagerProps> = ({ onBack }) => {
     const saveFAQ = async () => {
         setError(null);
 
+        if (!formData.question.trim() || !formData.answer.trim()) {
+            setError('Question and Answer are required.');
+            return;
+        }
+
+        setSaving(true);
         try {
             if (editingId) {
                 await updateFAQ(editingId, formData);
@@ -50,7 +57,10 @@ const FAQManager: React.FC<FAQManagerProps> = ({ onBack }) => {
             }
             resetForm();
         } catch (err) {
+            console.error('FAQ save failed:', err);
             setError(err instanceof Error ? err.message : 'Failed to save FAQ');
+        } finally {
+            setSaving(false);
         }
     };
 
@@ -73,18 +83,22 @@ const FAQManager: React.FC<FAQManagerProps> = ({ onBack }) => {
 
     const handleDelete = async (id: string) => {
         if (window.confirm('Are you sure you want to delete this FAQ?')) {
+            setError(null);
             try {
                 await deleteFAQ(id);
             } catch (err) {
+                console.error('FAQ delete failed:', err);
                 setError(err instanceof Error ? err.message : 'Failed to delete FAQ');
             }
         }
     };
 
     const toggleActive = async (faq: FAQItem) => {
+        setError(null);
         try {
             await updateFAQ(faq.id, { is_active: !faq.is_active });
         } catch (err) {
+            console.error('FAQ toggle failed:', err);
             setError(err instanceof Error ? err.message : 'Failed to toggle FAQ status');
         }
     };
@@ -126,9 +140,9 @@ const FAQManager: React.FC<FAQManagerProps> = ({ onBack }) => {
                 </button>
             </div>
 
-            {error && (
-                <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg">
-                    {error}
+            {(error || fetchError) && (
+                <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-sm">
+                    {error || `Error loading FAQs: ${fetchError}`}
                 </div>
             )}
 
@@ -142,10 +156,11 @@ const FAQManager: React.FC<FAQManagerProps> = ({ onBack }) => {
                         <button
                             type="button"
                             onClick={saveFAQ}
-                            className="flex items-center gap-2 bg-navy-900 text-white px-3 py-1.5 rounded-lg hover:bg-navy-800 transition-colors text-sm shadow-sm"
+                            disabled={saving}
+                            className="flex items-center gap-2 bg-navy-900 text-white px-3 py-1.5 rounded-lg hover:bg-navy-800 transition-colors text-sm shadow-sm disabled:opacity-60 disabled:cursor-not-allowed"
                         >
                             <Save className="w-4 h-4" />
-                            Save
+                            {saving ? 'Saving...' : 'Save'}
                         </button>
                     </div>
                     <form onSubmit={handleSubmit} className="space-y-4">
@@ -220,10 +235,11 @@ const FAQManager: React.FC<FAQManagerProps> = ({ onBack }) => {
                         <div className="flex gap-3">
                             <button
                                 type="submit"
-                                className="flex items-center gap-2 bg-navy-900 text-black px-4 py-2 rounded-lg hover:bg-navy-800 transition-colors shadow-sm"
+                                disabled={saving}
+                                className="flex items-center gap-2 bg-navy-900 text-white px-4 py-2 rounded-lg hover:bg-navy-800 transition-colors shadow-sm disabled:opacity-60 disabled:cursor-not-allowed"
                             >
                                 <Save className="w-4 h-4" />
-                                {editingId ? 'Update FAQ' : 'Save FAQ'}
+                                {saving ? 'Saving...' : (editingId ? 'Update FAQ' : 'Save FAQ')}
                             </button>
                             <button
                                 type="button"
@@ -243,10 +259,7 @@ const FAQManager: React.FC<FAQManagerProps> = ({ onBack }) => {
                 {faqs.length === 0 ? (
                     <div className="text-center py-16 bg-white rounded-xl border border-gray-200 border-dashed">
                         <HelpCircle className="w-16 h-16 text-gray-300 mx-auto mb-6" />
-                        <p className="text-gray-500 text-lg">No FAQs found. Add your first FAQ above.</p>
-                        <p className="text-sm text-gray-400 mt-2">
-                            Note: If the FAQs table doesn't exist in Supabase, default FAQs will be shown on the website.
-                        </p>
+                        <p className="text-gray-500 text-lg">No FAQs yet. Click "Add FAQ" to create one.</p>
                     </div>
                 ) : (
                     categories.map(category => {
@@ -325,16 +338,6 @@ const FAQManager: React.FC<FAQManagerProps> = ({ onBack }) => {
                 )}
             </div>
 
-            {/* Info Box */}
-            <div className="bg-pink-50 border border-pink-200 rounded-xl p-4">
-                <h4 className="font-medium text-pink-900 mb-2">💡 Database Setup</h4>
-                <p className="text-sm text-pink-700">
-                    To enable FAQ management, create a <code className="bg-pink-100 px-1 rounded">faqs</code> table in Supabase with columns:
-                    <code className="block bg-pink-100 p-2 rounded mt-2 text-xs">
-                        id (uuid), question (text), answer (text), category (text), order_index (int4), is_active (bool), created_at (timestamptz), updated_at (timestamptz)
-                    </code>
-                </p>
-            </div>
         </div>
     );
 };

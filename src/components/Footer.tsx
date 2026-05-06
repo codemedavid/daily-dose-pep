@@ -3,12 +3,12 @@ import { FlaskConical, Truck, HelpCircle, FileText, BookOpen, Leaf } from 'lucid
 
 const Footer: React.FC = () => {
   return (
-    <footer style={{ background: '#2D1212' }}>
+    <footer style={{ background: '#0A0A0A' }}>
 
-      {/* Pink gradient top edge */}
+      {/* Gold gradient top edge */}
       <div
         className="h-1 w-full"
-        style={{ background: 'linear-gradient(90deg, #FCD3E5, #F593BC, #E25C95, #C73D7A, #E25C95, #F593BC, #FCD3E5)' }}
+        style={{ background: 'linear-gradient(90deg, #FFE388, #F5D04D, #B8941F, #957515, #B8941F, #F5D04D, #FFE388)' }}
       />
 
       {/* ── Main content ── */}
@@ -18,19 +18,19 @@ const Footer: React.FC = () => {
           {/* Brand column */}
           <div className="lg:col-span-1">
             <img
-              src="/orozeplogo.jpg"
-              alt="Orozep PH"
+              src="/luxxbio-logo.png"
+              alt="LUXXBIO LABS"
               className="h-20 w-auto object-contain mb-5 rounded-2xl"
               style={{ boxShadow: '0 4px 24px rgba(245,160,190,0.35)' }}
             />
             <p className="font-sans text-sm leading-relaxed mb-2" style={{ color: 'rgba(255,255,255,0.65)' }}>
-              <span className="font-heading text-lg" style={{ color: '#FCD3E5' }}>Orozep PH</span> — premium pink peptide essentials.
+              <span className="font-heading text-lg" style={{ color: '#FFE388' }}>LUXXBIO LABS</span> — precision. purity. performance.
             </p>
             <p className="font-sans text-sm leading-relaxed mb-5" style={{ color: 'rgba(255,255,255,0.45)' }}>
               Lab-tested peptide essentials with third-party verification and nationwide delivery.
             </p>
             <div className="flex items-center gap-2 text-xs font-sans" style={{ color: 'rgba(255,255,255,0.45)' }}>
-              <Leaf className="w-3.5 h-3.5" style={{ color: '#F9B7D2' }} />
+              <Leaf className="w-3.5 h-3.5" style={{ color: '#E5BE3A' }} />
               99%+ Purity on every product
             </div>
           </div>
@@ -47,7 +47,7 @@ const Footer: React.FC = () => {
                     href="#"
                     className="font-sans text-sm transition-colors"
                     style={{ color: 'rgba(255,255,255,0.4)' }}
-                    onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.color = '#FCD3E5'; }}
+                    onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.color = '#FFE388'; }}
                     onMouseLeave={e => { (e.currentTarget as HTMLAnchorElement).style.color = 'rgba(255,255,255,0.4)'; }}
                   >
                     {item}
@@ -75,7 +75,7 @@ const Footer: React.FC = () => {
                     href={href}
                     className="flex items-center gap-2 font-sans text-sm transition-colors group"
                     style={{ color: 'rgba(255,255,255,0.4)' }}
-                    onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.color = '#FCD3E5'; }}
+                    onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.color = '#FFE388'; }}
                     onMouseLeave={e => { (e.currentTarget as HTMLAnchorElement).style.color = 'rgba(255,255,255,0.4)'; }}
                   >
                     <Icon className="w-3.5 h-3.5 flex-shrink-0" style={{ color: 'rgba(255,255,255,0.2)' }} />
@@ -93,7 +93,7 @@ const Footer: React.FC = () => {
       <div style={{ borderTop: '1px solid rgba(255,255,255,0.06)' }}>
         <div className="container mx-auto px-5 md:px-8 py-5 flex flex-col sm:flex-row items-center justify-between gap-3">
           <p className="font-sans text-xs" style={{ color: 'rgba(255,255,255,0.28)' }}>
-            © {new Date().getFullYear()} Orozep PH. All rights reserved.
+            © {new Date().getFullYear()} LUXXBIO LABS. All rights reserved.
           </p>
           <div className="flex items-center gap-5">
             {['Privacy Policy', 'Terms of Service', 'Shipping Policy'].map(item => (
