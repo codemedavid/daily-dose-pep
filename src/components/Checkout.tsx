@@ -70,8 +70,10 @@ const Checkout: React.FC<CheckoutProps> = ({ cartItems, totalPrice, onBack }) =>
     const selectedLocation = shippingLocations.find(loc => loc.id === shippingLocation);
     const shippingFee = selectedLocation ? selectedLocation.fee : 0;
 
-    // Calculate final total (Subtotal + Shipping - Discount)
-    const finalTotal = Math.max(0, totalPrice + shippingFee - discountAmount);
+    const ADMIN_FEE = 300;
+
+    // Calculate final total (Subtotal + Shipping + Admin Fee - Discount)
+    const finalTotal = Math.max(0, totalPrice + shippingFee + ADMIN_FEE - discountAmount);
 
     // Handle Promo Code Application
     const handleApplyPromoCode = async () => {
@@ -337,6 +339,7 @@ ${cartItems.map(item => {
 💰 PRICING
 Product Total: ₱${totalPrice.toLocaleString('en-PH', { minimumFractionDigits: 0 })}
 Shipping Fee: ₱${shippingFee.toLocaleString('en-PH', { minimumFractionDigits: 0 })} (${shippingLocation.replace('_', ' & ')})
+Admin Fee: ₱${ADMIN_FEE.toLocaleString('en-PH', { minimumFractionDigits: 0 })}
 ${discountAmount > 0 ? `Discount (${appliedPromo?.code}): -₱${discountAmount.toLocaleString('en-PH', { minimumFractionDigits: 0 })}\n` : ''}Grand Total: ₱${finalTotal.toLocaleString('en-PH', { minimumFractionDigits: 0 })}
 
 💳 PAYMENT METHOD
@@ -412,9 +415,9 @@ Please confirm this order. Thank you!
 
     if (step === 'confirmation') {
         return (
-            <div className="min-h-screen bg-gradient-to-br from-white via-brand-50 to-white flex items-center justify-center px-4 py-12">
+            <div className="min-h-screen bg-white flex items-center justify-center px-4 py-12">
                 <div className="max-w-2xl w-full">
-                    <div className="bg-white rounded shadow-clinical p-8 md:p-12 text-center border border-gray-100">
+                    <div className="bg-white rounded-2xl shadow-[0_8px_30px_rgba(0,0,0,0.04)] p-8 md:p-12 text-center border border-gray-100">
                         <div className="bg-emerald-100 w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-6 shadow-sm">
                             <ShieldCheck className="w-12 h-12 text-emerald-600" />
                         </div>
@@ -548,8 +551,8 @@ Please confirm this order. Thank you!
     // Payment Step
     if (step === 'payment') {
         return (
-            <div className="min-h-screen bg-cool-gray py-6 md:py-8">
-                <div className="container mx-auto px-4 max-w-5xl">
+            <div className="min-h-screen bg-white py-8 md:py-12">
+                <div className="container mx-auto px-4 max-w-6xl">
                     <button
                         onClick={() => setStep('details')}
                         className="text-gray-500 hover:text-brand-600 font-medium mb-6 flex items-center gap-2 transition-colors group text-sm"
@@ -558,10 +561,33 @@ Please confirm this order. Thank you!
                         <span>Back to Details</span>
                     </button>
 
-                    <h1 className="font-heading text-2xl md:text-3xl font-bold text-charcoal-900 mb-8 flex items-center gap-3">
-                        Payment & Verification
-                        <Lock className="w-6 h-6 text-brand-600" />
-                    </h1>
+                    {/* Stepper */}
+                    <div className="flex items-center gap-2 mb-8 text-xs font-semibold tracking-wide">
+                        <div className="flex items-center gap-2 text-emerald-600">
+                            <div className="w-7 h-7 rounded-full bg-emerald-100 flex items-center justify-center">
+                                <Check className="w-4 h-4" />
+                            </div>
+                            <span className="hidden sm:inline">DETAILS</span>
+                        </div>
+                        <div className="h-px flex-1 bg-brand-300" />
+                        <div className="flex items-center gap-2 text-brand-700">
+                            <div className="w-7 h-7 rounded-full bg-brand-600 text-white flex items-center justify-center">2</div>
+                            <span className="hidden sm:inline">PAYMENT</span>
+                        </div>
+                        <div className="h-px flex-1 bg-gray-200" />
+                        <div className="flex items-center gap-2 text-gray-400">
+                            <div className="w-7 h-7 rounded-full bg-gray-100 flex items-center justify-center">3</div>
+                            <span className="hidden sm:inline">CONFIRM</span>
+                        </div>
+                    </div>
+
+                    <div className="mb-8">
+                        <h1 className="font-heading text-3xl md:text-4xl font-bold text-charcoal-900 tracking-tight flex items-center gap-3">
+                            Payment & Verification
+                            <Lock className="w-6 h-6 text-brand-600" />
+                        </h1>
+                        <p className="text-gray-500 text-sm mt-2">Secure your order with a quick payment confirmation.</p>
+                    </div>
 
                     <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                         <div className="lg:col-span-2 space-y-6">
@@ -714,6 +740,10 @@ Please confirm this order. Thank you!
                                     <div className="flex justify-between">
                                         <span className="text-gray-600">Shipping</span>
                                         <span>₱{shippingFee.toLocaleString()}</span>
+                                    </div>
+                                    <div className="flex justify-between">
+                                        <span className="text-gray-600">Admin Fee</span>
+                                        <span>₱{ADMIN_FEE.toLocaleString()}</span>
                                     </div>
                                     {discountAmount > 0 && (
                                         <div className="flex justify-between text-emerald-600 font-medium">
@@ -1054,6 +1084,10 @@ Please confirm this order. Thank you!
                                 <span>Subtotal</span>
                                 <span>₱{totalPrice.toLocaleString()}</span>
                             </div>
+                            <div className="flex justify-between">
+                                <span>Admin Fee</span>
+                                <span>₱{ADMIN_FEE.toLocaleString()}</span>
+                            </div>
                             {discountAmount > 0 && (
                                 <div className="flex justify-between text-emerald-600 font-medium">
                                     <span>Discount</span>
@@ -1062,7 +1096,7 @@ Please confirm this order. Thank you!
                             )}
                             <div className="flex justify-between font-bold text-charcoal-900 text-base pt-2">
                                 <span>Total Estimate</span>
-                                <span>₱{Math.max(0, totalPrice - discountAmount).toLocaleString()}</span>
+                                <span>₱{Math.max(0, totalPrice + ADMIN_FEE - discountAmount).toLocaleString()}</span>
                             </div>
                             <p className="text-xs text-gray-400 text-right italic">+ Shipping fee added at payment</p>
                         </div>

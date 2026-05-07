@@ -135,7 +135,7 @@ const ProtocolManager: React.FC<ProtocolManagerProps> = ({ onBack }) => {
                         {!isAdding && !editingId && (
                             <button
                                 onClick={handleAdd}
-                                className="flex items-center gap-2 px-4 py-2 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition-colors"
+                                className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-gold-500 to-gold-600 hover:from-gold-600 hover:to-gold-700 text-black font-medium rounded-lg shadow-md transition-colors"
                             >
                                 <Plus className="w-4 h-4" />
                                 Add Protocol
@@ -160,7 +160,7 @@ const ProtocolManager: React.FC<ProtocolManagerProps> = ({ onBack }) => {
                                     type="text"
                                     value={formData.name}
                                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-900 focus:border-transparent"
+                                    className="w-full px-3 py-2 bg-white text-black border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold-500 focus:border-gold-500 placeholder-gray-400"
                                     placeholder="e.g., Tirzepatide"
                                 />
                             </div>
@@ -170,7 +170,7 @@ const ProtocolManager: React.FC<ProtocolManagerProps> = ({ onBack }) => {
                                     type="text"
                                     value={formData.category}
                                     onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-                                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-900 focus:border-transparent"
+                                    className="w-full px-3 py-2 bg-white text-black border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold-500 focus:border-gold-500 placeholder-gray-400"
                                     placeholder="e.g., Weight Management"
                                 />
                             </div>
@@ -180,7 +180,7 @@ const ProtocolManager: React.FC<ProtocolManagerProps> = ({ onBack }) => {
                                     type="text"
                                     value={formData.dosage}
                                     onChange={(e) => setFormData({ ...formData, dosage: e.target.value })}
-                                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-900 focus:border-transparent"
+                                    className="w-full px-3 py-2 bg-white text-black border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold-500 focus:border-gold-500 placeholder-gray-400"
                                     placeholder="e.g., 2.5mg - 15mg"
                                 />
                             </div>
@@ -190,7 +190,7 @@ const ProtocolManager: React.FC<ProtocolManagerProps> = ({ onBack }) => {
                                     type="text"
                                     value={formData.frequency}
                                     onChange={(e) => setFormData({ ...formData, frequency: e.target.value })}
-                                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-900 focus:border-transparent"
+                                    className="w-full px-3 py-2 bg-white text-black border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold-500 focus:border-gold-500 placeholder-gray-400"
                                     placeholder="e.g., Once weekly"
                                 />
                             </div>
@@ -200,7 +200,7 @@ const ProtocolManager: React.FC<ProtocolManagerProps> = ({ onBack }) => {
                                     type="text"
                                     value={formData.duration}
                                     onChange={(e) => setFormData({ ...formData, duration: e.target.value })}
-                                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-900 focus:border-transparent"
+                                    className="w-full px-3 py-2 bg-white text-black border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold-500 focus:border-gold-500 placeholder-gray-400"
                                     placeholder="e.g., 12-16 weeks"
                                 />
                             </div>
@@ -210,7 +210,7 @@ const ProtocolManager: React.FC<ProtocolManagerProps> = ({ onBack }) => {
                                     type="number"
                                     value={formData.sort_order}
                                     onChange={(e) => setFormData({ ...formData, sort_order: parseInt(e.target.value) || 0 })}
-                                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-900 focus:border-transparent"
+                                    className="w-full px-3 py-2 bg-white text-black border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold-500 focus:border-gold-500 placeholder-gray-400"
                                 />
                             </div>
                         </div>
@@ -221,7 +221,7 @@ const ProtocolManager: React.FC<ProtocolManagerProps> = ({ onBack }) => {
                                 type="text"
                                 value={formData.storage}
                                 onChange={(e) => setFormData({ ...formData, storage: e.target.value })}
-                                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-900 focus:border-transparent"
+                                className="w-full px-3 py-2 bg-white text-black border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold-500 focus:border-gold-500 placeholder-gray-400"
                                 placeholder="e.g., Refrigerate at 2-8°C"
                             />
                         </div>
@@ -232,7 +232,7 @@ const ProtocolManager: React.FC<ProtocolManagerProps> = ({ onBack }) => {
                                 value={notesText}
                                 onChange={(e) => setNotesText(e.target.value)}
                                 rows={5}
-                                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-900 focus:border-transparent"
+                                className="w-full px-3 py-2 bg-white text-black border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold-500 focus:border-gold-500 placeholder-gray-400"
                                 placeholder="Enter each note on a new line..."
                             />
                         </div>
@@ -243,7 +243,7 @@ const ProtocolManager: React.FC<ProtocolManagerProps> = ({ onBack }) => {
                                 id="active"
                                 checked={formData.active}
                                 onChange={(e) => setFormData({ ...formData, active: e.target.checked })}
-                                className="w-4 h-4 text-gray-900 rounded focus:ring-gray-900"
+                                className="w-4 h-4 text-gold-600 rounded focus:ring-gold-500"
                             />
                             <label htmlFor="active" className="text-sm font-medium text-gray-700">Active (visible on website)</label>
                         </div>
@@ -252,14 +252,14 @@ const ProtocolManager: React.FC<ProtocolManagerProps> = ({ onBack }) => {
                             <button
                                 onClick={handleSave}
                                 disabled={isProcessing}
-                                className="flex items-center gap-2 px-4 py-2 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition-colors disabled:opacity-50"
+                                className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-gold-500 to-gold-600 hover:from-gold-600 hover:to-gold-700 text-black font-medium rounded-lg shadow-md transition-colors disabled:opacity-50"
                             >
                                 <Save className="w-4 h-4" />
                                 {isProcessing ? 'Saving...' : 'Save Protocol'}
                             </button>
                             <button
                                 onClick={handleCancel}
-                                className="flex items-center gap-2 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
+                                className="flex items-center gap-2 px-4 py-2 border-2 border-black text-black rounded-lg hover:bg-black hover:text-white transition-colors"
                             >
                                 <X className="w-4 h-4" />
                                 Cancel
@@ -283,7 +283,7 @@ const ProtocolManager: React.FC<ProtocolManagerProps> = ({ onBack }) => {
                                 <div className="flex items-start justify-between gap-4">
                                     <div className="flex-1">
                                         <div className="flex items-center gap-2 mb-1">
-                                            <span className="text-xs font-medium text-rose-500 uppercase tracking-wider">{protocol.category}</span>
+                                            <span className="text-xs font-medium text-gold-700 uppercase tracking-wider">{protocol.category}</span>
                                             {!protocol.active && (
                                                 <span className="text-xs font-medium text-red-500 bg-red-100 px-2 py-0.5 rounded">Hidden</span>
                                             )}
@@ -298,14 +298,14 @@ const ProtocolManager: React.FC<ProtocolManagerProps> = ({ onBack }) => {
                                         <button
                                             onClick={() => handleToggleActive(protocol.id, protocol.active)}
                                             disabled={isProcessing}
-                                            className={`p-2 rounded-lg transition-colors ${protocol.active ? 'text-green-600 hover:bg-green-50' : 'text-gray-400 hover:bg-gray-100'}`}
+                                            className={`p-2 rounded-lg transition-colors ${protocol.active ? 'text-gold-700 hover:bg-gold-100' : 'text-gray-400 hover:bg-gray-100'}`}
                                             title={protocol.active ? 'Hide from website' : 'Show on website'}
                                         >
                                             {protocol.active ? <Eye className="w-4 h-4" /> : <EyeOff className="w-4 h-4" />}
                                         </button>
                                         <button
                                             onClick={() => handleEdit(protocol)}
-                                            className="p-2 text-pink-600 hover:bg-pink-50 rounded-lg transition-colors"
+                                            className="p-2 text-black hover:bg-gold-100 rounded-lg transition-colors"
                                             title="Edit"
                                         >
                                             <Edit className="w-4 h-4" />

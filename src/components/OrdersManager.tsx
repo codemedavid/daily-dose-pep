@@ -614,7 +614,8 @@ interface OrderCardProps {
 
 const OrderCard: React.FC<OrderCardProps> = ({ order, onView, getStatusColor, getStatusIcon, isSelected, onToggleSelect }) => {
   const totalItems = order.order_items.reduce((sum, item) => sum + item.quantity, 0);
-  const finalTotal = order.total_price + (order.shipping_fee || 0);
+  const ADMIN_FEE = 300;
+  const finalTotal = order.total_price + (order.shipping_fee || 0) + ADMIN_FEE;
 
   return (
     <div
@@ -729,7 +730,8 @@ const OrderDetailsView: React.FC<OrderDetailsViewProps> = ({
     : null;
 
   const totalItems = order.order_items.reduce((sum, item) => sum + item.quantity, 0);
-  const finalTotal = order.total_price + (order.shipping_fee || 0);
+  const ADMIN_FEE = 300;
+  const finalTotal = order.total_price + (order.shipping_fee || 0) + ADMIN_FEE;
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-white via-gray-50 to-white">
@@ -956,6 +958,10 @@ const OrderDetailsView: React.FC<OrderDetailsViewProps> = ({
                   <span className="font-semibold">₱{order.shipping_fee.toLocaleString('en-PH', { minimumFractionDigits: 2 })}</span>
                 </div>
               )}
+              <div className="flex justify-between">
+                <span>Admin Fee:</span>
+                <span className="font-semibold">₱{ADMIN_FEE.toLocaleString('en-PH', { minimumFractionDigits: 2 })}</span>
+              </div>
               <div className="flex justify-between text-base md:text-lg font-bold border-t-2 border-gray-200 pt-2">
                 <span>Total:</span>
                 <span className="text-gold-600">₱{finalTotal.toLocaleString('en-PH', { minimumFractionDigits: 2 })}</span>

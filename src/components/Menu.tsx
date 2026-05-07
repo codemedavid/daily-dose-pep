@@ -69,20 +69,49 @@ const Menu: React.FC<MenuProps> = ({ menuItems, addToCart, cartItems }) => {
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const productsRef = useRef<HTMLDivElement | null>(null);
 
-  const filteredProducts = menuItems.filter(product =>
-    product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    product.description.toLowerCase().includes(searchQuery.toLowerCase())
+  // Expand products with variations into one listing per variation.
+  type Listing = {
+    card: Product;
+    sourceProduct: Product;
+    variation?: ProductVariation;
+  };
+
+  const listings: Listing[] = menuItems.flatMap(product => {
+    if (!product.variations || product.variations.length === 0) {
+      return [{ card: product, sourceProduct: product }];
+    }
+    return product.variations.map(v => {
+      const useDiscount = v.discount_active && v.discount_price !== null;
+      const card: Product = {
+        ...product,
+        id: `${product.id}::${v.id}`,
+        name: `${product.name} ${v.name}`.trim(),
+        base_price: v.price,
+        discount_price: useDiscount ? v.discount_price : null,
+        discount_active: !!useDiscount,
+        stock_quantity: v.stock_quantity,
+        variations: undefined,
+      };
+      return { card, sourceProduct: product, variation: v };
+    });
+  });
+
+  const filteredListings = listings.filter(({ card }) =>
+    card.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    card.description.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  const sortedProducts = [...filteredProducts].sort((a, b) => {
-    if (a.name === 'Tirzepatide') return -1;
-    if (b.name === 'Tirzepatide') return 1;
-    if (a.featured && !b.featured) return -1;
-    if (!a.featured && b.featured) return 1;
+  const sortedListings = [...filteredListings].sort((a, b) => {
+    const an = a.card.name;
+    const bn = b.card.name;
+    if (an.startsWith('Tirzepatide') && !bn.startsWith('Tirzepatide')) return -1;
+    if (bn.startsWith('Tirzepatide') && !an.startsWith('Tirzepatide')) return 1;
+    if (a.card.featured && !b.card.featured) return -1;
+    if (!a.card.featured && b.card.featured) return 1;
     switch (sortBy) {
-      case 'name':  return a.name.localeCompare(b.name);
-      case 'price': return a.base_price - b.base_price;
-      case 'purity':return b.purity_percentage - a.purity_percentage;
+      case 'name':  return an.localeCompare(bn);
+      case 'price': return a.card.base_price - b.card.base_price;
+      case 'purity':return b.card.purity_percentage - a.card.purity_percentage;
       default:      return 0;
     }
   });
@@ -172,7 +201,7 @@ const Menu: React.FC<MenuProps> = ({ menuItems, addToCart, cartItems }) => {
             {/* Results count */}
             <div className="mb-7 flex items-center gap-2 flex-wrap">
               <span className="font-sans text-xs font-medium uppercase tracking-wider" style={{ color: '#D29797' }}>
-                {sortedProducts.length} {sortedProducts.length === 1 ? 'product' : 'products'}
+                {sortedListings.length} {sortedListings.length === 1 ? 'product' : 'products'}
               </span>
               {searchQuery && (
                 <>
@@ -192,7 +221,7 @@ const Menu: React.FC<MenuProps> = ({ menuItems, addToCart, cartItems }) => {
             </div>
 
             {/* Grid */}
-            {sortedProducts.length === 0 ? (
+            {sortedListings.length === 0 ? (
               <div className="text-center py-24">
                 <div className="bg-white rounded-2xl p-14 max-w-sm mx-auto"
                   style={{ border: '1px solid rgba(91,40,40,0.07)' }}>
@@ -213,13 +242,13 @@ const Menu: React.FC<MenuProps> = ({ menuItems, addToCart, cartItems }) => {
               </div>
             ) : (
               <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-5">
-                {sortedProducts.map(product => (
+                {sortedListings.map(({ card, sourceProduct, variation }) => (
                   <MenuItemCard
-                    key={product.id}
-                    product={product}
-                    cartQuantity={getCartQuantity(product.id)}
-                    onProductClick={setSelectedProduct}
-                    onAddToCart={addToCart}
+                    key={card.id}
+                    product={card}
+                    cartQuantity={getCartQuantity(sourceProduct.id, variation?.id)}
+                    onProductClick={() => setSelectedProduct(sourceProduct)}
+                    onAddToCart={(_p, _v, qty) => addToCart(sourceProduct, variation, qty)}
                   />
                 ))}
               </div>
