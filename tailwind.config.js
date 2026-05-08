@@ -7,10 +7,10 @@ export default {
   theme: {
     extend: {
       colors: {
-        // ── LUXXBIO LABS — Luxury Black & Gold ──
-        // Black-first palette with metallic gold accents for a premium clinical UI.
-        'theme-bg':   '#0A0A0A',
-        'theme-text': '#F5E6C8',
+        // ── LUXXBIO LABS — Luxury White, Black & Gold ──
+        // White-first palette with onyx-black and metallic-gold accents.
+        'theme-bg':   '#FFFFFF',
+        'theme-text': '#0A0A0A',
 
         // Gold (primary brand accent — metallic, luxurious)
         // Token name kept as "pink" so existing utility classes still resolve.
@@ -89,10 +89,11 @@ export default {
         },
 
         // Utility
-        'cream':         '#0A0A0A',
-        'warm-white':    '#121212',
-        'surface':       '#1F1F1F',
-        'surface-mint':  '#1F1F1F',
+        'cream':         '#FFFFFF',
+        'warm-white':    '#FAFAF7',
+        'cool-gray':     '#F7F7F4',
+        'surface':       '#FFFFFF',
+        'surface-mint':  '#FAF3D9',
         'gold':          '#D4AF37',
         'maroon':        '#0A0A0A',
         'maroon-light':  '#1F1F1F',
@@ -114,14 +115,15 @@ export default {
       },
 
       boxShadow: {
-        'xs':      '0 1px 2px rgba(0,0,0,0.40)',
-        'sm':      '0 2px 6px rgba(0,0,0,0.45)',
-        'DEFAULT': '0 2px 12px rgba(0,0,0,0.50)',
-        'md':      '0 4px 20px rgba(0,0,0,0.55)',
-        'lg':      '0 8px 36px rgba(0,0,0,0.60)',
-        'pink':    '0 6px 24px rgba(212,175,55,0.32)',
-        'mint':    '0 6px 24px rgba(212,175,55,0.24)',
-        'card':    '0 0 0 1px rgba(212,175,55,0.18), 0 4px 18px rgba(0,0,0,0.45)',
+        'xs':       '0 1px 2px rgba(10,10,10,0.04)',
+        'sm':       '0 2px 6px rgba(10,10,10,0.05)',
+        'DEFAULT':  '0 2px 12px rgba(10,10,10,0.06)',
+        'md':       '0 4px 20px rgba(10,10,10,0.08)',
+        'lg':       '0 8px 36px rgba(10,10,10,0.10)',
+        'pink':     '0 6px 24px rgba(212,175,55,0.30)',
+        'mint':     '0 6px 24px rgba(212,175,55,0.22)',
+        'card':     '0 0 0 1px rgba(10,10,10,0.06), 0 4px 18px rgba(10,10,10,0.05)',
+        'clinical': '0 1px 3px rgba(10,10,10,0.04), 0 8px 24px rgba(10,10,10,0.06)',
       },
 
       borderRadius: {

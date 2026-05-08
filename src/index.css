@@ -5,36 +5,42 @@
 @tailwind utilities;
 
 /* ─────────────────────────────────────────────
-   LUXXBIO LABS — Luxury Black & Gold
-   Black × Onyx × Metallic Gold
+   LUXXBIO LABS — Luxury White, Black & Gold
+   Pure White × Onyx Black × Metallic Gold
 ───────────────────────────────────────────── */
 :root {
+  --gold:        #D4AF37;
+  --gold-light:  #FFE388;
+  --gold-deep:   #B8941F;
+  --gold-soft:   #FAF3D9;
+
+  /* legacy aliases (kept for backward compat with existing class usage) */
   --pink:        #D4AF37;
   --pink-light:  #FFE388;
   --pink-deep:   #B8941F;
-  --pink-bg:     #1F1F1F;
+  --pink-bg:     #FAF3D9;
 
-  --rose:        #E5BE3A;
-  --rose-light:  #121212;
+  --rose:        #B8941F;
+  --rose-light:  #FAF3D9;
   --rose-deep:   #957515;
-  --rose-bg:     #0A0A0A;
+  --rose-bg:     #FFFFFF;
 
   --maroon:        #0A0A0A;
   --maroon-deep:   #000000;
   --maroon-soft:   #1F1F1F;
   --maroon-copper: #D4AF37;
 
-  --cream:       #0A0A0A;
-  --warm-white:  #121212;
-  --surface:     #1F1F1F;
+  --cream:       #FFFFFF;
+  --warm-white:  #FAFAF7;
+  --surface:     #FFFFFF;
 
-  --text:        #F5E6C8;
-  --text-mid:    #E5BE3A;
-  --text-soft:   #B8941F;
+  --text:        #0A0A0A;
+  --text-mid:    #4A4A4A;
+  --text-soft:   #757575;
 
-  --border:      rgba(212,175,55,0.18);
-  --border-pink: rgba(212,175,55,0.45);
-  --border-rose: rgba(184,148,31,0.35);
+  --border:      rgba(10,10,10,0.10);
+  --border-pink: rgba(212,175,55,0.55);
+  --border-rose: rgba(212,175,55,0.35);
 }
 
 @layer base {
@@ -73,18 +79,18 @@
   }
   .btn-mint:active { transform: translateY(0); }
 
-  /* Secondary — onyx with gold border */
+  /* Secondary — onyx black with gold border */
   .btn-pink {
     @apply inline-flex items-center justify-center gap-2 px-8 py-3.5
            rounded-full font-sans font-medium text-sm
            transition-all duration-200 select-none tracking-wide;
-    background: #1F1F1F;
+    background: #0A0A0A;
     color: #D4AF37;
     letter-spacing: 0.02em;
-    border: 1px solid rgba(212,175,55,0.45);
+    border: 1px solid rgba(212,175,55,0.55);
   }
   .btn-pink:hover {
-    background: #2E2E2E;
+    background: #1F1F1F;
     border-color: #D4AF37;
     transform: translateY(-1px);
   }
@@ -121,14 +127,14 @@
   /* ── Card ── */
   .card {
     @apply bg-white rounded-2xl transition-all duration-300;
-    background: #121212;
-    color: #F5E6C8;
+    background: #FFFFFF;
+    color: #0A0A0A;
     border: 1px solid var(--border);
-    box-shadow: 0 1px 4px rgba(0,0,0,0.50);
+    box-shadow: 0 1px 3px rgba(10,10,10,0.04), 0 4px 16px rgba(10,10,10,0.04);
   }
   .card:hover {
     border-color: var(--border-pink);
-    box-shadow: 0 8px 32px rgba(212,175,55,0.18), 0 2px 8px rgba(0,0,0,0.50);
+    box-shadow: 0 10px 32px rgba(212,175,55,0.18), 0 2px 8px rgba(10,10,10,0.06);
     transform: translateY(-3px);
   }
 
@@ -136,14 +142,16 @@
   .input-field {
     @apply w-full px-4 py-3 font-sans text-sm
            focus:outline-none transition-all rounded-xl;
-    background: #1F1F1F;
-    color: #F5E6C8;
-    border: 1px solid var(--border);
+    background: #FFFFFF;
+    color: #0A0A0A;
+    border: 1px solid rgba(10,10,10,0.14);
   }
-  .input-field::placeholder { color: #757575; }
+  .input-field::placeholder { color: #9A9A9A; }
+  .input-field:hover { border-color: rgba(10,10,10,0.28); }
   .input-field:focus {
-    border-color: var(--pink);
-    box-shadow: 0 0 0 3px rgba(212,175,55,0.20);
+    border-color: var(--gold);
+    background: #FFFFFF;
+    box-shadow: 0 0 0 3px rgba(212,175,55,0.18);
   }
 
   /* ── Section label ── */
@@ -186,7 +194,7 @@
   }
 
   .holo-bg {
-    background: linear-gradient(135deg, #0A0A0A 0%, #1F1F1F 50%, #121212 100%);
+    background: linear-gradient(135deg, #FFFFFF 0%, #FAF3D9 50%, #FFFFFF 100%);
     background-size: 200% 200%;
     animation: shimmer 8s ease-in-out infinite;
   }
@@ -216,7 +224,7 @@
 
 /* ── Scrollbar ── */
 ::-webkit-scrollbar        { width: 6px; }
-::-webkit-scrollbar-track  { background: #0A0A0A; }
+::-webkit-scrollbar-track  { background: #FAFAF7; }
 ::-webkit-scrollbar-thumb  { background: linear-gradient(180deg, #D4AF37, #B8941F); border-radius: 8px; }
 ::-webkit-scrollbar-thumb:hover { background: linear-gradient(180deg, #FFE388, #D4AF37); }
 

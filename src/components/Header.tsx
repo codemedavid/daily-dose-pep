@@ -31,9 +31,9 @@ const Header: React.FC<HeaderProps> = ({ cartItemsCount, onCartClick, onMenuClic
       <header
         className="sticky top-0 z-50 backdrop-blur-md transition-all duration-300"
         style={{
-          background: 'rgba(10,10,10,0.95)',
-          borderBottom: scrolled ? '1px solid rgba(212,175,55,0.45)' : '1px solid rgba(212,175,55,0.18)',
-          boxShadow: scrolled ? '0 4px 24px rgba(0,0,0,0.55)' : 'none',
+          background: 'rgba(255,255,255,0.92)',
+          borderBottom: scrolled ? '1px solid rgba(212,175,55,0.55)' : '1px solid rgba(10,10,10,0.06)',
+          boxShadow: scrolled ? '0 4px 20px rgba(10,10,10,0.06)' : 'none',
         }}
       >
         <div className="container mx-auto px-5 md:px-8 h-[68px] flex items-center justify-between gap-4">
@@ -54,9 +54,9 @@ const Header: React.FC<HeaderProps> = ({ cartItemsCount, onCartClick, onMenuClic
                   key={label}
                   onClick={onMenuClick}
                   className="px-4 py-2 text-sm font-sans font-medium rounded-lg transition-colors"
-                  style={{ color: '#F5E6C8' }}
-                  onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.color = '#D4AF37'; (e.currentTarget as HTMLButtonElement).style.background = '#1F1F1F'; }}
-                  onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.color = '#F5E6C8'; (e.currentTarget as HTMLButtonElement).style.background = 'transparent'; }}
+                  style={{ color: '#0A0A0A' }}
+                  onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.color = '#B8941F'; (e.currentTarget as HTMLButtonElement).style.background = 'rgba(212,175,55,0.10)'; }}
+                  onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.color = '#0A0A0A'; (e.currentTarget as HTMLButtonElement).style.background = 'transparent'; }}
                 >
                   {label}
                 </button>
@@ -65,9 +65,9 @@ const Header: React.FC<HeaderProps> = ({ cartItemsCount, onCartClick, onMenuClic
                   key={label}
                   href={href}
                   className="px-4 py-2 text-sm font-sans font-medium rounded-lg transition-colors"
-                  style={{ color: '#F5E6C8' }}
-                  onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.color = '#D4AF37'; (e.currentTarget as HTMLAnchorElement).style.background = '#1F1F1F'; }}
-                  onMouseLeave={e => { (e.currentTarget as HTMLAnchorElement).style.color = '#F5E6C8'; (e.currentTarget as HTMLAnchorElement).style.background = 'transparent'; }}
+                  style={{ color: '#0A0A0A' }}
+                  onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.color = '#B8941F'; (e.currentTarget as HTMLAnchorElement).style.background = 'rgba(212,175,55,0.10)'; }}
+                  onMouseLeave={e => { (e.currentTarget as HTMLAnchorElement).style.color = '#0A0A0A'; (e.currentTarget as HTMLAnchorElement).style.background = 'transparent'; }}
                 >
                   {label}
                 </a>
@@ -81,8 +81,8 @@ const Header: React.FC<HeaderProps> = ({ cartItemsCount, onCartClick, onMenuClic
             <button
               onClick={onCartClick}
               className="relative p-2.5 rounded-full transition-all"
-              style={{ color: '#F5E6C8' }}
-              onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.background = 'rgba(212,175,55,0.12)'; }}
+              style={{ color: '#0A0A0A' }}
+              onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.background = 'rgba(212,175,55,0.14)'; }}
               onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.background = 'transparent'; }}
             >
               <ShoppingCart className="w-5 h-5" />
@@ -105,8 +105,8 @@ const Header: React.FC<HeaderProps> = ({ cartItemsCount, onCartClick, onMenuClic
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="md:hidden p-2.5 rounded-full transition-colors"
-              style={{ color: '#F5E6C8' }}
-              onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.background = 'rgba(212,175,55,0.12)'; }}
+              style={{ color: '#0A0A0A' }}
+              onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.background = 'rgba(212,175,55,0.14)'; }}
               onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.background = 'transparent'; }}
             >
               {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}

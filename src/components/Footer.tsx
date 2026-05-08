@@ -1,5 +1,5 @@
 import React from 'react';
-import { FlaskConical, Truck, HelpCircle, FileText, BookOpen, Leaf } from 'lucide-react';
+import { FlaskConical, Truck, HelpCircle, FileText, BookOpen, Leaf, Facebook, Phone } from 'lucide-react';
 
 const Footer: React.FC = () => {
   return (
@@ -29,9 +29,34 @@ const Footer: React.FC = () => {
             <p className="font-sans text-sm leading-relaxed mb-5" style={{ color: 'rgba(255,255,255,0.45)' }}>
               Lab-tested peptide essentials with third-party verification and nationwide delivery.
             </p>
-            <div className="flex items-center gap-2 text-xs font-sans" style={{ color: 'rgba(255,255,255,0.45)' }}>
+            <div className="flex items-center gap-2 text-xs font-sans mb-4" style={{ color: 'rgba(255,255,255,0.45)' }}>
               <Leaf className="w-3.5 h-3.5" style={{ color: '#E5BE3A' }} />
               99%+ Purity on every product
+            </div>
+
+            <div className="flex flex-col gap-2.5">
+              <a
+                href="https://www.facebook.com/share/14hsbXd8st3/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 font-sans text-sm transition-colors"
+                style={{ color: 'rgba(255,255,255,0.6)' }}
+                onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.color = '#FFE388'; }}
+                onMouseLeave={e => { (e.currentTarget as HTMLAnchorElement).style.color = 'rgba(255,255,255,0.6)'; }}
+              >
+                <Facebook className="w-4 h-4" style={{ color: '#E5BE3A' }} />
+                Facebook Page
+              </a>
+              <a
+                href="tel:09998207315"
+                className="flex items-center gap-2 font-sans text-sm transition-colors"
+                style={{ color: 'rgba(255,255,255,0.6)' }}
+                onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.color = '#FFE388'; }}
+                onMouseLeave={e => { (e.currentTarget as HTMLAnchorElement).style.color = 'rgba(255,255,255,0.6)'; }}
+              >
+                <Phone className="w-4 h-4" style={{ color: '#E5BE3A' }} />
+                09998207315
+              </a>
             </div>
           </div>
 

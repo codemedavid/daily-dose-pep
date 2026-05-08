@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ArrowLeft, ShieldCheck, Package, CreditCard, Activity, Copy, Check, MessageCircle, Tag, Upload, Database, Lock, Truck } from 'lucide-react';
+import { ArrowLeft, ShieldCheck, Package, CreditCard, Activity, Copy, Check, MessageCircle, Tag, Upload, Database, Lock, Truck, Facebook, Phone } from 'lucide-react';
 import type { CartItem } from '../types';
 import { usePaymentMethods } from '../hooks/usePaymentMethods';
 import { useShippingLocations } from '../hooks/useShippingLocations';
@@ -35,7 +35,7 @@ const Checkout: React.FC<CheckoutProps> = ({ cartItems, totalPrice, onBack }) =>
 
     // Payment
     const [selectedPaymentMethod, setSelectedPaymentMethod] = useState('');
-    const [contactMethod, setContactMethod] = useState<'whatsapp' | 'viber'>('whatsapp');
+    const [contactMethod, setContactMethod] = useState<'facebook' | 'phone'>('facebook');
     const [notes, setNotes] = useState('');
 
     const [orderMessage, setOrderMessage] = useState<string>('');
@@ -349,8 +349,8 @@ ${paymentMethod?.name || 'N/A'}
 📸 PROOF OF PAYMENT
 ${paymentProofUrl ? 'Screenshot attached to order.' : 'Pending'}
 
-📱 CONTACT METHOD
-WhatsApp / Viber (+63 999 820 7315) or Facebook Messenger (m.me/britt.arellano.7)
+📱 PREFERRED CONTACT METHOD
+${contactMethod === 'facebook' ? 'Facebook Page (https://www.facebook.com/share/14hsbXd8st3/)' : 'Phone Call / SMS — 09998207315'}
 
 📋 ORDER NUMBER: ${customOrderNumber}
 
@@ -370,10 +370,9 @@ Please confirm this order. Thank you!
             // Show confirmation
             setStep('confirmation');
 
-            // Auto-open WhatsApp
+            // Auto-open Facebook page
             setTimeout(() => {
-                const whatsappUrl = `https://wa.me/639998207315?text=${encodeURIComponent(orderDetails)}`;
-                window.open(whatsappUrl, '_blank');
+                window.open('https://www.facebook.com/share/14hsbXd8st3/', '_blank');
             }, 1500);
         } catch (error) {
             console.error('❌ Error placing order:', error);
@@ -393,24 +392,18 @@ Please confirm this order. Thank you!
         }
     };
 
-    const handleOpenContact = () => {
-        const contactUrl = `https://wa.me/639998207315?text=${encodeURIComponent(orderMessage)}`;
-        window.open(contactUrl, '_blank');
-    };
-
-    const handleOpenViber = () => {
-        const viberUrl = `viber://chat?number=%2B639998207315`;
-        window.open(viberUrl, '_blank');
-    };
-
-    const handleOpenMessenger = async () => {
+    const handleOpenFacebook = async () => {
         try {
             await navigator.clipboard.writeText(orderMessage);
             setCopied(true);
         } catch (err) {
-            console.error('Failed to copy before opening Messenger:', err);
+            console.error('Failed to copy before opening Facebook:', err);
         }
-        window.open('https://m.me/britt.arellano.7', '_blank');
+        window.open('https://www.facebook.com/share/14hsbXd8st3/', '_blank');
+    };
+
+    const handleCallPhone = () => {
+        window.open('tel:09998207315', '_self');
     };
 
     if (step === 'confirmation') {
@@ -425,7 +418,7 @@ Please confirm this order. Thank you!
                             Order Confirmed
                         </h1>
                         <p className="text-gray-600 mb-4 text-base md:text-lg leading-relaxed">
-                            Your order details have been pre-filled. Just hit send via WhatsApp to finalize your order!
+                            Your order details have been pre-filled. Send them via our Facebook page or call us to finalize your order!
                         </p>
 
                         {/* Order ID Display */}
@@ -479,31 +472,23 @@ Please confirm this order. Thank you!
                         {/* Action Buttons */}
                         <div className="space-y-3 mb-8">
                             <button
-                                onClick={handleOpenContact}
+                                onClick={handleOpenFacebook}
+                                className="w-full py-4 text-base flex items-center justify-center gap-2 shadow-lg rounded bg-[#0866ff] hover:bg-[#0556db] text-white font-medium transition-all"
+                            >
+                                <MessageCircle className="w-5 h-5" />
+                                Open Facebook Page & Paste
+                            </button>
+
+                            <button
+                                onClick={handleCallPhone}
                                 className="w-full btn-primary py-4 text-base flex items-center justify-center gap-2 shadow-lg"
                             >
                                 <MessageCircle className="w-5 h-5" />
-                                Open WhatsApp & Send
-                            </button>
-
-                            <button
-                                onClick={handleOpenViber}
-                                className="w-full py-4 text-base flex items-center justify-center gap-2 shadow-lg rounded bg-[#7360f2] hover:bg-[#5d4dd1] text-white font-medium transition-all"
-                            >
-                                <MessageCircle className="w-5 h-5" />
-                                Open Viber & Send
-                            </button>
-
-                            <button
-                                onClick={handleOpenMessenger}
-                                className="w-full py-4 text-base flex items-center justify-center gap-2 shadow-lg rounded bg-[#0084ff] hover:bg-[#006fdb] text-white font-medium transition-all"
-                            >
-                                <MessageCircle className="w-5 h-5" />
-                                Open Messenger & Paste
+                                Call 09998207315
                             </button>
 
                             <p className="text-sm text-gray-500">
-                                Your order details are auto-copied. If no app opens, send the copied message to <span className="font-bold">+63 999 820 7315 on WhatsApp/Viber</span> or <span className="font-bold">m.me/britt.arellano.7 on Messenger</span>.
+                                Your order details are auto-copied. Send the message to our <span className="font-bold">Facebook Page</span> or call/text <span className="font-bold">09998207315</span>.
                             </p>
                         </div>
 
@@ -767,7 +752,7 @@ Please confirm this order. Thank you!
 
     // Details Step
     return (
-        <div className="min-h-screen bg-cool-gray py-6 md:py-8">
+        <div className="min-h-screen py-8 md:py-12" style={{ background: 'linear-gradient(180deg, #FFFFFF 0%, #FAFAF7 100%)' }}>
             <div className="container mx-auto px-4 max-w-6xl">
                 <button
                     onClick={onBack}
@@ -777,25 +762,33 @@ Please confirm this order. Thank you!
                     <span>Back to Cart</span>
                 </button>
 
-                <h1 className="font-heading text-2xl md:text-3xl font-bold text-charcoal-900 mb-8 flex items-center gap-3">
-                    Checkout Information
-                    <Activity className="w-6 h-6 text-brand-600" />
-                </h1>
+                <div className="mb-10">
+                    <span className="inline-block text-[11px] font-semibold tracking-[0.22em] uppercase mb-3" style={{ color: '#B8941F' }}>
+                        Secure Checkout
+                    </span>
+                    <h1 className="font-heading text-3xl md:text-4xl font-semibold text-charcoal-900 flex items-center gap-3">
+                        Checkout Information
+                        <span className="inline-block h-px flex-1 max-w-[120px]" style={{ background: 'linear-gradient(90deg, #D4AF37, transparent)' }} />
+                    </h1>
+                </div>
 
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                     {/* Main Form */}
                     <div className="lg:col-span-2 space-y-6">
                         {/* Customer Information */}
-                        <div className="bg-white rounded shadow-clinical p-6 border border-gray-100">
-                            <h2 className="font-heading text-lg font-bold text-charcoal-900 mb-6 flex items-center gap-2">
-                                <div className="bg-brand-50 p-2 rounded text-brand-600">
-                                    <Package className="w-5 h-5" />
-                                </div>
-                                Customer Details
-                            </h2>
+                        <div className="bg-white rounded-2xl p-6 md:p-8 border border-gray-100" style={{ boxShadow: '0 1px 3px rgba(10,10,10,0.04), 0 8px 28px rgba(10,10,10,0.05)' }}>
+                            <div className="flex items-center justify-between mb-6 pb-5 border-b" style={{ borderColor: 'rgba(10,10,10,0.06)' }}>
+                                <h2 className="font-heading text-xl font-semibold text-charcoal-900 flex items-center gap-3">
+                                    <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: 'linear-gradient(135deg, #FFF9E6 0%, #FFE388 100%)', color: '#957515' }}>
+                                        <Package className="w-5 h-5" />
+                                    </div>
+                                    Customer Details
+                                </h2>
+                                <span className="text-[10px] font-semibold tracking-[0.18em] uppercase" style={{ color: '#B8941F' }}>Step 1 / 2</span>
+                            </div>
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div className="md:col-span-2">
-                                    <label className="block text-xs font-bold text-brand-700 uppercase tracking-wide mb-2">
+                                    <label className="block text-[11px] font-semibold text-charcoal-700 uppercase tracking-[0.14em] mb-2">
                                         Full Name *
                                     </label>
                                     <input
@@ -808,7 +801,7 @@ Please confirm this order. Thank you!
                                     />
                                 </div>
                                 <div>
-                                    <label className="block text-xs font-bold text-brand-700 uppercase tracking-wide mb-2">
+                                    <label className="block text-[11px] font-semibold text-charcoal-700 uppercase tracking-[0.14em] mb-2">
                                         Email Address *
                                     </label>
                                     <input
@@ -821,7 +814,7 @@ Please confirm this order. Thank you!
                                     />
                                 </div>
                                 <div>
-                                    <label className="block text-xs font-bold text-brand-700 uppercase tracking-wide mb-2">
+                                    <label className="block text-[11px] font-semibold text-charcoal-700 uppercase tracking-[0.14em] mb-2">
                                         Phone Number *
                                     </label>
                                     <input
@@ -837,16 +830,18 @@ Please confirm this order. Thank you!
                         </div>
 
                         {/* Shipping Address */}
-                        <div className="bg-white rounded shadow-clinical p-6 border border-gray-100">
-                            <h2 className="font-heading text-lg font-bold text-charcoal-900 mb-6 flex items-center gap-2">
-                                <div className="bg-brand-50 p-2 rounded text-brand-600">
-                                    <Database className="w-5 h-5" />
-                                </div>
-                                Shipping Address
-                            </h2>
+                        <div className="bg-white rounded-2xl p-6 md:p-8 border border-gray-100" style={{ boxShadow: '0 1px 3px rgba(10,10,10,0.04), 0 8px 28px rgba(10,10,10,0.05)' }}>
+                            <div className="flex items-center mb-6 pb-5 border-b" style={{ borderColor: 'rgba(10,10,10,0.06)' }}>
+                                <h2 className="font-heading text-xl font-semibold text-charcoal-900 flex items-center gap-3">
+                                    <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: 'linear-gradient(135deg, #FFF9E6 0%, #FFE388 100%)', color: '#957515' }}>
+                                        <Database className="w-5 h-5" />
+                                    </div>
+                                    Shipping Address
+                                </h2>
+                            </div>
                             <div className="space-y-4">
                                 <div>
-                                    <label className="block text-xs font-bold text-brand-700 uppercase tracking-wide mb-2">
+                                    <label className="block text-[11px] font-semibold text-charcoal-700 uppercase tracking-[0.14em] mb-2">
                                         Street Address *
                                     </label>
                                     <input
@@ -859,7 +854,7 @@ Please confirm this order. Thank you!
                                     />
                                 </div>
                                 <div>
-                                    <label className="block text-xs font-bold text-brand-700 uppercase tracking-wide mb-2">
+                                    <label className="block text-[11px] font-semibold text-charcoal-700 uppercase tracking-[0.14em] mb-2">
                                         Barangay *
                                     </label>
                                     <input
@@ -873,7 +868,7 @@ Please confirm this order. Thank you!
                                 </div>
                                 <div className="grid grid-cols-2 gap-4">
                                     <div>
-                                        <label className="block text-xs font-bold text-brand-700 uppercase tracking-wide mb-2">
+                                        <label className="block text-[11px] font-semibold text-charcoal-700 uppercase tracking-[0.14em] mb-2">
                                             City *
                                         </label>
                                         <input
@@ -886,7 +881,7 @@ Please confirm this order. Thank you!
                                         />
                                     </div>
                                     <div>
-                                        <label className="block text-xs font-bold text-brand-700 uppercase tracking-wide mb-2">
+                                        <label className="block text-[11px] font-semibold text-charcoal-700 uppercase tracking-[0.14em] mb-2">
                                             Province *
                                         </label>
                                         <input
@@ -900,7 +895,7 @@ Please confirm this order. Thank you!
                                     </div>
                                 </div>
                                 <div>
-                                    <label className="block text-xs font-bold text-brand-700 uppercase tracking-wide mb-2">
+                                    <label className="block text-[11px] font-semibold text-charcoal-700 uppercase tracking-[0.14em] mb-2">
                                         ZIP/Postal Code *
                                     </label>
                                     <input
@@ -916,12 +911,66 @@ Please confirm this order. Thank you!
                         </div>
 
 
+                    {/* Preferred Contact Method */}
+                    <div className="bg-white rounded-2xl p-6 md:p-8 border border-gray-100" style={{ boxShadow: '0 1px 3px rgba(10,10,10,0.04), 0 8px 28px rgba(10,10,10,0.05)' }}>
+                        <div className="flex items-center mb-5 pb-5 border-b" style={{ borderColor: 'rgba(10,10,10,0.06)' }}>
+                            <h2 className="font-heading text-xl font-semibold text-charcoal-900 flex items-center gap-3">
+                                <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: 'linear-gradient(135deg, #FFF9E6 0%, #FFE388 100%)', color: '#957515' }}>
+                                    <MessageCircle className="w-5 h-5" />
+                                </div>
+                                Preferred Contact Method
+                            </h2>
+                        </div>
+                        <p className="text-xs text-gray-500 mb-5 -mt-1">Choose how you'd like us to confirm your order and send tracking updates.</p>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                            <button
+                                type="button"
+                                onClick={() => setContactMethod('facebook')}
+                                className={`p-4 rounded-xl border-2 transition-all text-left flex items-center gap-3 ${contactMethod === 'facebook'
+                                    ? 'border-brand-500 bg-brand-50/40 shadow-[0_4px_18px_rgba(212,175,55,0.18)]'
+                                    : 'border-gray-200 hover:border-brand-300 hover:bg-brand-50/20'
+                                    }`}
+                            >
+                                <div className="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0" style={{ background: '#0A0A0A', color: '#FFE388' }}>
+                                    <Facebook className="w-5 h-5" />
+                                </div>
+                                <div className="flex-1">
+                                    <p className="font-semibold text-charcoal-900 text-sm">Facebook Page</p>
+                                    <p className="text-xs text-gray-500 mt-0.5">Message us on Facebook</p>
+                                </div>
+                                {contactMethod === 'facebook' && <Check className="w-5 h-5 flex-shrink-0" style={{ color: '#B8941F' }} />}
+                            </button>
+
+                            <button
+                                type="button"
+                                onClick={() => setContactMethod('phone')}
+                                className={`p-4 rounded-xl border-2 transition-all text-left flex items-center gap-3 ${contactMethod === 'phone'
+                                    ? 'border-brand-500 bg-brand-50/40 shadow-[0_4px_18px_rgba(212,175,55,0.18)]'
+                                    : 'border-gray-200 hover:border-brand-300 hover:bg-brand-50/20'
+                                    }`}
+                            >
+                                <div className="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0" style={{ background: '#0A0A0A', color: '#FFE388' }}>
+                                    <Phone className="w-5 h-5" />
+                                </div>
+                                <div className="flex-1">
+                                    <p className="font-semibold text-charcoal-900 text-sm">Phone Call / SMS</p>
+                                    <p className="text-xs text-gray-500 mt-0.5">09998207315</p>
+                                </div>
+                                {contactMethod === 'phone' && <Check className="w-5 h-5 flex-shrink-0" style={{ color: '#B8941F' }} />}
+                            </button>
+                        </div>
+                    </div>
+
                     {/* Courier Selection */}
-                    <div className="bg-white rounded shadow-clinical p-6 border border-gray-100">
-                        <h2 className="font-heading text-lg font-bold text-charcoal-900 mb-3 flex items-center gap-2">
-                            <Truck className="w-5 h-5 text-brand-600" />
-                            Select Courier Provider *
-                        </h2>
+                    <div className="bg-white rounded-2xl p-6 md:p-8 border border-gray-100" style={{ boxShadow: '0 1px 3px rgba(10,10,10,0.04), 0 8px 28px rgba(10,10,10,0.05)' }}>
+                        <div className="flex items-center mb-5 pb-5 border-b" style={{ borderColor: 'rgba(10,10,10,0.06)' }}>
+                            <h2 className="font-heading text-xl font-semibold text-charcoal-900 flex items-center gap-3">
+                                <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: 'linear-gradient(135deg, #FFF9E6 0%, #FFE388 100%)', color: '#957515' }}>
+                                    <Truck className="w-5 h-5" />
+                                </div>
+                                Select Courier Provider
+                            </h2>
+                        </div>
                         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                             {couriers
                                 .filter(c => c.is_active)
@@ -932,23 +981,23 @@ Please confirm this order. Thank you!
                                             setSelectedCourierId(courier.id);
                                             setShippingLocation(''); // Reset location when courier changes
                                         }}
-                                        className={`p-4 rounded border transition-all text-left flex items-center gap-3 ${selectedCourierId === courier.id
-                                            ? 'border-brand-600 bg-brand-50 ring-1 ring-brand-600'
-                                            : 'border-gray-200 hover:border-brand-300'
+                                        className={`p-4 rounded-xl border-2 transition-all text-left flex items-center gap-3 ${selectedCourierId === courier.id
+                                            ? 'border-brand-500 bg-brand-50/40 shadow-[0_4px_18px_rgba(212,175,55,0.18)]'
+                                            : 'border-gray-200 hover:border-brand-300 hover:bg-brand-50/20'
                                             }`}
                                     >
-                                        <div className="font-bold text-charcoal-900 text-sm">{courier.name}</div>
+                                        <div className="font-semibold text-charcoal-900 text-sm">{courier.name}</div>
                                     </button>
                                 ))}
                         </div>
                     </div>
 
                     {/* Shipping Location Selection */}
-                    <div className={`bg-white rounded shadow-clinical p-6 border border-gray-100 transition-opacity duration-300 ${!selectedCourierId ? 'opacity-50 pointer-events-none' : 'opacity-100'}`}>
-                        <h2 className="font-heading text-lg font-bold text-charcoal-900 mb-3 flex items-center gap-2">
-                            Choose Shipping Region *
+                    <div className={`bg-white rounded-2xl p-6 md:p-8 border border-gray-100 transition-opacity duration-300 ${!selectedCourierId ? 'opacity-50 pointer-events-none' : 'opacity-100'}`} style={{ boxShadow: '0 1px 3px rgba(10,10,10,0.04), 0 8px 28px rgba(10,10,10,0.05)' }}>
+                        <h2 className="font-heading text-xl font-semibold text-charcoal-900 mb-3 flex items-center gap-3">
+                            Choose Shipping Region
                         </h2>
-                        <p className="text-xs text-gray-500 mb-6 bg-pink-50 p-3 rounded border border-pink-100">
+                        <p className="text-xs text-charcoal-600 mb-6 p-3 rounded-lg border" style={{ background: '#FFFCF0', borderColor: 'rgba(212,175,55,0.30)' }}>
                             {selectedCourierId
                                 ? 'Select the rate applicable to your location.'
                                 : 'Please select a courier provider above first.'}
@@ -973,13 +1022,13 @@ Please confirm this order. Thank you!
                                     <button
                                         key={loc.id}
                                         onClick={() => setShippingLocation(loc.id)}
-                                        className={`p-4 rounded border transition-all text-left ${shippingLocation === loc.id
-                                            ? 'border-brand-600 bg-brand-50 ring-1 ring-brand-600'
-                                            : 'border-gray-200 hover:border-brand-300'
+                                        className={`p-4 rounded-xl border-2 transition-all text-left ${shippingLocation === loc.id
+                                            ? 'border-brand-500 bg-brand-50/40 shadow-[0_4px_18px_rgba(212,175,55,0.18)]'
+                                            : 'border-gray-200 hover:border-brand-300 hover:bg-brand-50/20'
                                             }`}
                                     >
-                                        <p className="font-bold text-charcoal-900 text-sm mb-1">{loc.name || loc.id.replace('_', ' & ')}</p>
-                                        <p className="text-xs text-brand-600 font-medium">₱{loc.fee}</p>
+                                        <p className="font-semibold text-charcoal-900 text-sm mb-1">{loc.name || loc.id.replace('_', ' & ')}</p>
+                                        <p className="text-xs font-semibold" style={{ color: '#B8941F' }}>₱{loc.fee}</p>
                                     </button>
                                 ))}
                         </div>
@@ -1000,11 +1049,15 @@ Please confirm this order. Thank you!
 
                 {/* Order Summary Sidebar */}
                 <div className="lg:col-span-1">
-                    <div className="bg-white rounded shadow-clinical p-6 sticky top-24 border border-gray-100">
-                        <h2 className="font-heading text-lg font-bold text-charcoal-900 mb-6 flex items-center gap-2">
-                            Order Summary
-                            <Activity className="w-4 h-4 text-brand-600" />
-                        </h2>
+                    <div className="bg-white rounded-2xl p-6 md:p-7 sticky top-24 border border-gray-100" style={{ boxShadow: '0 1px 3px rgba(10,10,10,0.04), 0 12px 32px rgba(10,10,10,0.06)' }}>
+                        <div className="flex items-center justify-between mb-6 pb-5 border-b" style={{ borderColor: 'rgba(10,10,10,0.06)' }}>
+                            <h2 className="font-heading text-xl font-semibold text-charcoal-900">
+                                Order Summary
+                            </h2>
+                            <span className="w-8 h-8 rounded-full flex items-center justify-center" style={{ background: 'linear-gradient(135deg, #FFF9E6 0%, #FFE388 100%)', color: '#957515' }}>
+                                <Activity className="w-4 h-4" />
+                            </span>
+                        </div>
 
                         <div className="space-y-4 mb-6">
                             {cartItems.map((item, index) => {
@@ -1039,8 +1092,8 @@ Please confirm this order. Thank you!
 
                         {/* Promo Code */}
                         <div className="mb-6 pt-2">
-                            <p className="text-xs font-bold text-brand-700 uppercase mb-2 flex items-center gap-1">
-                                <Tag className="w-3 h-3" /> Promo Code
+                            <p className="text-[11px] font-semibold text-charcoal-700 uppercase tracking-[0.14em] mb-2 flex items-center gap-1.5">
+                                <Tag className="w-3 h-3" style={{ color: '#B8941F' }} /> Promo Code
                             </p>
                             <div className="flex gap-2">
                                 <input
@@ -1048,7 +1101,7 @@ Please confirm this order. Thank you!
                                     value={promoCode}
                                     onChange={(e) => setPromoCode(e.target.value)}
                                     placeholder="ENTER CODE"
-                                    className="flex-1 px-3 py-2 border border-gray-300 rounded text-sm focus:ring-1 focus:ring-brand-500 focus:border-brand-500 outline-none uppercase"
+                                    className="flex-1 px-3 py-2.5 bg-white border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-brand-300 focus:border-brand-500 outline-none uppercase tracking-wider transition-all"
                                     disabled={!!appliedPromo || isApplyingPromo}
                                 />
                                 {appliedPromo ? (
@@ -1060,7 +1113,7 @@ Please confirm this order. Thank you!
                                             setPromoCode('');
                                             setPromoSuccess('');
                                         }}
-                                        className="px-3 py-2 bg-red-50 text-red-600 rounded text-xs font-bold border border-red-100 hover:bg-red-100 shrink-0 whitespace-nowrap"
+                                        className="px-4 py-2.5 bg-red-50 text-red-600 rounded-lg text-xs font-bold border border-red-100 hover:bg-red-100 shrink-0 whitespace-nowrap transition-all"
                                     >
                                         REMOVE
                                     </button>
@@ -1069,7 +1122,8 @@ Please confirm this order. Thank you!
                                         type="button"
                                         onClick={handleApplyPromoCode}
                                         disabled={!promoCode || isApplyingPromo}
-                                        className="px-3 py-2 bg-brand-600 text-white rounded text-xs font-bold hover:bg-brand-700 disabled:opacity-50 shrink-0 whitespace-nowrap"
+                                        className="px-4 py-2.5 rounded-lg text-xs font-bold disabled:opacity-50 shrink-0 whitespace-nowrap transition-all"
+                                        style={{ background: '#0A0A0A', color: '#FFE388' }}
                                     >
                                         APPLY
                                     </button>
@@ -1079,14 +1133,14 @@ Please confirm this order. Thank you!
                             {promoSuccess && <p className="text-emerald-600 text-xs mt-1 font-medium">{promoSuccess}</p>}
                         </div>
 
-                        <div className="space-y-2 text-sm text-gray-600 border-t border-gray-100 pt-4">
+                        <div className="space-y-2.5 text-sm text-gray-700 border-t border-gray-100 pt-5">
                             <div className="flex justify-between">
-                                <span>Subtotal</span>
-                                <span>₱{totalPrice.toLocaleString()}</span>
+                                <span className="text-gray-600">Subtotal</span>
+                                <span className="font-medium text-charcoal-900">₱{totalPrice.toLocaleString()}</span>
                             </div>
                             <div className="flex justify-between">
-                                <span>Admin Fee</span>
-                                <span>₱{ADMIN_FEE.toLocaleString()}</span>
+                                <span className="text-gray-600">Admin Fee</span>
+                                <span className="font-medium text-charcoal-900">₱{ADMIN_FEE.toLocaleString()}</span>
                             </div>
                             {discountAmount > 0 && (
                                 <div className="flex justify-between text-emerald-600 font-medium">
@@ -1094,9 +1148,9 @@ Please confirm this order. Thank you!
                                     <span>-₱{discountAmount.toLocaleString()}</span>
                                 </div>
                             )}
-                            <div className="flex justify-between font-bold text-charcoal-900 text-base pt-2">
+                            <div className="flex justify-between font-bold text-charcoal-900 text-lg pt-3 mt-2 border-t" style={{ borderColor: 'rgba(212,175,55,0.30)' }}>
                                 <span>Total Estimate</span>
-                                <span>₱{Math.max(0, totalPrice + ADMIN_FEE - discountAmount).toLocaleString()}</span>
+                                <span style={{ color: '#957515' }}>₱{Math.max(0, totalPrice + ADMIN_FEE - discountAmount).toLocaleString()}</span>
                             </div>
                             <p className="text-xs text-gray-400 text-right italic">+ Shipping fee added at payment</p>
                         </div>
