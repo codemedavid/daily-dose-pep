@@ -402,8 +402,9 @@ Please confirm this order. Thank you!
         window.open('https://www.facebook.com/share/14hsbXd8st3/', '_blank');
     };
 
-    const handleCallPhone = () => {
-        window.open('tel:09998207315', '_self');
+    const handleOpenWhatsApp = () => {
+        const url = `https://wa.me/639998207315?text=${encodeURIComponent(orderMessage)}`;
+        window.open(url, '_blank');
     };
 
     if (step === 'confirmation') {
@@ -480,15 +481,15 @@ Please confirm this order. Thank you!
                             </button>
 
                             <button
-                                onClick={handleCallPhone}
-                                className="w-full btn-primary py-4 text-base flex items-center justify-center gap-2 shadow-lg"
+                                onClick={handleOpenWhatsApp}
+                                className="w-full py-4 text-base flex items-center justify-center gap-2 shadow-lg rounded bg-[#25D366] hover:bg-[#1ebe5d] text-white font-medium transition-all"
                             >
                                 <MessageCircle className="w-5 h-5" />
-                                Call 09998207315
+                                Open WhatsApp & Send
                             </button>
 
                             <p className="text-sm text-gray-500">
-                                Your order details are auto-copied. Send the message to our <span className="font-bold">Facebook Page</span> or call/text <span className="font-bold">09998207315</span>.
+                                Your order details are auto-copied. Send the message to our <span className="font-bold">Facebook Page</span> or via <span className="font-bold">WhatsApp 09998207315</span>.
                             </p>
                         </div>
 
