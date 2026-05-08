@@ -235,16 +235,7 @@ const Cart: React.FC<CartProps> = ({
                       ₱{finalTotal.toLocaleString('en-PH', { minimumFractionDigits: 0 })}
                     </span>
                   </div>
-                  <p className="text-xs text-gray-400 text-right font-normal">+ Shipping calculated at checkout</p>
                 </div>
-              </div>
-
-              <div className="bg-brand-100 rounded p-4 mb-6 border border-charcoal-100">
-                <p className="text-xs text-charcoal-700 font-medium mb-2">Shipping Information:</p>
-                <ul className="text-xs text-gray-600 space-y-1">
-                  <li className="flex justify-between"><span>Metro Manila</span> <span className="font-medium">₱150</span></li>
-                  <li className="flex justify-between"><span>Provincial</span> <span className="font-medium">₱200</span></li>
-                </ul>
               </div>
 
               <button

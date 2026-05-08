@@ -509,7 +509,7 @@ Please confirm this order. Thank you!
                                 </li>
                                 <li className="flex items-start gap-3">
                                     <span className="font-bold text-brand-500">3.</span>
-                                    <span>Same-day shipping for verified payments before 11 AM.</span>
+                                    <span>Shipping every Wednesday and Saturday only.</span>
                                 </li>
                                 <li className="flex items-start gap-3">
                                     <span className="font-bold text-brand-500">4.</span>
