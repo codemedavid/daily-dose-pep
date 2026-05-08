@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { ArrowLeft, Plus, Edit, Trash2, Save, X, Eye, EyeOff } from 'lucide-react';
 import { useProtocols, Protocol } from '../hooks/useProtocols';
+import ImageUpload from './ImageUpload';
 
 interface ProtocolManagerProps {
     onBack: () => void;
@@ -21,7 +22,8 @@ const ProtocolManager: React.FC<ProtocolManagerProps> = ({ onBack }) => {
         notes: [] as string[],
         storage: '',
         sort_order: 0,
-        active: true
+        active: true,
+        image_url: ''
     };
 
     const [formData, setFormData] = useState(emptyForm);
@@ -38,9 +40,10 @@ const ProtocolManager: React.FC<ProtocolManagerProps> = ({ onBack }) => {
             notes: protocol.notes,
             storage: protocol.storage,
             sort_order: protocol.sort_order,
-            active: protocol.active
+            active: protocol.active,
+            image_url: protocol.image_url || ''
         });
-        setNotesText(protocol.notes.join('\n'));
+        setNotesText((protocol.notes || []).join('\n'));
         setIsAdding(false);
     };
 
@@ -59,14 +62,24 @@ const ProtocolManager: React.FC<ProtocolManagerProps> = ({ onBack }) => {
     };
 
     const handleSave = async () => {
-        if (!formData.name || !formData.category || !formData.dosage) {
-            alert('Please fill in all required fields');
+        if (!formData.image_url && !formData.name?.trim()) {
+            alert('Please upload an image or provide a protocol name.');
             return;
         }
 
         setIsProcessing(true);
         const notes = notesText.split('\n').filter(note => note.trim() !== '');
-        const dataToSave = { ...formData, notes };
+        const dataToSave = {
+            ...formData,
+            name: formData.name?.trim() || 'Protocol',
+            category: formData.category?.trim() || 'General',
+            dosage: formData.dosage?.trim() || '',
+            frequency: formData.frequency?.trim() || '',
+            duration: formData.duration?.trim() || '',
+            storage: formData.storage?.trim() || '',
+            image_url: formData.image_url || '',
+            notes
+        };
 
         try {
             if (isAdding) {
@@ -153,9 +166,25 @@ const ProtocolManager: React.FC<ProtocolManagerProps> = ({ onBack }) => {
                             {isAdding ? '➕ Add New Protocol' : '✏️ Edit Protocol'}
                         </h2>
 
+                        <div className="mb-4">
+                            <label className="block text-sm font-semibold text-gray-700 mb-2">
+                                Protocol Image <span className="text-xs font-normal text-gray-500">(post just an image — other details optional)</span>
+                            </label>
+                            <ImageUpload
+                                currentImage={formData.image_url}
+                                onImageChange={(url) => setFormData({ ...formData, image_url: url || '' })}
+                                folder="protocol-images"
+                            />
+                        </div>
+
+                        <details className="bg-gray-50 rounded-xl border border-gray-200 mb-4">
+                          <summary className="cursor-pointer px-4 py-3 font-semibold text-sm text-gray-700 hover:text-black select-none">
+                            Optional Details (leave blank to skip)
+                          </summary>
+                          <div className="p-4 pt-2">
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                             <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-1">Name *</label>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">Name</label>
                                 <input
                                     type="text"
                                     value={formData.name}
@@ -165,7 +194,7 @@ const ProtocolManager: React.FC<ProtocolManagerProps> = ({ onBack }) => {
                                 />
                             </div>
                             <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-1">Category *</label>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">Category</label>
                                 <input
                                     type="text"
                                     value={formData.category}
@@ -175,7 +204,7 @@ const ProtocolManager: React.FC<ProtocolManagerProps> = ({ onBack }) => {
                                 />
                             </div>
                             <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-1">Dosage *</label>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">Dosage</label>
                                 <input
                                     type="text"
                                     value={formData.dosage}
@@ -236,6 +265,9 @@ const ProtocolManager: React.FC<ProtocolManagerProps> = ({ onBack }) => {
                                 placeholder="Enter each note on a new line..."
                             />
                         </div>
+
+                          </div>
+                        </details>
 
                         <div className="flex items-center gap-2 mb-4">
                             <input

@@ -168,66 +168,95 @@ const COA: React.FC = () => {
 
                 {/* Report Details - Mobile Optimized */}
                 <div className="p-4 md:p-6">
-                  <div className="flex items-center justify-between mb-3 md:mb-4 gap-2">
-                    <h3 className="text-base md:text-xl font-bold text-gray-800">{report.product_name}</h3>
-                    {report.featured && (
-                      <span className="bg-gradient-to-r from-pink-100 to-pink-100 text-pink-700 px-2 py-0.5 md:px-3 md:py-1 rounded-full text-[10px] md:text-xs font-bold border border-pink-300 whitespace-nowrap">
-                        ✓ VERIFIED
-                      </span>
-                    )}
-                  </div>
+                  {(() => {
+                    const hasProductName = !!report.product_name && report.product_name.trim() !== '' && report.product_name !== 'Lab Report';
+                    const hasPurity = report.purity_percentage != null && report.purity_percentage > 0;
+                    const hasQuantity = !!report.quantity && report.quantity.trim() !== '';
+                    const hasTaskNumber = !!report.task_number && report.task_number.trim() !== '';
+                    const hasVerificationKey = !!report.verification_key && report.verification_key.trim() !== '';
+                    const hasAnyDetails = hasProductName || hasPurity || hasQuantity || hasTaskNumber || hasVerificationKey;
 
-                  <div className="space-y-2 md:space-y-3 mb-4 md:mb-6">
-                    <div className="flex items-center justify-between py-1.5 md:py-2 border-b border-pink-100">
-                      <span className="text-xs md:text-sm text-gray-600 font-medium">Purity:</span>
-                      <span className="text-sm md:text-base font-bold text-green-600">{report.purity_percentage}%</span>
-                    </div>
-                    <div className="flex items-center justify-between py-1.5 md:py-2 border-b border-pink-100">
-                      <span className="text-xs md:text-sm text-gray-600 font-medium">Quantity:</span>
-                      <span className="text-sm md:text-base font-bold text-pink-600">{report.quantity}</span>
-                    </div>
-                    <div className="flex items-center justify-between py-1.5 md:py-2 border-b border-pink-100">
-                      <span className="text-xs md:text-sm text-gray-600 font-medium">Test Date:</span>
-                      <span className="text-xs md:text-sm text-gray-800">{new Date(report.test_date).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }).toUpperCase()}</span>
-                    </div>
-                    <div className="flex items-center justify-between py-1.5 md:py-2 border-b border-pink-100">
-                      <span className="text-xs md:text-sm text-gray-600 font-medium">Task:</span>
-                      <div className="flex items-center gap-2">
-                        <span className="text-xs md:text-sm text-gray-800 font-mono">#{report.task_number}</span>
-                        <button
-                          onClick={() => handleCopy(report.task_number, `${report.id}-task`)}
-                          className="p-1 hover:bg-pink-50 rounded-full transition-colors"
-                          title="Copy Task Number"
-                        >
-                          {copiedId === `${report.id}-task` ? (
-                            <Check className="w-3.5 h-3.5 text-green-500" />
-                          ) : (
-                            <Copy className="w-3.5 h-3.5 text-pink-400" />
-                          )}
-                        </button>
-                      </div>
-                    </div>
-                    <div className="flex items-center justify-between py-1.5 md:py-2 border-b border-pink-100">
-                      <span className="text-xs md:text-sm text-gray-600 font-medium">Unique Key:</span>
-                      <div className="flex items-center gap-2">
-                        <span className="text-xs md:text-sm text-gray-800 font-mono">{report.verification_key}</span>
-                        <button
-                          onClick={() => handleCopy(report.verification_key, `${report.id}-key`)}
-                          className="p-1 hover:bg-pink-50 rounded-full transition-colors"
-                          title="Copy Unique Key"
-                        >
-                          {copiedId === `${report.id}-key` ? (
-                            <Check className="w-3.5 h-3.5 text-green-500" />
-                          ) : (
-                            <Copy className="w-3.5 h-3.5 text-pink-400" />
-                          )}
-                        </button>
-                      </div>
-                    </div>
-                  </div>
+                    return (
+                      <>
+                        {(hasProductName || report.featured) && (
+                          <div className="flex items-center justify-between mb-3 md:mb-4 gap-2">
+                            {hasProductName ? (
+                              <h3 className="text-base md:text-xl font-bold text-gray-800">{report.product_name}</h3>
+                            ) : <span />}
+                            {report.featured && (
+                              <span className="bg-gradient-to-r from-pink-100 to-pink-100 text-pink-700 px-2 py-0.5 md:px-3 md:py-1 rounded-full text-[10px] md:text-xs font-bold border border-pink-300 whitespace-nowrap">
+                                ✓ VERIFIED
+                              </span>
+                            )}
+                          </div>
+                        )}
+
+                        {hasAnyDetails && (
+                          <div className="space-y-2 md:space-y-3 mb-4 md:mb-6">
+                            {hasPurity && (
+                              <div className="flex items-center justify-between py-1.5 md:py-2 border-b border-pink-100">
+                                <span className="text-xs md:text-sm text-gray-600 font-medium">Purity:</span>
+                                <span className="text-sm md:text-base font-bold text-green-600">{report.purity_percentage}%</span>
+                              </div>
+                            )}
+                            {hasQuantity && (
+                              <div className="flex items-center justify-between py-1.5 md:py-2 border-b border-pink-100">
+                                <span className="text-xs md:text-sm text-gray-600 font-medium">Quantity:</span>
+                                <span className="text-sm md:text-base font-bold text-pink-600">{report.quantity}</span>
+                              </div>
+                            )}
+                            {report.test_date && (
+                              <div className="flex items-center justify-between py-1.5 md:py-2 border-b border-pink-100">
+                                <span className="text-xs md:text-sm text-gray-600 font-medium">Test Date:</span>
+                                <span className="text-xs md:text-sm text-gray-800">{new Date(report.test_date).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }).toUpperCase()}</span>
+                              </div>
+                            )}
+                            {hasTaskNumber && (
+                              <div className="flex items-center justify-between py-1.5 md:py-2 border-b border-pink-100">
+                                <span className="text-xs md:text-sm text-gray-600 font-medium">Task:</span>
+                                <div className="flex items-center gap-2">
+                                  <span className="text-xs md:text-sm text-gray-800 font-mono">#{report.task_number}</span>
+                                  <button
+                                    onClick={() => handleCopy(report.task_number, `${report.id}-task`)}
+                                    className="p-1 hover:bg-pink-50 rounded-full transition-colors"
+                                    title="Copy Task Number"
+                                  >
+                                    {copiedId === `${report.id}-task` ? (
+                                      <Check className="w-3.5 h-3.5 text-green-500" />
+                                    ) : (
+                                      <Copy className="w-3.5 h-3.5 text-pink-400" />
+                                    )}
+                                  </button>
+                                </div>
+                              </div>
+                            )}
+                            {hasVerificationKey && (
+                              <div className="flex items-center justify-between py-1.5 md:py-2 border-b border-pink-100">
+                                <span className="text-xs md:text-sm text-gray-600 font-medium">Unique Key:</span>
+                                <div className="flex items-center gap-2">
+                                  <span className="text-xs md:text-sm text-gray-800 font-mono">{report.verification_key}</span>
+                                  <button
+                                    onClick={() => handleCopy(report.verification_key, `${report.id}-key`)}
+                                    className="p-1 hover:bg-pink-50 rounded-full transition-colors"
+                                    title="Copy Unique Key"
+                                  >
+                                    {copiedId === `${report.id}-key` ? (
+                                      <Check className="w-3.5 h-3.5 text-green-500" />
+                                    ) : (
+                                      <Copy className="w-3.5 h-3.5 text-pink-400" />
+                                    )}
+                                  </button>
+                                </div>
+                              </div>
+                            )}
+                          </div>
+                        )}
+                      </>
+                    );
+                  })()}
 
                   <div className="space-y-2 md:space-y-3">
-                    {(() => {
+                    {report.verification_key && report.verification_key.trim() !== '' && (() => {
                       const isJanoshik = !report.laboratory || report.laboratory.toLowerCase().includes('janoshik');
                       const verificationUrl = isJanoshik
                         ? `https://www.janoshik.com/verify/?key=${report.verification_key}`

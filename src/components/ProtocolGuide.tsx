@@ -230,23 +230,37 @@ const ProtocolGuide: React.FC = () => {
 
                                     {isOpen && (
                                         <div className="px-5 pb-5 md:px-6 md:pb-6" style={{ borderTop: `1px solid ${LINE}` }}>
-                                            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-5 mb-5">
-                                                {[
-                                                    ['Dosage', protocol.dosage, null],
-                                                    ['Frequency', protocol.frequency, <Clock className="w-3 h-3" />],
-                                                    ['Duration', protocol.duration, null],
-                                                ].map(([label, val, icon]) => (
-                                                    <div key={label as string} className="rounded-xl p-4" style={{ background: SURFACE }}>
-                                                        <p className="text-[10px] font-sans font-semibold uppercase tracking-[0.12em] flex items-center gap-1" style={{ color: MUTED }}>
-                                                            {icon as React.ReactNode}
-                                                            {label as string}
-                                                        </p>
-                                                        <p className="font-heading text-sm font-semibold mt-1.5" style={{ color: INK }}>
-                                                            {val as string}
-                                                        </p>
-                                                    </div>
-                                                ))}
-                                            </div>
+                                            {protocol.image_url && (
+                                                <div className="mt-5 rounded-xl overflow-hidden" style={{ border: `1px solid ${LINE}` }}>
+                                                    <img
+                                                        src={protocol.image_url}
+                                                        alt={protocol.name}
+                                                        className="w-full h-auto object-contain bg-white"
+                                                    />
+                                                </div>
+                                            )}
+
+                                            {(protocol.dosage || protocol.frequency || protocol.duration) && (
+                                                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-5 mb-5">
+                                                    {[
+                                                        ['Dosage', protocol.dosage, null],
+                                                        ['Frequency', protocol.frequency, <Clock className="w-3 h-3" />],
+                                                        ['Duration', protocol.duration, null],
+                                                    ]
+                                                        .filter(([, val]) => val && (val as string).trim() !== '')
+                                                        .map(([label, val, icon]) => (
+                                                            <div key={label as string} className="rounded-xl p-4" style={{ background: SURFACE }}>
+                                                                <p className="text-[10px] font-sans font-semibold uppercase tracking-[0.12em] flex items-center gap-1" style={{ color: MUTED }}>
+                                                                    {icon as React.ReactNode}
+                                                                    {label as string}
+                                                                </p>
+                                                                <p className="font-heading text-sm font-semibold mt-1.5" style={{ color: INK }}>
+                                                                    {val as string}
+                                                                </p>
+                                                            </div>
+                                                        ))}
+                                                </div>
+                                            )}
 
                                             {protocol.notes && protocol.notes.length > 0 && (
                                                 <div className="mb-4">

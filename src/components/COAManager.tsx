@@ -151,12 +151,31 @@ const COAManager: React.FC<COAManagerProps> = ({ onBack }) => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    if (!formData.image_url || formData.image_url === '/coa/') {
+      alert('❌ Please upload a COA image first.');
+      return;
+    }
+
+    const payload = {
+      product_name: formData.product_name?.trim() || 'Lab Report',
+      batch: formData.batch?.trim() || 'Unknown',
+      test_date: formData.test_date || new Date().toISOString().split('T')[0],
+      purity_percentage: formData.purity_percentage ?? 0,
+      quantity: formData.quantity?.trim() || '',
+      task_number: formData.task_number?.trim() || '',
+      verification_key: formData.verification_key?.trim() || '',
+      image_url: formData.image_url,
+      featured: formData.featured ?? false,
+      manufacturer: formData.manufacturer?.trim() || 'LUXXBIO LABS',
+      laboratory: formData.laboratory?.trim() || 'Janoshik Analytical',
+    };
+
     try {
       if (editingId) {
         // Update existing report
         const { error } = await supabase
           .from('coa_reports')
-          .update(formData)
+          .update(payload)
           .eq('id', editingId);
 
         if (error) throw error;
@@ -165,7 +184,7 @@ const COAManager: React.FC<COAManagerProps> = ({ onBack }) => {
         // Create new report
         const { error } = await supabase
           .from('coa_reports')
-          .insert([formData]);
+          .insert([payload]);
 
         if (error) throw error;
         alert('✅ COA report added successfully!');
@@ -301,14 +320,28 @@ const COAManager: React.FC<COAManagerProps> = ({ onBack }) => {
           </h3>
 
           <form onSubmit={handleSubmit} className="space-y-4">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="md:col-span-2">
+              <label className="block text-sm font-semibold text-gray-700 mb-3">
+                COA Report Image * <span className="text-xs font-normal text-gray-500">(only this is required)</span>
+              </label>
+              <ImageUpload
+                currentImage={formData.image_url}
+                onImageChange={(url) => setFormData({ ...formData, image_url: url || '' })}
+                folder="coa-images"
+              />
+            </div>
+
+            <details className="bg-gray-50 rounded-xl border border-gray-200">
+              <summary className="cursor-pointer px-4 py-3 font-semibold text-sm text-gray-700 hover:text-black select-none">
+                Optional Details (leave blank to skip)
+              </summary>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4 pt-2">
               <div>
                 <label className="block text-sm font-semibold text-black mb-2">
-                  Product Name *
+                  Product Name
                 </label>
                 <input
                   type="text"
-                  required
                   value={formData.product_name}
                   onChange={(e) => setFormData({ ...formData, product_name: e.target.value })}
                   className="w-full px-4 py-3 font-sans text-sm rounded-xl bg-white text-black border border-gray-300 focus:border-gold-500 focus:ring-2 focus:ring-gold-500/30 focus:outline-none transition-all placeholder-gray-400"
@@ -331,11 +364,10 @@ const COAManager: React.FC<COAManagerProps> = ({ onBack }) => {
 
               <div>
                 <label className="block text-sm font-semibold text-black mb-2">
-                  Test Date *
+                  Test Date
                 </label>
                 <input
                   type="date"
-                  required
                   value={formData.test_date}
                   onChange={(e) => setFormData({ ...formData, test_date: e.target.value })}
                   className="w-full px-4 py-3 font-sans text-sm rounded-xl bg-white text-black border border-gray-300 focus:border-gold-500 focus:ring-2 focus:ring-gold-500/30 focus:outline-none transition-all placeholder-gray-400"
@@ -344,14 +376,13 @@ const COAManager: React.FC<COAManagerProps> = ({ onBack }) => {
 
               <div>
                 <label className="block text-sm font-semibold text-black mb-2">
-                  Purity (%) *
+                  Purity (%)
                 </label>
                 <input
                   type="number"
                   step="0.001"
-                  required
-                  value={formData.purity_percentage}
-                  onChange={(e) => setFormData({ ...formData, purity_percentage: parseFloat(e.target.value) })}
+                  value={formData.purity_percentage ?? ''}
+                  onChange={(e) => setFormData({ ...formData, purity_percentage: e.target.value === '' ? 0 : parseFloat(e.target.value) })}
                   className="w-full px-4 py-3 font-sans text-sm rounded-xl bg-white text-black border border-gray-300 focus:border-gold-500 focus:ring-2 focus:ring-gold-500/30 focus:outline-none transition-all placeholder-gray-400"
                   placeholder="99.658"
                 />
@@ -359,11 +390,10 @@ const COAManager: React.FC<COAManagerProps> = ({ onBack }) => {
 
               <div>
                 <label className="block text-sm font-semibold text-black mb-2">
-                  Quantity *
+                  Quantity
                 </label>
                 <input
                   type="text"
-                  required
                   value={formData.quantity}
                   onChange={(e) => setFormData({ ...formData, quantity: e.target.value })}
                   className="w-full px-4 py-3 font-sans text-sm rounded-xl bg-white text-black border border-gray-300 focus:border-gold-500 focus:ring-2 focus:ring-gold-500/30 focus:outline-none transition-all placeholder-gray-400"
@@ -373,11 +403,10 @@ const COAManager: React.FC<COAManagerProps> = ({ onBack }) => {
 
               <div>
                 <label className="block text-sm font-semibold text-black mb-2">
-                  Task Number *
+                  Task Number
                 </label>
                 <input
                   type="text"
-                  required
                   value={formData.task_number}
                   onChange={(e) => setFormData({ ...formData, task_number: e.target.value })}
                   className="w-full px-4 py-3 font-sans text-sm rounded-xl bg-white text-black border border-gray-300 focus:border-gold-500 focus:ring-2 focus:ring-gold-500/30 focus:outline-none transition-all placeholder-gray-400"
@@ -387,26 +416,14 @@ const COAManager: React.FC<COAManagerProps> = ({ onBack }) => {
 
               <div>
                 <label className="block text-sm font-semibold text-black mb-2">
-                  Verification Key *
+                  Verification Key
                 </label>
                 <input
                   type="text"
-                  required
                   value={formData.verification_key}
                   onChange={(e) => setFormData({ ...formData, verification_key: e.target.value })}
                   className="w-full px-4 py-3 font-sans text-sm rounded-xl bg-white text-black border border-gray-300 focus:border-gold-500 focus:ring-2 focus:ring-gold-500/30 focus:outline-none transition-all placeholder-gray-400"
                   placeholder="9AUYT3EZV9Y9"
-                />
-              </div>
-
-              <div className="md:col-span-2">
-                <label className="block text-sm font-semibold text-gray-700 mb-3">
-                  COA Report Image *
-                </label>
-                <ImageUpload
-                  currentImage={formData.image_url}
-                  onImageChange={(url) => setFormData({ ...formData, image_url: url || '' })}
-                  folder="coa-images"
                 />
               </div>
 
@@ -433,7 +450,8 @@ const COAManager: React.FC<COAManagerProps> = ({ onBack }) => {
                   className="w-full px-4 py-3 font-sans text-sm rounded-xl bg-white text-black border border-gray-300 focus:border-gold-500 focus:ring-2 focus:ring-gold-500/30 focus:outline-none transition-all placeholder-gray-400"
                 />
               </div>
-            </div>
+              </div>
+            </details>
 
             <div className="flex items-center gap-2">
               <input
