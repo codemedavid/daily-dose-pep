@@ -350,7 +350,7 @@ ${paymentMethod?.name || 'N/A'}
 ${paymentProofUrl ? 'Screenshot attached to order.' : 'Pending'}
 
 📱 PREFERRED CONTACT METHOD
-${contactMethod === 'facebook' ? 'Facebook Page (https://www.facebook.com/share/14hsbXd8st3/)' : 'Phone Call / SMS — 09998207315'}
+${contactMethod === 'facebook' ? 'Facebook Page (https://www.facebook.com/share/14hsbXd8st3/)' : 'WhatsApp — 09998207315'}
 
 📋 ORDER NUMBER: ${customOrderNumber}
 
@@ -953,7 +953,7 @@ Please confirm this order. Thank you!
                                     <Phone className="w-5 h-5" />
                                 </div>
                                 <div className="flex-1">
-                                    <p className="font-semibold text-charcoal-900 text-sm">Phone Call / SMS</p>
+                                    <p className="font-semibold text-charcoal-900 text-sm">WhatsApp</p>
                                     <p className="text-xs text-gray-500 mt-0.5">09998207315</p>
                                 </div>
                                 {contactMethod === 'phone' && <Check className="w-5 h-5 flex-shrink-0" style={{ color: '#B8941F' }} />}
