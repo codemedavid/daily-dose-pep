@@ -1,37 +1,65 @@
 import React from 'react';
-import { FlaskConical, Truck, HelpCircle, FileText, BookOpen, Leaf, Facebook, Phone } from 'lucide-react';
+import { FlaskConical, Truck, HelpCircle, FileText, BookOpen, Leaf, Facebook, Phone, ShieldCheck, Award, Lock, Heart } from 'lucide-react';
+
+const TRUST_BADGES = [
+  { icon: ShieldCheck, label: 'Third-Party Tested' },
+  { icon: Award,       label: 'Premium Grade' },
+  { icon: Lock,        label: 'Secure Checkout' },
+  { icon: Truck,       label: 'Fast & Discreet Shipping' },
+  { icon: Heart,       label: 'Supportive Community' },
+];
 
 const Footer: React.FC = () => {
   return (
-    <footer style={{ background: '#0A0A0A' }}>
+    <footer style={{ background: '#0A1A2E' }}>
 
-      {/* Gold gradient top edge */}
+      {/* Trust badge row */}
+      <div style={{ borderTop: '1px solid rgba(255,255,255,0.08)', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
+        <div className="container mx-auto px-5 md:px-8 py-8">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6">
+            {TRUST_BADGES.map(({ icon: Icon, label }) => (
+              <div key={label} className="flex items-center gap-3">
+                <div
+                  className="flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center"
+                  style={{ background: 'rgba(139,92,246,0.18)', border: '1px solid rgba(139,92,246,0.30)' }}
+                >
+                  <Icon className="w-4 h-4" style={{ color: '#A78BFA' }} />
+                </div>
+                <span className="font-sans text-xs font-medium leading-tight" style={{ color: 'rgba(255,255,255,0.85)' }}>
+                  {label}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Cyan→purple gradient accent edge */}
       <div
-        className="h-1 w-full"
-        style={{ background: 'linear-gradient(90deg, #FFE388, #F5D04D, #B8941F, #957515, #B8941F, #F5D04D, #FFE388)' }}
+        className="h-0.5 w-full"
+        style={{ background: 'linear-gradient(90deg, transparent, #4FC9CE 25%, #8B5CF6 75%, transparent)' }}
       />
 
-      {/* ── Main content ── */}
       <div className="container mx-auto px-5 md:px-8 pt-16 pb-10">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10 lg:gap-8">
 
           {/* Brand column */}
           <div className="lg:col-span-1">
             <img
-              src="/luxxbio-logo.png"
-              alt="LUXXBIO LABS"
-              className="h-20 w-auto object-contain mb-5 rounded-2xl"
-              style={{ boxShadow: '0 4px 24px rgba(245,160,190,0.35)' }}
+              src="/ddp-logo.png"
+              alt="Daily Dose Pep"
+              className="h-20 w-20 object-contain mb-5 rounded-full"
+              style={{ boxShadow: '0 4px 24px rgba(79,201,206,0.35)' }}
             />
-            <p className="font-sans text-sm leading-relaxed mb-2" style={{ color: 'rgba(255,255,255,0.65)' }}>
-              <span className="font-heading text-lg" style={{ color: '#FFE388' }}>LUXXBIO LABS</span> — precision. purity. performance.
+            <p className="font-sans text-base font-bold leading-relaxed mb-2" style={{ color: '#FFFFFF' }}>
+              Daily Dose Pep
             </p>
-            <p className="font-sans text-sm leading-relaxed mb-5" style={{ color: 'rgba(255,255,255,0.45)' }}>
-              Lab-tested peptide essentials with third-party verification and nationwide delivery.
+            <p className="font-sans text-sm leading-relaxed mb-5" style={{ color: 'rgba(255,255,255,0.55)' }}>
+              A smarter approach to wellness — built around consistency, guidance, and community support.
             </p>
-            <div className="flex items-center gap-2 text-xs font-sans mb-4" style={{ color: 'rgba(255,255,255,0.45)' }}>
-              <Leaf className="w-3.5 h-3.5" style={{ color: '#E5BE3A' }} />
-              99%+ Purity on every product
+            <div className="flex items-center gap-2 text-xs font-sans mb-4" style={{ color: 'rgba(255,255,255,0.55)' }}>
+              <Leaf className="w-3.5 h-3.5" style={{ color: '#4FC9CE' }} />
+              Educational content on peptide-based wellness
             </div>
 
             <div className="flex flex-col gap-2.5">
@@ -41,20 +69,20 @@ const Footer: React.FC = () => {
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 font-sans text-sm transition-colors"
                 style={{ color: 'rgba(255,255,255,0.6)' }}
-                onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.color = '#FFE388'; }}
+                onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.color = '#DDD6FE'; }}
                 onMouseLeave={e => { (e.currentTarget as HTMLAnchorElement).style.color = 'rgba(255,255,255,0.6)'; }}
               >
-                <Facebook className="w-4 h-4" style={{ color: '#E5BE3A' }} />
+                <Facebook className="w-4 h-4" style={{ color: '#4FC9CE' }} />
                 Facebook Page
               </a>
               <a
                 href="tel:09998207315"
                 className="flex items-center gap-2 font-sans text-sm transition-colors"
                 style={{ color: 'rgba(255,255,255,0.6)' }}
-                onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.color = '#FFE388'; }}
+                onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.color = '#DDD6FE'; }}
                 onMouseLeave={e => { (e.currentTarget as HTMLAnchorElement).style.color = 'rgba(255,255,255,0.6)'; }}
               >
-                <Phone className="w-4 h-4" style={{ color: '#E5BE3A' }} />
+                <Phone className="w-4 h-4" style={{ color: '#4FC9CE' }} />
                 09998207315
               </a>
             </div>
@@ -72,7 +100,7 @@ const Footer: React.FC = () => {
                     href="#"
                     className="font-sans text-sm transition-colors"
                     style={{ color: 'rgba(255,255,255,0.4)' }}
-                    onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.color = '#FFE388'; }}
+                    onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.color = '#DDD6FE'; }}
                     onMouseLeave={e => { (e.currentTarget as HTMLAnchorElement).style.color = 'rgba(255,255,255,0.4)'; }}
                   >
                     {item}
@@ -100,7 +128,7 @@ const Footer: React.FC = () => {
                     href={href}
                     className="flex items-center gap-2 font-sans text-sm transition-colors group"
                     style={{ color: 'rgba(255,255,255,0.4)' }}
-                    onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.color = '#FFE388'; }}
+                    onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.color = '#DDD6FE'; }}
                     onMouseLeave={e => { (e.currentTarget as HTMLAnchorElement).style.color = 'rgba(255,255,255,0.4)'; }}
                   >
                     <Icon className="w-3.5 h-3.5 flex-shrink-0" style={{ color: 'rgba(255,255,255,0.2)' }} />
@@ -118,7 +146,7 @@ const Footer: React.FC = () => {
       <div style={{ borderTop: '1px solid rgba(255,255,255,0.06)' }}>
         <div className="container mx-auto px-5 md:px-8 py-5 flex flex-col sm:flex-row items-center justify-between gap-3">
           <p className="font-sans text-xs" style={{ color: 'rgba(255,255,255,0.28)' }}>
-            © {new Date().getFullYear()} LUXXBIO LABS. All rights reserved.
+            © {new Date().getFullYear()} Daily Dose Pep. All rights reserved.
           </p>
           <div className="flex items-center gap-5">
             {['Privacy Policy', 'Terms of Service', 'Shipping Policy'].map(item => (

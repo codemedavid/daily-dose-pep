@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ShoppingCart, Menu, X, FlaskConical, Truck, HelpCircle, FileText, BookOpen } from 'lucide-react';
+import { ShoppingCart, Menu, X, User, ArrowRight } from 'lucide-react';
 
 interface HeaderProps {
   cartItemsCount: number;
@@ -17,96 +17,122 @@ const Header: React.FC<HeaderProps> = ({ cartItemsCount, onCartClick, onMenuClic
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  const navLinks = [
-    { label: 'Products',    href: undefined,        isButton: true,  icon: FlaskConical },
-    { label: 'Track Order', href: '/track-order',   isButton: false, icon: Truck },
-    { label: 'FAQ',         href: '/faq',           isButton: false, icon: HelpCircle },
-    { label: 'COA',         href: '/coa',           isButton: false, icon: FileText },
-    { label: 'Protocols',   href: '/protocols',     isButton: false, icon: BookOpen },
+  const navLinks: { label: string; href?: string; isButton?: boolean; active?: boolean }[] = [
+    { label: 'Products',    isButton: true, active: true },
+    { label: 'Track Order', href: '/track-order' },
+    { label: 'FAQ',         href: '/faq' },
+    { label: 'COA',         href: '/coa' },
+    { label: 'Protocols',   href: '/protocols' },
+    { label: 'Calculator',  href: '/calculator' },
   ];
+
+  const headerBg = 'rgba(10,26,46,0.95)';
+  const headerBorder = scrolled ? '1px solid rgba(79,201,206,0.20)' : '1px solid rgba(255,255,255,0.06)';
 
   return (
     <>
-      {/* ── Main header ── */}
       <header
         className="sticky top-0 z-50 backdrop-blur-md transition-all duration-300"
         style={{
-          background: 'rgba(255,255,255,0.92)',
-          borderBottom: scrolled ? '1px solid rgba(212,175,55,0.55)' : '1px solid rgba(10,10,10,0.06)',
-          boxShadow: scrolled ? '0 4px 20px rgba(10,10,10,0.06)' : 'none',
+          background: headerBg,
+          borderBottom: headerBorder,
+          boxShadow: scrolled ? '0 4px 20px rgba(10,26,46,0.30)' : 'none',
         }}
       >
-        <div className="container mx-auto px-5 md:px-8 h-[68px] flex items-center justify-between gap-4">
+        <div className="container mx-auto px-5 md:px-8 h-[72px] flex items-center justify-between gap-4">
 
-          {/* Logo */}
           <button
             onClick={() => { onMenuClick(); setMobileMenuOpen(false); }}
-            className="flex items-center gap-3 flex-shrink-0 hover:opacity-80 transition-opacity"
+            className="flex items-center gap-3 flex-shrink-0 hover:opacity-90 transition-opacity"
           >
-            <img src="/luxxbio-logo.png" alt="LUXXBIO LABS" className="h-12 sm:h-14 w-auto object-contain rounded-xl" />
+            <img src="/ddp-logo-original.png" alt="Daily Dose Pep" className="h-11 sm:h-12 w-auto object-contain rounded-full" />
+            <span className="hidden sm:inline font-sans font-bold text-white tracking-tight text-base">
+              Daily Dose Pep
+            </span>
           </button>
 
-          {/* Desktop nav */}
-          <nav className="hidden md:flex items-center gap-0.5 flex-1 justify-center">
-            {navLinks.map(({ label, href, isButton }) =>
-              isButton ? (
+          <nav className="hidden md:flex items-center gap-1 flex-1 justify-center">
+            {navLinks.map(({ label, href, isButton, active }) => {
+              const cls = `relative px-3.5 py-2 text-sm font-sans font-medium transition-colors`;
+              const color = active ? '#A78BFA' : 'rgba(255,255,255,0.85)';
+              const underline = active ? (
+                <span className="absolute left-3.5 right-3.5 -bottom-0.5 h-0.5 rounded-full"
+                  style={{ background: 'linear-gradient(90deg, #A78BFA, #4FC9CE)' }} />
+              ) : null;
+              return isButton ? (
                 <button
                   key={label}
                   onClick={onMenuClick}
-                  className="px-4 py-2 text-sm font-sans font-medium rounded-lg transition-colors"
-                  style={{ color: '#0A0A0A' }}
-                  onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.color = '#B8941F'; (e.currentTarget as HTMLButtonElement).style.background = 'rgba(212,175,55,0.10)'; }}
-                  onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.color = '#0A0A0A'; (e.currentTarget as HTMLButtonElement).style.background = 'transparent'; }}
+                  className={cls}
+                  style={{ color }}
+                  onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.color = '#A78BFA'; }}
+                  onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.color = color; }}
                 >
                   {label}
+                  {underline}
                 </button>
               ) : (
                 <a
                   key={label}
                   href={href}
-                  className="px-4 py-2 text-sm font-sans font-medium rounded-lg transition-colors"
-                  style={{ color: '#0A0A0A' }}
-                  onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.color = '#B8941F'; (e.currentTarget as HTMLAnchorElement).style.background = 'rgba(212,175,55,0.10)'; }}
-                  onMouseLeave={e => { (e.currentTarget as HTMLAnchorElement).style.color = '#0A0A0A'; (e.currentTarget as HTMLAnchorElement).style.background = 'transparent'; }}
+                  className={cls}
+                  style={{ color }}
+                  onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.color = '#A78BFA'; }}
+                  onMouseLeave={e => { (e.currentTarget as HTMLAnchorElement).style.color = color; }}
                 >
                   {label}
+                  {underline}
                 </a>
-              )
-            )}
+              );
+            })}
           </nav>
 
-          {/* Right side */}
-          <div className="flex items-center gap-2 flex-shrink-0">
-            {/* Cart */}
+          <div className="flex items-center gap-1.5 flex-shrink-0">
+            <button
+              className="hidden sm:inline-flex p-2.5 rounded-full transition-all"
+              style={{ color: 'rgba(255,255,255,0.85)' }}
+              onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.background = 'rgba(255,255,255,0.08)'; }}
+              onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.background = 'transparent'; }}
+              aria-label="Account"
+            >
+              <User className="w-5 h-5" />
+            </button>
+
             <button
               onClick={onCartClick}
               className="relative p-2.5 rounded-full transition-all"
-              style={{ color: '#0A0A0A' }}
-              onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.background = 'rgba(212,175,55,0.14)'; }}
+              style={{ color: 'rgba(255,255,255,0.85)' }}
+              onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.background = 'rgba(255,255,255,0.08)'; }}
               onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.background = 'transparent'; }}
             >
               <ShoppingCart className="w-5 h-5" />
               {cartItemsCount > 0 && (
                 <span
                   className="absolute -top-0.5 -right-0.5 text-white text-[10px] font-sans font-bold rounded-full min-w-[18px] h-[18px] flex items-center justify-center px-1 leading-none"
-                  style={{ background: '#B8941F', boxShadow: '0 2px 8px rgba(226,92,149,0.45)' }}
+                  style={{ background: '#8B5CF6', boxShadow: '0 2px 8px rgba(139,92,246,0.55)' }}
                 >
                   {cartItemsCount > 99 ? '99+' : cartItemsCount}
                 </span>
               )}
             </button>
 
-            {/* Shop CTA — desktop */}
-            <button onClick={onMenuClick} className="hidden md:inline-flex btn-mint py-2.5 px-6 text-sm">
-              Shop Now
+            <button
+              onClick={onMenuClick}
+              className="hidden md:inline-flex items-center gap-2 ml-2 rounded-full px-5 py-2.5 font-sans text-sm font-semibold text-white transition-all hover:-translate-y-0.5"
+              style={{
+                background: 'linear-gradient(135deg, #A78BFA 0%, #8B5CF6 50%, #7C3AED 100%)',
+                boxShadow: '0 8px 22px rgba(139,92,246,0.45)',
+              }}
+            >
+              Get Started
+              <ArrowRight className="w-3.5 h-3.5" />
             </button>
 
-            {/* Mobile hamburger */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="md:hidden p-2.5 rounded-full transition-colors"
-              style={{ color: '#0A0A0A' }}
-              onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.background = 'rgba(212,175,55,0.14)'; }}
+              style={{ color: 'rgba(255,255,255,0.90)' }}
+              onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.background = 'rgba(255,255,255,0.08)'; }}
               onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.background = 'transparent'; }}
             >
               {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -115,77 +141,69 @@ const Header: React.FC<HeaderProps> = ({ cartItemsCount, onCartClick, onMenuClic
         </div>
       </header>
 
-      {/* ── Mobile drawer ── */}
       {mobileMenuOpen && (
         <div className="md:hidden fixed inset-0 z-[60]">
           <div
             className="absolute inset-0 backdrop-blur-sm"
-            style={{ background: 'rgba(91,40,40,0.25)' }}
+            style={{ background: 'rgba(10,26,46,0.60)' }}
             onClick={() => setMobileMenuOpen(false)}
           />
           <div
-            className="absolute top-0 right-0 bottom-0 w-[300px] bg-white flex flex-col"
-            style={{ boxShadow: '-8px 0 48px rgba(91,40,40,0.14)' }}
+            className="absolute top-0 right-0 bottom-0 w-[300px] flex flex-col"
+            style={{
+              background: '#0A1A2E',
+              boxShadow: '-8px 0 48px rgba(10,26,46,0.50)',
+            }}
           >
-            {/* Drawer header */}
             <div
               className="flex items-center justify-between px-5 py-4"
-              style={{ borderBottom: '1px solid rgba(245,160,190,0.30)' }}
+              style={{ borderBottom: '1px solid rgba(255,255,255,0.10)' }}
             >
-              <img src="/luxxbio-logo.png" alt="LUXXBIO LABS" className="h-12 w-auto rounded-xl" />
+              <div className="flex items-center gap-2">
+                <img src="/ddp-logo-original.png" alt="Daily Dose Pep" className="h-10 w-10 rounded-full" />
+                <span className="font-sans font-bold text-white text-sm">Daily Dose Pep</span>
+              </div>
               <button
                 onClick={() => setMobileMenuOpen(false)}
-                className="p-2 rounded-full transition-colors"
-                style={{ color: '#757575' }}
-                onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.background = 'rgba(212,175,55,0.12)'; }}
-                onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.background = 'transparent'; }}
+                className="p-2 rounded-full transition-colors text-white/80 hover:bg-white/10"
               >
                 <X className="w-5 h-5" />
               </button>
             </div>
 
-            {/* Nav */}
             <nav className="flex-1 overflow-y-auto p-4 space-y-1">
-              {navLinks.map(({ label, href, isButton, icon: Icon }) =>
+              {navLinks.map(({ label, href, isButton }) =>
                 isButton ? (
                   <button
                     key={label}
                     onClick={() => { onMenuClick(); setMobileMenuOpen(false); }}
-                    className="flex items-center gap-3 w-full px-4 py-3.5 rounded-xl text-left font-sans font-medium transition-colors"
-                    style={{ color: '#000000' }}
-                    onMouseEnter={e => { const el = e.currentTarget as HTMLButtonElement; el.style.background = '#1F1F1F'; el.style.color = '#D4AF37'; }}
-                    onMouseLeave={e => { const el = e.currentTarget as HTMLButtonElement; el.style.background = 'transparent'; el.style.color = '#000000'; }}
+                    className="w-full px-4 py-3.5 rounded-xl text-left font-sans font-medium text-white/90 hover:bg-white/10 transition-colors"
                   >
-                    <div className="w-8 h-8 rounded-xl flex items-center justify-center flex-shrink-0" style={{ background: '#1F1F1F' }}>
-                      <Icon className="w-4 h-4" style={{ color: '#B8941F' }} />
-                    </div>
                     {label}
                   </button>
                 ) : (
                   <a
                     key={label}
                     href={href}
-                    className="flex items-center gap-3 w-full px-4 py-3.5 rounded-xl font-sans font-medium transition-colors"
-                    style={{ color: '#000000' }}
-                    onMouseEnter={e => { const el = e.currentTarget as HTMLAnchorElement; el.style.background = '#1F1F1F'; el.style.color = '#D4AF37'; }}
-                    onMouseLeave={e => { const el = e.currentTarget as HTMLAnchorElement; el.style.background = 'transparent'; el.style.color = '#000000'; }}
+                    className="block w-full px-4 py-3.5 rounded-xl font-sans font-medium text-white/90 hover:bg-white/10 transition-colors"
                   >
-                    <div className="w-8 h-8 rounded-xl flex items-center justify-center flex-shrink-0" style={{ background: '#1F1F1F' }}>
-                      <Icon className="w-4 h-4" style={{ color: '#B8941F' }} />
-                    </div>
                     {label}
                   </a>
                 )
               )}
             </nav>
 
-            {/* Mobile CTA */}
-            <div className="p-4" style={{ borderTop: '1px solid rgba(245,160,190,0.30)' }}>
+            <div className="p-4" style={{ borderTop: '1px solid rgba(255,255,255,0.10)' }}>
               <button
                 onClick={() => { onMenuClick(); setMobileMenuOpen(false); }}
-                className="btn-mint w-full py-3.5"
+                className="w-full inline-flex items-center justify-center gap-2 rounded-full py-3.5 font-sans font-semibold text-white transition-all"
+                style={{
+                  background: 'linear-gradient(135deg, #A78BFA 0%, #8B5CF6 50%, #7C3AED 100%)',
+                  boxShadow: '0 8px 22px rgba(139,92,246,0.45)',
+                }}
               >
-                Shop Peptides ✨
+                Get Started
+                <ArrowRight className="w-4 h-4" />
               </button>
             </div>
           </div>

@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react';
 import MenuItemCard from './MenuItemCard';
 import Hero from './Hero';
+import HomeSections from './HomeSections';
 import ProductDetailModal from './ProductDetailModal';
 import type { Product, ProductVariation, CartItem } from '../types';
 import { Search, SlidersHorizontal, Package, FlaskConical, ShieldCheck, Truck, BadgeCheck, Microscope, ArrowRight } from 'lucide-react';
@@ -17,49 +18,49 @@ const WHY_ITEMS = [
     icon: FlaskConical,
     title: 'Pharmaceutical Grade',
     desc: 'Every peptide is synthesized to pharmaceutical-grade standards with verified purity certificates from accredited labs.',
-    iconColor: '#B8941F',
+    iconColor: '#7C3AED',
     iconBg: '#E3F1FE',
-    accent: '#B8941F',
+    accent: '#7C3AED',
   },
   {
     icon: ShieldCheck,
     title: 'Third-Party Tested',
     desc: 'Independent COA testing on every batch ensures what is on the label is exactly what you receive — nothing more, nothing less.',
-    iconColor: '#B8941F',
-    iconBg: '#1F1F1F',
-    accent: '#B8941F',
+    iconColor: '#7C3AED',
+    iconBg: '#142442',
+    accent: '#7C3AED',
   },
   {
     icon: Truck,
     title: 'Nationwide Delivery',
     desc: 'Fast, discreet delivery across all regions of the Philippines with real-time order tracking from dispatch to your door.',
-    iconColor: '#B8941F',
+    iconColor: '#7C3AED',
     iconBg: '#E3F1FE',
-    accent: '#B8941F',
+    accent: '#7C3AED',
   },
   {
     icon: BadgeCheck,
     title: 'Expert Protocols',
     desc: 'Access evidence-based dosing guides, reconstitution protocols, and storage best practices developed with medical professionals.',
-    iconColor: '#B8941F',
-    iconBg: '#1F1F1F',
-    accent: '#B8941F',
+    iconColor: '#7C3AED',
+    iconBg: '#142442',
+    accent: '#7C3AED',
   },
   {
     icon: Microscope,
     title: 'Research-Backed',
     desc: 'Our catalog features only peptides with established research profiles, ensuring your wellness journey is built on science.',
-    iconColor: '#B8941F',
+    iconColor: '#7C3AED',
     iconBg: '#E3F1FE',
-    accent: '#B8941F',
+    accent: '#7C3AED',
   },
   {
     icon: Package,
     title: 'Secure Packaging',
     desc: 'Temperature-controlled packaging and cold-chain logistics protect peptide integrity from our facility to your hands.',
-    iconColor: '#B8941F',
-    iconBg: '#1F1F1F',
-    accent: '#B8941F',
+    iconColor: '#7C3AED',
+    iconBg: '#142442',
+    accent: '#7C3AED',
   },
 ];
 
@@ -139,11 +140,10 @@ const Menu: React.FC<MenuProps> = ({ menuItems, addToCart, cartItems }) => {
         {/* ── Hero ── */}
         <Hero onShopAll={() => productsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })} />
 
-        {/* ── Soft transition: hero (dark) → catalog (white) ── */}
-        <div
-          aria-hidden="true"
-          className="h-24 md:h-32 -mt-px"
-          style={{ background: 'linear-gradient(to bottom, #0A0A0A 0%, #1a1a1a 30%, #6b6b6b 65%, #ffffff 100%)' }}
+        {/* ── Feature cards + Mission + Glow-up CTA ── */}
+        <HomeSections
+          onJoinCommunity={() => productsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
+          onLearnMore={() => productsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
         />
 
         {/* ── Products Section ── */}
@@ -161,7 +161,7 @@ const Menu: React.FC<MenuProps> = ({ menuItems, addToCart, cartItems }) => {
                 <div className="divider mb-4" style={{ margin: '0 0 1rem 0' }} />
                 <h2
                   className="font-heading font-light"
-                  style={{ fontSize: 'clamp(1.9rem, 3.5vw, 2.75rem)', color: '#0A0A0A' }}
+                  style={{ fontSize: 'clamp(1.9rem, 3.5vw, 2.75rem)', color: '#0A1A2E' }}
                 >
                   Our Peptide Collection
                 </h2>
@@ -181,14 +181,14 @@ const Menu: React.FC<MenuProps> = ({ menuItems, addToCart, cartItems }) => {
                 </div>
                 <div
                   className="flex items-center gap-2 bg-white px-4 h-11 min-w-[156px] rounded-xl"
-                  style={{ border: '1px solid rgba(91,40,40,0.09)' }}
+                  style={{ border: '1px solid rgba(10,26,46,0.09)' }}
                 >
                   <SlidersHorizontal className="w-3.5 h-3.5 flex-shrink-0" style={{ color: '#D29797' }} />
                   <select
                     value={sortBy}
                     onChange={e => setSortBy(e.target.value as 'name' | 'price' | 'purity')}
                     className="flex-1 bg-transparent text-sm font-sans font-medium focus:outline-none"
-                    style={{ color: '#1F1F1F' }}
+                    style={{ color: '#142442' }}
                   >
                     <option value="name">Sort: Name</option>
                     <option value="price">Sort: Price</option>
@@ -207,12 +207,12 @@ const Menu: React.FC<MenuProps> = ({ menuItems, addToCart, cartItems }) => {
                 <>
                   <span style={{ color: '#E5C0C0' }}>·</span>
                   <span className="font-sans text-xs" style={{ color: '#424242' }}>
-                    Results for <strong style={{ color: '#0A0A0A' }}>"{searchQuery}"</strong>
+                    Results for <strong style={{ color: '#0A1A2E' }}>"{searchQuery}"</strong>
                   </span>
                   <button
                     onClick={() => setSearchQuery('')}
                     className="font-sans text-xs font-medium hover:underline"
-                    style={{ color: '#B8941F' }}
+                    style={{ color: '#7C3AED' }}
                   >
                     Clear
                   </button>
@@ -224,12 +224,12 @@ const Menu: React.FC<MenuProps> = ({ menuItems, addToCart, cartItems }) => {
             {sortedListings.length === 0 ? (
               <div className="text-center py-24">
                 <div className="bg-white rounded-2xl p-14 max-w-sm mx-auto"
-                  style={{ border: '1px solid rgba(91,40,40,0.07)' }}>
+                  style={{ border: '1px solid rgba(10,26,46,0.07)' }}>
                   <div className="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-5"
-                    style={{ background: '#1F1F1F' }}>
-                    <Package className="w-8 h-8" style={{ color: '#FFE388' }} />
+                    style={{ background: '#142442' }}>
+                    <Package className="w-8 h-8" style={{ color: '#DDD6FE' }} />
                   </div>
-                  <h3 className="font-heading font-semibold text-lg mb-2" style={{ color: '#0A0A0A' }}>No products found</h3>
+                  <h3 className="font-heading font-semibold text-lg mb-2" style={{ color: '#0A1A2E' }}>No products found</h3>
                   <p className="font-sans text-sm mb-6" style={{ color: '#424242' }}>
                     {searchQuery ? `No results for "${searchQuery}".` : 'No products available right now.'}
                   </p>
@@ -261,12 +261,12 @@ const Menu: React.FC<MenuProps> = ({ menuItems, addToCart, cartItems }) => {
           {/* Gradient background — gold gradient */}
           <div
             className="absolute inset-0"
-            style={{ background: 'linear-gradient(135deg, #1F1F1F 0%, #FFE388 35%, #E3F1FE 75%, #E3F1FE 100%)' }}
+            style={{ background: 'linear-gradient(135deg, #142442 0%, #DDD6FE 35%, #E3F1FE 75%, #E3F1FE 100%)' }}
           />
 
           {/* Decorative blobs */}
           <div className="absolute -top-20 -left-20 w-80 h-80 rounded-full pointer-events-none"
-            style={{ background: 'radial-gradient(circle, #FFE388, transparent 65%)', opacity: 0.5, filter: 'blur(40px)' }} />
+            style={{ background: 'radial-gradient(circle, #DDD6FE, transparent 65%)', opacity: 0.5, filter: 'blur(40px)' }} />
           <div className="absolute -bottom-20 -right-20 w-80 h-80 rounded-full pointer-events-none"
             style={{ background: 'radial-gradient(circle, #C7E2FB, transparent 65%)', opacity: 0.45, filter: 'blur(40px)' }} />
 
@@ -274,14 +274,17 @@ const Menu: React.FC<MenuProps> = ({ menuItems, addToCart, cartItems }) => {
             <p className="section-label mb-4">Get Started</p>
             <div className="divider mb-6" />
             <h2
-              className="font-heading font-light mb-5"
-              style={{ fontSize: 'clamp(1.9rem, 4vw, 3rem)', color: '#0A0A0A' }}
+              className="font-sans font-extrabold tracking-tight mb-5"
+              style={{ fontSize: 'clamp(1.9rem, 4vw, 3rem)', color: '#0A1A2E' }}
             >
-              Ready to start your<br />
-              <em className="italic" style={{ color: '#B8941F' }}>peptide journey?</em>
+              Browse the{' '}
+              <span style={{
+                background: 'linear-gradient(135deg, #8B5CF6 0%, #4FC9CE 100%)',
+                WebkitBackgroundClip: 'text', backgroundClip: 'text', WebkitTextFillColor: 'transparent',
+              }}>full collection.</span>
             </h2>
-            <p className="font-sans text-sm leading-relaxed mb-9" style={{ color: '#424242' }}>
-              Browse our full catalog of pharmaceutical-grade peptides, read dosing protocols, and order with confidence — shipped fast, anywhere in the Philippines.
+            <p className="font-sans text-sm leading-relaxed mb-9" style={{ color: '#475A85' }}>
+              Quality you can trust, supported by an empowering community — every step of your wellness journey.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <button

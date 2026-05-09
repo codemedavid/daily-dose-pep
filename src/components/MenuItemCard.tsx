@@ -38,13 +38,13 @@ const MenuItemCard: React.FC<MenuItemCardProps> = ({
     <div
       className="group relative h-full flex flex-col bg-white overflow-hidden rounded-2xl cursor-pointer"
       style={{
-        border: '1px solid rgba(10,10,10,0.06)',
+        border: '1px solid rgba(10,26,46,0.06)',
         boxShadow: hovered
-          ? '0 20px 50px -12px rgba(10,10,10,0.18), 0 4px 12px rgba(184,148,31,0.08)'
-          : '0 1px 3px rgba(10,10,10,0.04)',
+          ? '0 20px 50px -12px rgba(10,26,46,0.18), 0 4px 12px rgba(124,58,237,0.08)'
+          : '0 1px 3px rgba(10,26,46,0.04)',
         transform: hovered ? 'translateY(-4px)' : 'translateY(0)',
         transition: 'transform 320ms cubic-bezier(0.4,0,0.2,1), box-shadow 320ms cubic-bezier(0.4,0,0.2,1), border-color 320ms',
-        borderColor: hovered ? 'rgba(184,148,31,0.35)' : 'rgba(10,10,10,0.06)',
+        borderColor: hovered ? 'rgba(124,58,237,0.35)' : 'rgba(10,26,46,0.06)',
       }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
@@ -70,7 +70,7 @@ const MenuItemCard: React.FC<MenuItemCardProps> = ({
           />
         ) : (
           <div className="w-full h-full flex items-center justify-center">
-            <Package className="w-12 h-12" style={{ color: '#B8941F', opacity: 0.45 }} />
+            <Package className="w-12 h-12" style={{ color: '#7C3AED', opacity: 0.45 }} />
           </div>
         )}
 
@@ -78,7 +78,7 @@ const MenuItemCard: React.FC<MenuItemCardProps> = ({
         <div
           className="absolute inset-0 pointer-events-none"
           style={{
-            background: 'linear-gradient(to top, rgba(10,10,10,0.18) 0%, transparent 45%)',
+            background: 'linear-gradient(to top, rgba(10,26,46,0.18) 0%, transparent 45%)',
             opacity: hovered ? 1 : 0.5,
             transition: 'opacity 320ms',
           }}
@@ -91,8 +91,8 @@ const MenuItemCard: React.FC<MenuItemCardProps> = ({
               className="inline-flex items-center gap-1 px-2.5 py-1 text-[10px] font-sans font-semibold uppercase tracking-[0.08em] rounded-full backdrop-blur-md"
               style={{
                 background: 'rgba(255,255,255,0.92)',
-                color: '#B8941F',
-                border: '1px solid rgba(184,148,31,0.25)',
+                color: '#7C3AED',
+                border: '1px solid rgba(124,58,237,0.25)',
               }}
             >
               <Sparkles className="w-2.5 h-2.5" />
@@ -102,7 +102,7 @@ const MenuItemCard: React.FC<MenuItemCardProps> = ({
           {hasDiscount && (
             <span
               className="px-2.5 py-1 text-[10px] font-sans font-bold tracking-wider rounded-full text-white"
-              style={{ background: '#0A0A0A' }}
+              style={{ background: '#0A1A2E' }}
             >
               −{discountPct}%
             </span>
@@ -115,8 +115,8 @@ const MenuItemCard: React.FC<MenuItemCardProps> = ({
             <span
               className="w-7 h-7 flex items-center justify-center rounded-full text-[11px] font-sans font-bold text-white"
               style={{
-                background: '#B8941F',
-                boxShadow: '0 4px 12px rgba(184,148,31,0.45), 0 0 0 2px rgba(255,255,255,0.95)',
+                background: '#7C3AED',
+                boxShadow: '0 4px 12px rgba(124,58,237,0.45), 0 0 0 2px rgba(255,255,255,0.95)',
               }}
             >
               {cartQuantity}
@@ -138,8 +138,8 @@ const MenuItemCard: React.FC<MenuItemCardProps> = ({
             aria-label={hasVariations ? 'View options' : 'Add to cart'}
             className="absolute bottom-3 right-3 z-10 hidden md:flex w-10 h-10 items-center justify-center rounded-full text-white"
             style={{
-              background: '#0A0A0A',
-              boxShadow: '0 8px 20px rgba(10,10,10,0.30)',
+              background: '#0A1A2E',
+              boxShadow: '0 8px 20px rgba(10,26,46,0.30)',
               opacity: hovered ? 1 : 0,
               transform: hovered ? 'translateY(0) scale(1)' : 'translateY(8px) scale(0.92)',
               transition: 'opacity 280ms, transform 280ms cubic-bezier(0.4,0,0.2,1)',
@@ -157,7 +157,7 @@ const MenuItemCard: React.FC<MenuItemCardProps> = ({
           >
             <span
               className="text-[10px] font-sans font-semibold px-3 py-1.5 rounded-full uppercase tracking-[0.12em]"
-              style={{ background: '#0A0A0A', color: 'white' }}
+              style={{ background: '#0A1A2E', color: 'white' }}
             >
               {!product.available ? 'Unavailable' : 'Sold Out'}
             </span>
@@ -172,7 +172,7 @@ const MenuItemCard: React.FC<MenuItemCardProps> = ({
         <h3
           className="font-heading font-semibold text-lg sm:text-xl mb-1.5 line-clamp-2 leading-tight"
           style={{
-            color: hovered ? '#B8941F' : '#0A0A0A',
+            color: hovered ? '#7C3AED' : '#0A1A2E',
             transition: 'color 220ms',
           }}
         >
@@ -202,7 +202,7 @@ const MenuItemCard: React.FC<MenuItemCardProps> = ({
         <div className="flex-1" />
 
         {/* Price + CTA */}
-        <div className="pt-3 mt-2" style={{ borderTop: '1px solid rgba(10,10,10,0.06)' }}>
+        <div className="pt-3 mt-2" style={{ borderTop: '1px solid rgba(10,26,46,0.06)' }}>
           <div className="flex items-end justify-between gap-2 mb-3">
             <div className="flex flex-col">
               <span className="text-[10px] font-sans uppercase tracking-[0.1em]" style={{ color: '#9a9a9a' }}>
@@ -211,7 +211,7 @@ const MenuItemCard: React.FC<MenuItemCardProps> = ({
               <div className="flex items-baseline gap-1.5">
                 <span
                   className="font-heading font-semibold text-lg sm:text-xl leading-none"
-                  style={{ color: '#0A0A0A' }}
+                  style={{ color: '#0A1A2E' }}
                 >
                   ₱{currentPrice.toLocaleString('en-PH', { minimumFractionDigits: 0 })}
                 </span>
@@ -242,10 +242,10 @@ const MenuItemCard: React.FC<MenuItemCardProps> = ({
             style={
               isAvailable
                 ? {
-                    background: hovered ? '#B8941F' : '#0A0A0A',
+                    background: hovered ? '#7C3AED' : '#0A1A2E',
                     color: 'white',
                     transition: 'background 280ms, transform 200ms',
-                    boxShadow: hovered ? '0 6px 16px rgba(184,148,31,0.32)' : '0 2px 6px rgba(10,10,10,0.10)',
+                    boxShadow: hovered ? '0 6px 16px rgba(124,58,237,0.32)' : '0 2px 6px rgba(10,26,46,0.10)',
                   }
                 : { background: '#f0f0f0', color: '#b0b0b0', cursor: 'not-allowed' }
             }

@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { ArrowRight, FileText, ShieldCheck, Truck } from 'lucide-react';
+import { ArrowRight, ShieldCheck, Users, FlaskConical } from 'lucide-react';
 
 interface HeroProps {
   onShopAll: () => void;
 }
 
 const TRUST_ITEMS = [
-  { icon: ShieldCheck, label: 'Batch-tested' },
-  { icon: FileText, label: 'COA available' },
-  { icon: Truck, label: 'Discreet PH delivery' },
+  { icon: ShieldCheck,  label: 'Premium-grade sourcing' },
+  { icon: Users,        label: 'Community supported' },
+  { icon: FlaskConical, label: 'Structured wellness tools' },
 ];
 
 const Hero: React.FC<HeroProps> = ({ onShopAll }) => {
@@ -20,142 +20,127 @@ const Hero: React.FC<HeroProps> = ({ onShopAll }) => {
   }, []);
 
   return (
-    <section className="relative overflow-hidden bg-[#0A0A0A]">
+    <section className="relative overflow-hidden">
+      {/* Deep navy gradient background */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            'linear-gradient(180deg, #0A0A0A 0%, #121212 46%, #1F1F1F 100%)',
+            'radial-gradient(ellipse at 80% 20%, rgba(79,201,206,0.18) 0%, transparent 55%), radial-gradient(ellipse at 20% 80%, rgba(139,92,246,0.18) 0%, transparent 55%), linear-gradient(180deg, #0A1A2E 0%, #0F2347 60%, #142442 100%)',
         }}
       />
-      <div
-        className="absolute left-1/2 top-0 h-px w-[min(820px,84vw)] -translate-x-1/2"
-        style={{ background: 'linear-gradient(90deg, transparent, rgba(245,160,190,0.75), rgba(96,196,190,0.45), transparent)' }}
-      />
-      <div
-        className="absolute left-1/2 top-20 hidden h-[420px] w-[min(880px,88vw)] -translate-x-1/2 rounded-full md:block"
-        style={{
-          border: '1px solid rgba(245,160,190,0.28)',
-          borderBottomColor: 'rgba(96,196,190,0.18)',
-          opacity: 0.55,
-        }}
-      />
+
+      {/* Decorative molecule pattern */}
+      <svg
+        className="absolute right-0 top-10 hidden lg:block opacity-30 pointer-events-none"
+        width="520" height="420" viewBox="0 0 520 420" fill="none"
+      >
+        <g stroke="#4FC9CE" strokeWidth="1.2" fill="none">
+          <circle cx="120" cy="80" r="4" fill="#4FC9CE" />
+          <circle cx="260" cy="40" r="3" fill="#4FC9CE" />
+          <circle cx="400" cy="120" r="5" fill="#4FC9CE" />
+          <circle cx="340" cy="240" r="4" fill="#A78BFA" />
+          <circle cx="180" cy="220" r="3" fill="#A78BFA" />
+          <circle cx="80"  cy="320" r="4" fill="#4FC9CE" />
+          <circle cx="440" cy="320" r="3" fill="#A78BFA" />
+          <line x1="120" y1="80"  x2="260" y2="40"  />
+          <line x1="260" y1="40"  x2="400" y2="120" />
+          <line x1="400" y1="120" x2="340" y2="240" />
+          <line x1="340" y1="240" x2="180" y2="220" />
+          <line x1="180" y1="220" x2="120" y2="80"  />
+          <line x1="180" y1="220" x2="80"  y2="320" />
+          <line x1="340" y1="240" x2="440" y2="320" />
+        </g>
+      </svg>
 
       <div className="relative z-10 container mx-auto px-5 md:px-8">
-        <div className="mx-auto flex min-h-[580px] max-w-4xl flex-col items-center justify-center py-20 text-center md:min-h-[640px]">
-          <img
-            src="/luxxbio-logo.png"
-            alt="LUXXBIO LABS"
-            className={`mb-6 h-28 w-28 rounded-3xl object-cover shadow-pink transition-all duration-700 sm:h-32 sm:w-32 ${
-              visible ? 'translate-y-0 scale-100 opacity-100' : 'translate-y-3 scale-95 opacity-0'
-            }`}
-            style={{ transitionDelay: '20ms' }}
-          />
+        <div className="grid lg:grid-cols-2 items-center gap-10 py-16 md:py-24 lg:py-28 min-h-[600px]">
 
-          <p
-            className={`mb-5 inline-flex items-center gap-3 rounded-full bg-white/70 px-4 py-2 font-sans text-xs font-semibold uppercase transition-all duration-700 ${
-              visible ? 'translate-y-0 opacity-100' : 'translate-y-3 opacity-0'
-            }`}
-            style={{
-              color: '#6F560E',
-              letterSpacing: '0.18em',
-              border: '1px solid rgba(245,160,190,0.34)',
-              boxShadow: '0 10px 26px rgba(245,160,190,0.12)',
-            }}
-          >
-            <span className="h-1.5 w-1.5 rounded-full" style={{ background: '#D4AF37' }} />
-            LUXXBIO Peptides
-          </p>
+          {/* Left: copy */}
+          <div className={`transition-all duration-700 ${visible ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'}`}>
+            <h1 className="font-sans font-extrabold tracking-tight text-white leading-[1.02] text-[3rem] sm:text-[3.6rem] md:text-[4.2rem] lg:text-[4.6rem]">
+              Your glow up,
+              <span
+                className="block"
+                style={{
+                  background: 'linear-gradient(135deg, #67E8F9 0%, #4FC9CE 50%, #A78BFA 100%)',
+                  WebkitBackgroundClip: 'text',
+                  backgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                }}
+              >
+                simplified.
+              </span>
+            </h1>
 
-          <h1
-            className={`max-w-3xl text-[3.2rem] font-heading font-light sm:text-[4rem] md:text-[5.6rem] lg:text-[6.4rem] transition-all duration-700 ${
-              visible ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'
-            }`}
-            style={{
-              color: '#F5E6C8',
-              lineHeight: 0.94,
-              letterSpacing: 0,
-              transitionDelay: '70ms',
-            }}
-          >
-            Premium peptides,
-            <span
-              className="block italic"
-              style={{
-                color: '#D4AF37',
-                textShadow: '0 14px 36px rgba(212,175,55,0.35)',
-              }}
+            <p
+              className="mt-6 max-w-xl font-sans text-base md:text-lg leading-7"
+              style={{ color: '#C2CCDF', transitionDelay: '120ms' }}
             >
-              beautifully verified.
-            </span>
-          </h1>
+              A smarter approach to wellness — built around consistency, guidance, and community support.
+            </p>
 
-          <div
-            className={`mt-7 h-px w-28 transition-all duration-700 ${
-              visible ? 'scale-x-100 opacity-100' : 'scale-x-50 opacity-0'
-            }`}
-            style={{
-              background: 'linear-gradient(90deg, #E5BE3A, #D4AF37)',
-              transitionDelay: '120ms',
-            }}
-          />
+            <div className="mt-9 flex flex-col sm:flex-row sm:items-center gap-4">
+              <button
+                onClick={onShopAll}
+                className="inline-flex items-center justify-center gap-2 rounded-full px-8 py-4 font-sans text-sm font-semibold text-white transition-all duration-200 hover:-translate-y-0.5"
+                style={{
+                  background: 'linear-gradient(135deg, #A78BFA 0%, #8B5CF6 50%, #7C3AED 100%)',
+                  boxShadow: '0 14px 34px rgba(139,92,246,0.45)',
+                }}
+              >
+                Start Your Glow Up
+                <ArrowRight className="h-4 w-4" />
+              </button>
+            </div>
 
-          <p
-            className={`mt-7 max-w-2xl font-sans text-base leading-8 transition-all duration-700 md:text-lg ${
-              visible ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'
-            }`}
-            style={{ color: '#E5E5E5', transitionDelay: '150ms' }}
-          >
-            A refined peptide shopping experience with verified product details, straightforward protocols, and discreet nationwide delivery.
-          </p>
-
-          <div
-            className={`mt-10 flex w-full max-w-md flex-col gap-3 transition-all duration-700 sm:max-w-none sm:flex-row sm:justify-center ${
-              visible ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'
-            }`}
-            style={{ transitionDelay: '210ms' }}
-          >
-            <button
-              onClick={onShopAll}
-              className="inline-flex items-center justify-center gap-2 rounded-full px-8 py-4 font-sans text-sm font-semibold text-white transition-all duration-200 hover:-translate-y-0.5"
-              style={{
-                background: 'linear-gradient(135deg, #F5D04D 0%, #B8941F 52%, #957515 100%)',
-                boxShadow: '0 14px 34px rgba(226,92,149,0.30)',
-              }}
-            >
-              Shop Peptides
-              <ArrowRight className="h-4 w-4" />
-            </button>
-            <a
-              href="/coa"
-              className="inline-flex items-center justify-center rounded-full bg-white px-8 py-4 font-sans text-sm font-semibold transition-all duration-200 hover:-translate-y-0.5"
-              style={{
-                color: '#6F560E',
-                border: '1px solid rgba(245,160,190,0.40)',
-                boxShadow: '0 10px 24px rgba(91,40,40,0.07)',
-              }}
-            >
-              View COAs
-            </a>
+            <div className="mt-10 grid grid-cols-1 sm:grid-cols-3 gap-5 max-w-xl">
+              {TRUST_ITEMS.map(({ icon: Icon, label }) => (
+                <div key={label} className="flex items-start gap-3">
+                  <div
+                    className="flex-shrink-0 w-9 h-9 rounded-full flex items-center justify-center"
+                    style={{
+                      background: 'rgba(139,92,246,0.18)',
+                      border: '1px solid rgba(139,92,246,0.40)',
+                    }}
+                  >
+                    <Icon className="w-4 h-4" style={{ color: '#A78BFA' }} />
+                  </div>
+                  <span className="font-sans text-xs leading-snug" style={{ color: '#C2CCDF' }}>
+                    {label}
+                  </span>
+                </div>
+              ))}
+            </div>
           </div>
 
+          {/* Right: logo on glowing pedestal */}
           <div
-            className={`mt-10 flex flex-wrap items-center justify-center gap-x-5 gap-y-3 rounded-full px-5 py-3 transition-all duration-700 ${
-              visible ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'
+            className={`relative flex items-center justify-center transition-all duration-1000 ${
+              visible ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
             }`}
-            style={{
-              background: 'rgba(31,31,31,0.85)',
-              border: '1px solid rgba(212,175,55,0.35)',
-              boxShadow: '0 14px 36px rgba(212,175,55,0.18)',
-              transitionDelay: '280ms',
-            }}
           >
-            {TRUST_ITEMS.map(({ icon: Icon, label }) => (
-              <div key={label} className="flex items-center gap-2 font-sans text-sm font-medium" style={{ color: '#F5E6C8' }}>
-                <Icon className="h-4 w-4 flex-shrink-0" style={{ color: '#D4AF37' }} />
-                <span>{label}</span>
-              </div>
-            ))}
+            <div className="relative">
+              <div
+                className="absolute inset-0 -m-12 rounded-full blur-3xl"
+                style={{
+                  background: 'radial-gradient(circle, rgba(79,201,206,0.55) 0%, rgba(139,92,246,0.25) 50%, transparent 75%)',
+                }}
+              />
+              <img
+                src="/ddp-logo.png"
+                alt="Daily Dose Pep"
+                className="relative h-64 w-64 sm:h-80 sm:w-80 md:h-[22rem] md:w-[22rem] object-contain animate-float"
+                style={{ filter: 'drop-shadow(0 20px 50px rgba(79,201,206,0.55))' }}
+              />
+              <div
+                className="relative -mt-6 mx-auto h-8 w-48 sm:w-60 rounded-[50%]"
+                style={{
+                  background: 'radial-gradient(ellipse, rgba(79,201,206,0.55) 0%, rgba(79,201,206,0.20) 50%, transparent 80%)',
+                  filter: 'blur(6px)',
+                }}
+              />
+            </div>
           </div>
         </div>
       </div>

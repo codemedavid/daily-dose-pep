@@ -103,7 +103,7 @@ const SiteSettingsManager: React.FC = () => {
         hero_title_suffix: '& Essentials',
         hero_subtext: 'From the Lab to You — Simplifying Science, One Dose at a Time.',
         hero_tagline: 'Quality-tested products. Reliable performance. Trusted by our community.',
-        hero_description: 'LUXXBIO LABS provides research-grade peptides engineered for precision, purity, and consistency.',
+        hero_description: 'Daily Dose Pep provides research-grade peptides engineered for precision, purity, and consistency.',
       }));
     }
   };
@@ -128,7 +128,7 @@ const SiteSettingsManager: React.FC = () => {
               <label className="block text-sm font-medium text-gray-700 mb-2">Site Logo</label>
               <div className="flex items-center gap-4">
                 <div className="w-20 h-20 rounded-full overflow-hidden bg-gray-100 border border-gray-200">
-                  <img src={logoPreview || '/luxxbio-logo.png'} alt="Logo" className="w-full h-full object-cover" />
+                  <img src={logoPreview || '/ddp-logo.png'} alt="Logo" className="w-full h-full object-cover" />
                 </div>
                 <label className="cursor-pointer bg-white border border-gray-300 hover:bg-gray-50 text-gray-700 px-3 py-1.5 rounded-md text-sm font-medium transition-colors">
                   Change

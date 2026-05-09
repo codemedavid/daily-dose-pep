@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import { Search, Package, Truck, CheckCircle, Clock, AlertCircle, ArrowRight, ExternalLink, ArrowLeft } from 'lucide-react';
 import { supabase } from '../lib/supabase';
 
-const GOLD = '#B8941F';
-const INK = '#0A0A0A';
+const GOLD = '#7C3AED';
+const INK = '#0A1A2E';
 const MUTED = '#6b6b6b';
-const LINE = 'rgba(10,10,10,0.08)';
+const LINE = 'rgba(10,26,46,0.08)';
 const SURFACE = '#fafaf7';
 
 interface TrackingOrder {
@@ -121,7 +121,7 @@ const OrderTracking: React.FC = () => {
                             style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.12)' }}
                         >
                             <Truck className="w-3.5 h-3.5" style={{ color: GOLD }} />
-                            <span className="text-[10px] font-sans font-semibold uppercase tracking-[0.18em]" style={{ color: '#F5E6C8' }}>
+                            <span className="text-[10px] font-sans font-semibold uppercase tracking-[0.18em]" style={{ color: '#E0E7FF' }}>
                                 Order Tracking
                             </span>
                         </div>
@@ -171,7 +171,7 @@ const OrderTracking: React.FC = () => {
                             style={{
                                 background: INK,
                                 color: '#fff',
-                                boxShadow: '0 4px 14px rgba(10,10,10,0.18)',
+                                boxShadow: '0 4px 14px rgba(10,26,46,0.18)',
                             }}
                             onMouseEnter={(e) => { if (!e.currentTarget.disabled) e.currentTarget.style.background = GOLD; }}
                             onMouseLeave={(e) => { e.currentTarget.style.background = INK; }}
@@ -208,7 +208,7 @@ const OrderTracking: React.FC = () => {
                         {/* Status Card */}
                         <div
                             className="rounded-2xl overflow-hidden"
-                            style={{ background: '#ffffff', border: `1px solid ${LINE}`, boxShadow: '0 8px 30px -12px rgba(10,10,10,0.10)' }}
+                            style={{ background: '#ffffff', border: `1px solid ${LINE}`, boxShadow: '0 8px 30px -12px rgba(10,26,46,0.10)' }}
                         >
                             <div
                                 className="p-6 md:p-7 flex flex-col md:flex-row md:items-center justify-between gap-4"
@@ -259,7 +259,7 @@ const OrderTracking: React.FC = () => {
                                                                 style={{
                                                                     background: isCompleted ? GOLD : '#ffffff',
                                                                     border: `2px solid ${isCompleted ? GOLD : LINE}`,
-                                                                    boxShadow: isCurrent ? `0 0 0 4px rgba(184,148,31,0.18)` : 'none',
+                                                                    boxShadow: isCurrent ? `0 0 0 4px rgba(124,58,237,0.18)` : 'none',
                                                                     transform: isCurrent ? 'scale(1.1)' : 'scale(1)',
                                                                 }}
                                                             >

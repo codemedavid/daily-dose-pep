@@ -166,7 +166,7 @@ const COAManager: React.FC<COAManagerProps> = ({ onBack }) => {
       verification_key: formData.verification_key?.trim() || '',
       image_url: formData.image_url,
       featured: formData.featured ?? false,
-      manufacturer: formData.manufacturer?.trim() || 'LUXXBIO LABS',
+      manufacturer: formData.manufacturer?.trim() || 'Daily Dose Pep',
       laboratory: formData.laboratory?.trim() || 'Janoshik Analytical',
     };
 
@@ -247,7 +247,7 @@ const COAManager: React.FC<COAManagerProps> = ({ onBack }) => {
       verification_key: '',
       image_url: '/coa/',
       featured: false,
-      manufacturer: 'LUXXBIO LABS',
+      manufacturer: 'Daily Dose Pep',
       laboratory: 'Janoshik Analytical',
     });
   };

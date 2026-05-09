@@ -298,7 +298,7 @@ const Checkout: React.FC<CheckoutProps> = ({ cartItems, totalPrice, onBack }) =>
             });
 
             const orderDetails = `
-✨ LUXXBIO LABS - NEW ORDER
+✨ Daily Dose Pep - NEW ORDER
 
 📅 ORDER DATE & TIME
 ${dateTimeStamp}
@@ -764,12 +764,12 @@ Please confirm this order. Thank you!
                 </button>
 
                 <div className="mb-10">
-                    <span className="inline-block text-[11px] font-semibold tracking-[0.22em] uppercase mb-3" style={{ color: '#B8941F' }}>
+                    <span className="inline-block text-[11px] font-semibold tracking-[0.22em] uppercase mb-3" style={{ color: '#7C3AED' }}>
                         Secure Checkout
                     </span>
                     <h1 className="font-heading text-3xl md:text-4xl font-semibold text-charcoal-900 flex items-center gap-3">
                         Checkout Information
-                        <span className="inline-block h-px flex-1 max-w-[120px]" style={{ background: 'linear-gradient(90deg, #D4AF37, transparent)' }} />
+                        <span className="inline-block h-px flex-1 max-w-[120px]" style={{ background: 'linear-gradient(90deg, #8B5CF6, transparent)' }} />
                     </h1>
                 </div>
 
@@ -777,15 +777,15 @@ Please confirm this order. Thank you!
                     {/* Main Form */}
                     <div className="lg:col-span-2 space-y-6">
                         {/* Customer Information */}
-                        <div className="bg-white rounded-2xl p-6 md:p-8 border border-gray-100" style={{ boxShadow: '0 1px 3px rgba(10,10,10,0.04), 0 8px 28px rgba(10,10,10,0.05)' }}>
-                            <div className="flex items-center justify-between mb-6 pb-5 border-b" style={{ borderColor: 'rgba(10,10,10,0.06)' }}>
+                        <div className="bg-white rounded-2xl p-6 md:p-8 border border-gray-100" style={{ boxShadow: '0 1px 3px rgba(10,26,46,0.04), 0 8px 28px rgba(10,26,46,0.05)' }}>
+                            <div className="flex items-center justify-between mb-6 pb-5 border-b" style={{ borderColor: 'rgba(10,26,46,0.06)' }}>
                                 <h2 className="font-heading text-xl font-semibold text-charcoal-900 flex items-center gap-3">
-                                    <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: 'linear-gradient(135deg, #FFF9E6 0%, #FFE388 100%)', color: '#957515' }}>
+                                    <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: 'linear-gradient(135deg, #F5F3FF 0%, #DDD6FE 100%)', color: '#6D28D9' }}>
                                         <Package className="w-5 h-5" />
                                     </div>
                                     Customer Details
                                 </h2>
-                                <span className="text-[10px] font-semibold tracking-[0.18em] uppercase" style={{ color: '#B8941F' }}>Step 1 / 2</span>
+                                <span className="text-[10px] font-semibold tracking-[0.18em] uppercase" style={{ color: '#7C3AED' }}>Step 1 / 2</span>
                             </div>
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div className="md:col-span-2">
@@ -831,10 +831,10 @@ Please confirm this order. Thank you!
                         </div>
 
                         {/* Shipping Address */}
-                        <div className="bg-white rounded-2xl p-6 md:p-8 border border-gray-100" style={{ boxShadow: '0 1px 3px rgba(10,10,10,0.04), 0 8px 28px rgba(10,10,10,0.05)' }}>
-                            <div className="flex items-center mb-6 pb-5 border-b" style={{ borderColor: 'rgba(10,10,10,0.06)' }}>
+                        <div className="bg-white rounded-2xl p-6 md:p-8 border border-gray-100" style={{ boxShadow: '0 1px 3px rgba(10,26,46,0.04), 0 8px 28px rgba(10,26,46,0.05)' }}>
+                            <div className="flex items-center mb-6 pb-5 border-b" style={{ borderColor: 'rgba(10,26,46,0.06)' }}>
                                 <h2 className="font-heading text-xl font-semibold text-charcoal-900 flex items-center gap-3">
-                                    <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: 'linear-gradient(135deg, #FFF9E6 0%, #FFE388 100%)', color: '#957515' }}>
+                                    <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: 'linear-gradient(135deg, #F5F3FF 0%, #DDD6FE 100%)', color: '#6D28D9' }}>
                                         <Database className="w-5 h-5" />
                                     </div>
                                     Shipping Address
@@ -913,10 +913,10 @@ Please confirm this order. Thank you!
 
 
                     {/* Preferred Contact Method */}
-                    <div className="bg-white rounded-2xl p-6 md:p-8 border border-gray-100" style={{ boxShadow: '0 1px 3px rgba(10,10,10,0.04), 0 8px 28px rgba(10,10,10,0.05)' }}>
-                        <div className="flex items-center mb-5 pb-5 border-b" style={{ borderColor: 'rgba(10,10,10,0.06)' }}>
+                    <div className="bg-white rounded-2xl p-6 md:p-8 border border-gray-100" style={{ boxShadow: '0 1px 3px rgba(10,26,46,0.04), 0 8px 28px rgba(10,26,46,0.05)' }}>
+                        <div className="flex items-center mb-5 pb-5 border-b" style={{ borderColor: 'rgba(10,26,46,0.06)' }}>
                             <h2 className="font-heading text-xl font-semibold text-charcoal-900 flex items-center gap-3">
-                                <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: 'linear-gradient(135deg, #FFF9E6 0%, #FFE388 100%)', color: '#957515' }}>
+                                <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: 'linear-gradient(135deg, #F5F3FF 0%, #DDD6FE 100%)', color: '#6D28D9' }}>
                                     <MessageCircle className="w-5 h-5" />
                                 </div>
                                 Preferred Contact Method
@@ -928,45 +928,45 @@ Please confirm this order. Thank you!
                                 type="button"
                                 onClick={() => setContactMethod('facebook')}
                                 className={`p-4 rounded-xl border-2 transition-all text-left flex items-center gap-3 ${contactMethod === 'facebook'
-                                    ? 'border-brand-500 bg-brand-50/40 shadow-[0_4px_18px_rgba(212,175,55,0.18)]'
+                                    ? 'border-brand-500 bg-brand-50/40 shadow-[0_4px_18px_rgba(139,92,246,0.18)]'
                                     : 'border-gray-200 hover:border-brand-300 hover:bg-brand-50/20'
                                     }`}
                             >
-                                <div className="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0" style={{ background: '#0A0A0A', color: '#FFE388' }}>
+                                <div className="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0" style={{ background: '#0A1A2E', color: '#DDD6FE' }}>
                                     <Facebook className="w-5 h-5" />
                                 </div>
                                 <div className="flex-1">
                                     <p className="font-semibold text-charcoal-900 text-sm">Facebook Page</p>
                                     <p className="text-xs text-gray-500 mt-0.5">Message us on Facebook</p>
                                 </div>
-                                {contactMethod === 'facebook' && <Check className="w-5 h-5 flex-shrink-0" style={{ color: '#B8941F' }} />}
+                                {contactMethod === 'facebook' && <Check className="w-5 h-5 flex-shrink-0" style={{ color: '#7C3AED' }} />}
                             </button>
 
                             <button
                                 type="button"
                                 onClick={() => setContactMethod('phone')}
                                 className={`p-4 rounded-xl border-2 transition-all text-left flex items-center gap-3 ${contactMethod === 'phone'
-                                    ? 'border-brand-500 bg-brand-50/40 shadow-[0_4px_18px_rgba(212,175,55,0.18)]'
+                                    ? 'border-brand-500 bg-brand-50/40 shadow-[0_4px_18px_rgba(139,92,246,0.18)]'
                                     : 'border-gray-200 hover:border-brand-300 hover:bg-brand-50/20'
                                     }`}
                             >
-                                <div className="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0" style={{ background: '#0A0A0A', color: '#FFE388' }}>
+                                <div className="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0" style={{ background: '#0A1A2E', color: '#DDD6FE' }}>
                                     <Phone className="w-5 h-5" />
                                 </div>
                                 <div className="flex-1">
                                     <p className="font-semibold text-charcoal-900 text-sm">WhatsApp</p>
                                     <p className="text-xs text-gray-500 mt-0.5">09998207315</p>
                                 </div>
-                                {contactMethod === 'phone' && <Check className="w-5 h-5 flex-shrink-0" style={{ color: '#B8941F' }} />}
+                                {contactMethod === 'phone' && <Check className="w-5 h-5 flex-shrink-0" style={{ color: '#7C3AED' }} />}
                             </button>
                         </div>
                     </div>
 
                     {/* Courier Selection */}
-                    <div className="bg-white rounded-2xl p-6 md:p-8 border border-gray-100" style={{ boxShadow: '0 1px 3px rgba(10,10,10,0.04), 0 8px 28px rgba(10,10,10,0.05)' }}>
-                        <div className="flex items-center mb-5 pb-5 border-b" style={{ borderColor: 'rgba(10,10,10,0.06)' }}>
+                    <div className="bg-white rounded-2xl p-6 md:p-8 border border-gray-100" style={{ boxShadow: '0 1px 3px rgba(10,26,46,0.04), 0 8px 28px rgba(10,26,46,0.05)' }}>
+                        <div className="flex items-center mb-5 pb-5 border-b" style={{ borderColor: 'rgba(10,26,46,0.06)' }}>
                             <h2 className="font-heading text-xl font-semibold text-charcoal-900 flex items-center gap-3">
-                                <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: 'linear-gradient(135deg, #FFF9E6 0%, #FFE388 100%)', color: '#957515' }}>
+                                <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: 'linear-gradient(135deg, #F5F3FF 0%, #DDD6FE 100%)', color: '#6D28D9' }}>
                                     <Truck className="w-5 h-5" />
                                 </div>
                                 Select Courier Provider
@@ -983,7 +983,7 @@ Please confirm this order. Thank you!
                                             setShippingLocation(''); // Reset location when courier changes
                                         }}
                                         className={`p-4 rounded-xl border-2 transition-all text-left flex items-center gap-3 ${selectedCourierId === courier.id
-                                            ? 'border-brand-500 bg-brand-50/40 shadow-[0_4px_18px_rgba(212,175,55,0.18)]'
+                                            ? 'border-brand-500 bg-brand-50/40 shadow-[0_4px_18px_rgba(139,92,246,0.18)]'
                                             : 'border-gray-200 hover:border-brand-300 hover:bg-brand-50/20'
                                             }`}
                                     >
@@ -994,11 +994,11 @@ Please confirm this order. Thank you!
                     </div>
 
                     {/* Shipping Location Selection */}
-                    <div className={`bg-white rounded-2xl p-6 md:p-8 border border-gray-100 transition-opacity duration-300 ${!selectedCourierId ? 'opacity-50 pointer-events-none' : 'opacity-100'}`} style={{ boxShadow: '0 1px 3px rgba(10,10,10,0.04), 0 8px 28px rgba(10,10,10,0.05)' }}>
+                    <div className={`bg-white rounded-2xl p-6 md:p-8 border border-gray-100 transition-opacity duration-300 ${!selectedCourierId ? 'opacity-50 pointer-events-none' : 'opacity-100'}`} style={{ boxShadow: '0 1px 3px rgba(10,26,46,0.04), 0 8px 28px rgba(10,26,46,0.05)' }}>
                         <h2 className="font-heading text-xl font-semibold text-charcoal-900 mb-3 flex items-center gap-3">
                             Choose Shipping Region
                         </h2>
-                        <p className="text-xs text-charcoal-600 mb-6 p-3 rounded-lg border" style={{ background: '#FFFCF0', borderColor: 'rgba(212,175,55,0.30)' }}>
+                        <p className="text-xs text-charcoal-600 mb-6 p-3 rounded-lg border" style={{ background: '#FFFCF0', borderColor: 'rgba(139,92,246,0.30)' }}>
                             {selectedCourierId
                                 ? 'Select the rate applicable to your location.'
                                 : 'Please select a courier provider above first.'}
@@ -1024,12 +1024,12 @@ Please confirm this order. Thank you!
                                         key={loc.id}
                                         onClick={() => setShippingLocation(loc.id)}
                                         className={`p-4 rounded-xl border-2 transition-all text-left ${shippingLocation === loc.id
-                                            ? 'border-brand-500 bg-brand-50/40 shadow-[0_4px_18px_rgba(212,175,55,0.18)]'
+                                            ? 'border-brand-500 bg-brand-50/40 shadow-[0_4px_18px_rgba(139,92,246,0.18)]'
                                             : 'border-gray-200 hover:border-brand-300 hover:bg-brand-50/20'
                                             }`}
                                     >
                                         <p className="font-semibold text-charcoal-900 text-sm mb-1">{loc.name || loc.id.replace('_', ' & ')}</p>
-                                        <p className="text-xs font-semibold" style={{ color: '#B8941F' }}>₱{loc.fee}</p>
+                                        <p className="text-xs font-semibold" style={{ color: '#7C3AED' }}>₱{loc.fee}</p>
                                     </button>
                                 ))}
                         </div>
@@ -1050,12 +1050,12 @@ Please confirm this order. Thank you!
 
                 {/* Order Summary Sidebar */}
                 <div className="lg:col-span-1">
-                    <div className="bg-white rounded-2xl p-6 md:p-7 sticky top-24 border border-gray-100" style={{ boxShadow: '0 1px 3px rgba(10,10,10,0.04), 0 12px 32px rgba(10,10,10,0.06)' }}>
-                        <div className="flex items-center justify-between mb-6 pb-5 border-b" style={{ borderColor: 'rgba(10,10,10,0.06)' }}>
+                    <div className="bg-white rounded-2xl p-6 md:p-7 sticky top-24 border border-gray-100" style={{ boxShadow: '0 1px 3px rgba(10,26,46,0.04), 0 12px 32px rgba(10,26,46,0.06)' }}>
+                        <div className="flex items-center justify-between mb-6 pb-5 border-b" style={{ borderColor: 'rgba(10,26,46,0.06)' }}>
                             <h2 className="font-heading text-xl font-semibold text-charcoal-900">
                                 Order Summary
                             </h2>
-                            <span className="w-8 h-8 rounded-full flex items-center justify-center" style={{ background: 'linear-gradient(135deg, #FFF9E6 0%, #FFE388 100%)', color: '#957515' }}>
+                            <span className="w-8 h-8 rounded-full flex items-center justify-center" style={{ background: 'linear-gradient(135deg, #F5F3FF 0%, #DDD6FE 100%)', color: '#6D28D9' }}>
                                 <Activity className="w-4 h-4" />
                             </span>
                         </div>
@@ -1094,7 +1094,7 @@ Please confirm this order. Thank you!
                         {/* Promo Code */}
                         <div className="mb-6 pt-2">
                             <p className="text-[11px] font-semibold text-charcoal-700 uppercase tracking-[0.14em] mb-2 flex items-center gap-1.5">
-                                <Tag className="w-3 h-3" style={{ color: '#B8941F' }} /> Promo Code
+                                <Tag className="w-3 h-3" style={{ color: '#7C3AED' }} /> Promo Code
                             </p>
                             <div className="flex gap-2">
                                 <input
@@ -1124,7 +1124,7 @@ Please confirm this order. Thank you!
                                         onClick={handleApplyPromoCode}
                                         disabled={!promoCode || isApplyingPromo}
                                         className="px-4 py-2.5 rounded-lg text-xs font-bold disabled:opacity-50 shrink-0 whitespace-nowrap transition-all"
-                                        style={{ background: '#0A0A0A', color: '#FFE388' }}
+                                        style={{ background: '#0A1A2E', color: '#DDD6FE' }}
                                     >
                                         APPLY
                                     </button>
@@ -1149,9 +1149,9 @@ Please confirm this order. Thank you!
                                     <span>-₱{discountAmount.toLocaleString()}</span>
                                 </div>
                             )}
-                            <div className="flex justify-between font-bold text-charcoal-900 text-lg pt-3 mt-2 border-t" style={{ borderColor: 'rgba(212,175,55,0.30)' }}>
+                            <div className="flex justify-between font-bold text-charcoal-900 text-lg pt-3 mt-2 border-t" style={{ borderColor: 'rgba(139,92,246,0.30)' }}>
                                 <span>Total Estimate</span>
-                                <span style={{ color: '#957515' }}>₱{Math.max(0, totalPrice + ADMIN_FEE - discountAmount).toLocaleString()}</span>
+                                <span style={{ color: '#6D28D9' }}>₱{Math.max(0, totalPrice + ADMIN_FEE - discountAmount).toLocaleString()}</span>
                             </div>
                             <p className="text-xs text-gray-400 text-right italic">+ Shipping fee added at payment</p>
                         </div>

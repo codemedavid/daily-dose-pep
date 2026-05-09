@@ -5,10 +5,10 @@ import Footer from './Footer';
 import { useCart } from '../hooks/useCart';
 import { useProtocols } from '../hooks/useProtocols';
 
-const GOLD = '#B8941F';
-const INK = '#0A0A0A';
+const GOLD = '#7C3AED';
+const INK = '#0A1A2E';
 const MUTED = '#6b6b6b';
-const LINE = 'rgba(10,10,10,0.08)';
+const LINE = 'rgba(10,26,46,0.08)';
 const SURFACE = '#fafaf7';
 
 const ProtocolGuide: React.FC = () => {
@@ -64,7 +64,7 @@ const ProtocolGuide: React.FC = () => {
                             style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.12)' }}
                         >
                             <BookOpen className="w-3.5 h-3.5" style={{ color: GOLD }} />
-                            <span className="text-[10px] font-sans font-semibold uppercase tracking-[0.18em]" style={{ color: '#F5E6C8' }}>
+                            <span className="text-[10px] font-sans font-semibold uppercase tracking-[0.18em]" style={{ color: '#E0E7FF' }}>
                                 Protocol Guide
                             </span>
                         </div>
@@ -205,8 +205,8 @@ const ProtocolGuide: React.FC = () => {
                                     className="rounded-2xl overflow-hidden transition-all"
                                     style={{
                                         background: '#ffffff',
-                                        border: `1px solid ${isOpen ? 'rgba(184,148,31,0.35)' : LINE}`,
-                                        boxShadow: isOpen ? '0 8px 30px -12px rgba(10,10,10,0.12)' : 'none',
+                                        border: `1px solid ${isOpen ? 'rgba(124,58,237,0.35)' : LINE}`,
+                                        boxShadow: isOpen ? '0 8px 30px -12px rgba(10,26,46,0.12)' : 'none',
                                     }}
                                 >
                                     <button
@@ -305,7 +305,7 @@ const ProtocolGuide: React.FC = () => {
                         style={{
                             background: INK,
                             color: '#fff',
-                            boxShadow: '0 4px 14px rgba(10,10,10,0.18)',
+                            boxShadow: '0 4px 14px rgba(10,26,46,0.18)',
                         }}
                         onMouseEnter={(e) => { e.currentTarget.style.background = GOLD; }}
                         onMouseLeave={(e) => { e.currentTarget.style.background = INK; }}

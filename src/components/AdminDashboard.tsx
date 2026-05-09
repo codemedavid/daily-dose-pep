@@ -22,7 +22,7 @@ import ProtocolManager from './ProtocolManager';
 
 const AdminDashboard: React.FC = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(() => {
-    return localStorage.getItem('luxxbio_admin_auth') === 'true';
+    return localStorage.getItem('dailydosepep_admin_auth') === 'true';
   });
   const [password, setPassword] = useState('');
   const [loginError, setLoginError] = useState('');
@@ -415,7 +415,7 @@ const AdminDashboard: React.FC = () => {
     e.preventDefault();
     if (password === 'LBLAdmin@123!') {
       setIsAuthenticated(true);
-      localStorage.setItem('luxxbio_admin_auth', 'true');
+      localStorage.setItem('dailydosepep_admin_auth', 'true');
       setLoginError('');
     } else {
       setLoginError('Invalid password');
@@ -424,7 +424,7 @@ const AdminDashboard: React.FC = () => {
 
   const handleLogout = () => {
     setIsAuthenticated(false);
-    localStorage.removeItem('luxxbio_admin_auth');
+    localStorage.removeItem('dailydosepep_admin_auth');
     setPassword('');
     setCurrentView('dashboard');
   };
@@ -481,14 +481,14 @@ const AdminDashboard: React.FC = () => {
           <div className="text-center mb-6">
             <div className="mx-auto mb-4">
               <img
-                src="/luxxbio-logo.png"
-                alt="LUXXBIO LABS"
+                src="/ddp-logo.png"
+                alt="Daily Dose Pep"
                 className="h-24 w-auto mx-auto object-contain rounded-2xl"
-                style={{ boxShadow: '0 8px 32px rgba(245,160,190,0.35)' }}
+                style={{ boxShadow: '0 8px 32px rgba(79,201,206,0.35)' }}
               />
             </div>
             <h1 className="text-2xl font-bold text-gray-900 mb-1">
-              <span className="holo-text">LUXXBIO LABS</span> Admin Access
+              <span className="holo-text">Daily Dose Pep</span> Admin Access
             </h1>
             <p className="text-sm text-gray-400">
               Enter password to continue
@@ -1363,8 +1363,8 @@ const AdminDashboard: React.FC = () => {
               <div className="flex items-center space-x-4">
                 <div className="h-10 flex items-center">
                   <img
-                    src="/luxxbio-logo.png"
-                    alt="LUXXBIO LABS"
+                    src="/ddp-logo.png"
+                    alt="Daily Dose Pep"
                     className="h-12 w-auto object-contain"
                   />
                 </div>
