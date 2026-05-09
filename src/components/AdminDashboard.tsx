@@ -413,7 +413,7 @@ const AdminDashboard: React.FC = () => {
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    if (password === 'LBLAdmin@123!') {
+    if (password === 'DDP@admin!123') {
       setIsAuthenticated(true);
       localStorage.setItem('dailydosepep_admin_auth', 'true');
       setLoginError('');
