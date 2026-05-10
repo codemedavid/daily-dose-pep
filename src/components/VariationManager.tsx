@@ -19,6 +19,7 @@ const VariationManager: React.FC<VariationManagerProps> = ({ product, onClose, o
     name: '',
     quantity_mg: 5.0,
     price: product.base_price,
+    raw_cost: product.raw_cost ?? 0,
     discount_price: null as number | null,
     discount_active: false,
     stock_quantity: 0
@@ -28,6 +29,7 @@ const VariationManager: React.FC<VariationManagerProps> = ({ product, onClose, o
     name: '',
     quantity_mg: 5.0,
     price: product.base_price,
+    raw_cost: product.raw_cost ?? 0,
     discount_price: null as number | null,
     discount_active: false,
     stock_quantity: 0
@@ -46,6 +48,7 @@ const VariationManager: React.FC<VariationManagerProps> = ({ product, onClose, o
         name: newVariation.name,
         quantity_mg: newVariation.quantity_mg,
         price: newVariation.price,
+        raw_cost: newVariation.raw_cost,
         discount_price: newVariation.discount_price,
         discount_active: newVariation.discount_active,
         stock_quantity: newVariation.stock_quantity
@@ -56,6 +59,7 @@ const VariationManager: React.FC<VariationManagerProps> = ({ product, onClose, o
           name: '',
           quantity_mg: 5.0,
           price: product.base_price,
+          raw_cost: product.raw_cost ?? 0,
           discount_price: null,
           discount_active: false,
           stock_quantity: 0
@@ -80,6 +84,7 @@ const VariationManager: React.FC<VariationManagerProps> = ({ product, onClose, o
       name: variation.name,
       quantity_mg: variation.quantity_mg,
       price: variation.price,
+      raw_cost: variation.raw_cost ?? 0,
       discount_price: variation.discount_price,
       discount_active: variation.discount_active,
       stock_quantity: variation.stock_quantity
@@ -216,6 +221,21 @@ const VariationManager: React.FC<VariationManagerProps> = ({ product, onClose, o
                               value={editingVariation.price}
                               onChange={(e) => setEditingVariation({ ...editingVariation, price: parseFloat(e.target.value) || 0 })}
                               className="w-full px-3 sm:px-4 py-2 text-sm sm:text-base border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent transition-all bg-white text-black placeholder-gray-400"
+                            />
+                          </div>
+
+                          <div>
+                            <label className="block text-xs sm:text-sm font-semibold text-gray-700 mb-1 sm:mb-2">
+                              Raw Cost (₱)
+                            </label>
+                            <input
+                              type="number"
+                              step="0.01"
+                              min="0"
+                              value={editingVariation.raw_cost}
+                              onChange={(e) => setEditingVariation({ ...editingVariation, raw_cost: parseFloat(e.target.value) || 0 })}
+                              className="w-full px-3 sm:px-4 py-2 text-sm sm:text-base border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent transition-all bg-white text-black placeholder-gray-400"
+                              placeholder="0"
                             />
                           </div>
 
@@ -385,6 +405,21 @@ const VariationManager: React.FC<VariationManagerProps> = ({ product, onClose, o
                       value={newVariation.price}
                       onChange={(e) => setNewVariation({ ...newVariation, price: parseFloat(e.target.value) || 0 })}
                       className="w-full px-3 sm:px-4 py-2 text-sm sm:text-base border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent transition-all bg-white text-black placeholder-gray-400"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs sm:text-sm font-semibold text-gray-700 mb-1 sm:mb-2">
+                      Raw Cost (₱)
+                    </label>
+                    <input
+                      type="number"
+                      step="0.01"
+                      min="0"
+                      value={newVariation.raw_cost}
+                      onChange={(e) => setNewVariation({ ...newVariation, raw_cost: parseFloat(e.target.value) || 0 })}
+                      className="w-full px-3 sm:px-4 py-2 text-sm sm:text-base border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent transition-all bg-white text-black placeholder-gray-400"
+                      placeholder="0"
                     />
                   </div>
 

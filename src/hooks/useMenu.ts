@@ -111,7 +111,7 @@ export function useMenu() {
       const timestamp = Date.now();
       const { data, error } = await supabase
         .from('products')
-        .select('id, name, description, category, base_price, discount_price, discount_start_date, discount_end_date, discount_active, purity_percentage, molecular_weight, cas_number, sequence, storage_conditions, inclusions, stock_quantity, available, featured, image_url, safety_sheet_url, created_at, updated_at')
+        .select('id, name, description, category, base_price, raw_cost, discount_price, discount_start_date, discount_end_date, discount_active, purity_percentage, molecular_weight, cas_number, sequence, storage_conditions, inclusions, stock_quantity, available, featured, image_url, safety_sheet_url, created_at, updated_at')
         .eq('available', true)
         .order('featured', { ascending: false })
         .order('name', { ascending: true });
@@ -325,6 +325,7 @@ export function useMenu() {
         name: variation.name,
         quantity_mg: variation.quantity_mg,
         price: variation.price,
+        raw_cost: variation.raw_cost ?? 0,
         stock_quantity: variation.stock_quantity
       };
 
@@ -361,6 +362,7 @@ export function useMenu() {
       if (updates.name !== undefined) updateData.name = updates.name;
       if (updates.quantity_mg !== undefined) updateData.quantity_mg = updates.quantity_mg;
       if (updates.price !== undefined) updateData.price = updates.price;
+      if (updates.raw_cost !== undefined) updateData.raw_cost = updates.raw_cost;
       if (updates.stock_quantity !== undefined) updateData.stock_quantity = updates.stock_quantity;
       if (updates.product_id !== undefined) updateData.product_id = updates.product_id;
 

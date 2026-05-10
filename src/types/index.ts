@@ -5,6 +5,7 @@ export interface Product {
   description: string;
   category: string;
   base_price: number;
+  raw_cost?: number;
   discount_price: number | null;
   discount_start_date: string | null;
   discount_end_date: string | null;
@@ -40,6 +41,7 @@ export interface ProductVariation {
   name: string;
   quantity_mg: number;
   price: number;
+  raw_cost?: number;
   discount_price: number | null;
   discount_active: boolean;
   stock_quantity: number;
