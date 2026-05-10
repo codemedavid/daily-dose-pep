@@ -39,14 +39,14 @@ const Header: React.FC<HeaderProps> = ({ cartItemsCount, onCartClick, onMenuClic
           boxShadow: scrolled ? '0 4px 20px rgba(10,26,46,0.30)' : 'none',
         }}
       >
-        <div className="container mx-auto px-5 md:px-8 h-[72px] flex items-center justify-between gap-4">
+        <div className="container mx-auto px-3 sm:px-5 md:px-8 h-14 sm:h-16 md:h-[72px] flex items-center justify-between gap-2 sm:gap-3 md:gap-4">
 
           <button
             onClick={() => { onMenuClick(); setMobileMenuOpen(false); }}
             className="flex items-center gap-3 flex-shrink-0 hover:opacity-90 transition-opacity"
           >
-            <img src="/ddp-logo-original.png" alt="Daily Dose Pep" className="h-11 sm:h-12 w-auto object-contain rounded-full" />
-            <span className="hidden sm:inline font-sans font-bold text-white tracking-tight text-base">
+            <img src="/ddp-logo-original.png" alt="Daily Dose Pep" className="h-8 sm:h-10 md:h-12 w-auto object-contain rounded-full" />
+            <span className="hidden sm:inline font-sans font-bold text-white tracking-tight text-sm md:text-base">
               Daily Dose Pep
             </span>
           </button>
@@ -100,7 +100,7 @@ const Header: React.FC<HeaderProps> = ({ cartItemsCount, onCartClick, onMenuClic
 
             <button
               onClick={onCartClick}
-              className="relative p-2.5 rounded-full transition-all"
+              className="relative p-2 sm:p-2.5 rounded-full transition-all"
               style={{ color: 'rgba(255,255,255,0.85)' }}
               onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.background = 'rgba(255,255,255,0.08)'; }}
               onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.background = 'transparent'; }}
@@ -130,7 +130,7 @@ const Header: React.FC<HeaderProps> = ({ cartItemsCount, onCartClick, onMenuClic
 
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="md:hidden p-2.5 rounded-full transition-colors"
+              className="md:hidden p-2 sm:p-2.5 rounded-full transition-colors"
               style={{ color: 'rgba(255,255,255,0.90)' }}
               onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.background = 'rgba(255,255,255,0.08)'; }}
               onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.background = 'transparent'; }}

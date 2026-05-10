@@ -166,11 +166,11 @@ const MenuItemCard: React.FC<MenuItemCardProps> = ({
       </div>
 
       {/* ── Details ── */}
-      <div className="p-4 sm:p-5 flex-1 flex flex-col">
+      <div className="p-2.5 sm:p-4 md:p-5 flex-1 flex flex-col">
 
         {/* Name */}
         <h3
-          className="font-heading font-semibold text-lg sm:text-xl mb-1.5 line-clamp-2 leading-tight"
+          className="font-heading font-semibold text-sm sm:text-lg md:text-xl mb-1 sm:mb-1.5 line-clamp-2 leading-tight"
           style={{
             color: hovered ? '#7C3AED' : '#0A1A2E',
             transition: 'color 220ms',
@@ -181,7 +181,7 @@ const MenuItemCard: React.FC<MenuItemCardProps> = ({
 
         {/* Description */}
         <p
-          className="font-sans text-[11.5px] sm:text-xs leading-relaxed mb-3 line-clamp-2"
+          className="font-sans text-[10px] sm:text-[11.5px] md:text-xs leading-snug sm:leading-relaxed mb-2 sm:mb-3 line-clamp-2"
           style={{ color: '#6b6b6b' }}
         >
           {product.description}
@@ -210,7 +210,7 @@ const MenuItemCard: React.FC<MenuItemCardProps> = ({
               </span>
               <div className="flex items-baseline gap-1.5">
                 <span
-                  className="font-heading font-semibold text-lg sm:text-xl leading-none"
+                  className="font-heading font-semibold text-base sm:text-lg md:text-xl leading-none"
                   style={{ color: '#0A1A2E' }}
                 >
                   ₱{currentPrice.toLocaleString('en-PH', { minimumFractionDigits: 0 })}
@@ -238,7 +238,7 @@ const MenuItemCard: React.FC<MenuItemCardProps> = ({
               onAddToCart?.(product, undefined, 1);
             }}
             disabled={!isAvailable}
-            className="w-full flex items-center justify-center gap-2 py-2.5 rounded-full text-xs sm:text-sm font-sans font-semibold tracking-wide"
+            className="w-full flex items-center justify-center gap-1.5 sm:gap-2 py-2 sm:py-2.5 rounded-full text-[11px] sm:text-xs md:text-sm font-sans font-semibold tracking-wide"
             style={
               isAvailable
                 ? {

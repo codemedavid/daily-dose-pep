@@ -15,17 +15,17 @@ const Footer: React.FC = () => {
 
       {/* Trust badge row */}
       <div style={{ borderTop: '1px solid rgba(255,255,255,0.08)', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
-        <div className="container mx-auto px-5 md:px-8 py-8">
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6">
+        <div className="container mx-auto px-3 sm:px-5 md:px-8 py-5 sm:py-7 md:py-8">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-5 md:gap-6">
             {TRUST_BADGES.map(({ icon: Icon, label }) => (
-              <div key={label} className="flex items-center gap-3">
+              <div key={label} className="flex items-center gap-2 sm:gap-3">
                 <div
-                  className="flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center"
+                  className="flex-shrink-0 w-7 h-7 sm:w-9 sm:h-9 md:w-10 md:h-10 rounded-full flex items-center justify-center"
                   style={{ background: 'rgba(139,92,246,0.18)', border: '1px solid rgba(139,92,246,0.30)' }}
                 >
-                  <Icon className="w-4 h-4" style={{ color: '#A78BFA' }} />
+                  <Icon className="w-3 h-3 sm:w-3.5 sm:h-3.5 md:w-4 md:h-4" style={{ color: '#A78BFA' }} />
                 </div>
-                <span className="font-sans text-xs font-medium leading-tight" style={{ color: 'rgba(255,255,255,0.85)' }}>
+                <span className="font-sans text-[10px] sm:text-xs font-medium leading-tight" style={{ color: 'rgba(255,255,255,0.85)' }}>
                   {label}
                 </span>
               </div>
@@ -40,15 +40,15 @@ const Footer: React.FC = () => {
         style={{ background: 'linear-gradient(90deg, transparent, #4FC9CE 25%, #8B5CF6 75%, transparent)' }}
       />
 
-      <div className="container mx-auto px-5 md:px-8 pt-16 pb-10">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 lg:gap-8">
+      <div className="container mx-auto px-3 sm:px-5 md:px-8 pt-8 sm:pt-12 md:pt-16 pb-6 sm:pb-8 md:pb-10">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 md:gap-10 lg:gap-8">
 
           {/* Brand column */}
           <div className="lg:col-span-1">
             <img
               src="/ddp-logo.png"
               alt="Daily Dose Pep"
-              className="h-20 w-20 object-contain mb-5 rounded-full"
+              className="h-14 w-14 sm:h-16 sm:w-16 md:h-20 md:w-20 object-contain mb-3 sm:mb-5 rounded-full"
               style={{ boxShadow: '0 4px 24px rgba(79,201,206,0.35)' }}
             />
             <p className="font-sans text-base font-bold leading-relaxed mb-2" style={{ color: '#FFFFFF' }}>
@@ -145,7 +145,7 @@ const Footer: React.FC = () => {
 
       {/* ── Bottom bar ── */}
       <div style={{ borderTop: '1px solid rgba(255,255,255,0.06)' }}>
-        <div className="container mx-auto px-5 md:px-8 py-5 flex flex-col sm:flex-row items-center justify-between gap-3">
+        <div className="container mx-auto px-3 sm:px-5 md:px-8 py-4 sm:py-5 flex flex-col sm:flex-row items-center justify-between gap-3">
           <p className="font-sans text-xs" style={{ color: 'rgba(255,255,255,0.28)' }}>
             © {new Date().getFullYear()} Daily Dose Pep. All rights reserved.
           </p>

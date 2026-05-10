@@ -53,10 +53,10 @@ const Cart: React.FC<CartProps> = ({
   const finalTotal = totalPrice;
 
   return (
-    <div className="min-h-screen bg-white py-6 md:py-8">
-      <div className="container mx-auto px-4 max-w-6xl">
+    <div className="min-h-screen bg-white py-4 sm:py-6 md:py-8">
+      <div className="container mx-auto px-3 sm:px-4 max-w-6xl">
         {/* Header */}
-        <div className="mb-8">
+        <div className="mb-5 sm:mb-8">
           <button
             onClick={onContinueShopping}
             className="text-gray-500 hover:text-charcoal-600 font-medium mb-6 flex items-center gap-2 transition-colors group text-sm"
@@ -66,9 +66,9 @@ const Cart: React.FC<CartProps> = ({
           </button>
           <div className="flex justify-between items-end pb-4 border-b border-gray-100">
             <div>
-              <h1 className="font-heading text-2xl md:text-3xl font-bold text-charcoal-900 flex items-center gap-3">
+              <h1 className="font-heading text-lg sm:text-2xl md:text-3xl font-bold text-charcoal-900 flex items-center gap-2 sm:gap-3 flex-wrap">
                 Shopping Cart
-                <span className="text-sm font-normal text-gray-500 bg-gray-100 px-3 py-1 rounded-full">
+                <span className="text-[11px] sm:text-sm font-normal text-gray-500 bg-gray-100 px-2 py-0.5 sm:px-3 sm:py-1 rounded-full">
                   {cartItems.reduce((sum, item) => sum + item.quantity, 0)} Items
                 </span>
               </h1>
@@ -83,17 +83,17 @@ const Cart: React.FC<CartProps> = ({
           </div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-8">
           {/* Cart Items */}
-          <div className="lg:col-span-2 space-y-4">
+          <div className="lg:col-span-2 space-y-2.5 sm:space-y-4">
             {cartItems.map((item, index) => (
               <div
                 key={index}
-                className="bg-white rounded p-4 md:p-6 border border-gray-100 shadow-sm transition-all hover:border-charcoal-200 hover:shadow-clinical"
+                className="bg-white rounded p-2.5 sm:p-4 md:p-6 border border-gray-100 shadow-sm transition-all hover:border-charcoal-200 hover:shadow-clinical"
               >
-                <div className="flex gap-6">
+                <div className="flex gap-3 sm:gap-4 md:gap-6">
                   {/* Product Image */}
-                  <div className="w-20 h-20 md:w-24 md:h-24 bg-secondary-50 rounded flex-shrink-0 border border-gray-100 overflow-hidden">
+                  <div className="w-14 h-14 sm:w-20 sm:h-20 md:w-24 md:h-24 bg-secondary-50 rounded flex-shrink-0 border border-gray-100 overflow-hidden">
                     {item.product.image_url ? (
                       <img
                         src={item.product.image_url}
@@ -111,7 +111,7 @@ const Cart: React.FC<CartProps> = ({
                   <div className="flex-1 min-w-0">
                     <div className="flex justify-between items-start mb-3">
                       <div>
-                        <h3 className="font-heading font-bold text-charcoal-900 text-base md:text-lg mb-1">
+                        <h3 className="font-heading font-bold text-charcoal-900 text-sm sm:text-base md:text-lg mb-1">
                           {item.product.name}
                         </h3>
                         <div className="flex flex-wrap gap-2 text-xs">
@@ -187,7 +187,7 @@ const Cart: React.FC<CartProps> = ({
 
                           return (
                             <>
-                              <div className="text-lg md:text-xl font-bold text-charcoal-900">
+                              <div className="text-sm sm:text-lg md:text-xl font-bold text-charcoal-900">
                                 ₱{(currentPrice * item.quantity).toLocaleString('en-PH', { minimumFractionDigits: 0 })}
                               </div>
                               {isDiscounted && (
@@ -216,7 +216,7 @@ const Cart: React.FC<CartProps> = ({
 
           {/* Order Summary */}
           <div className="lg:col-span-1">
-            <div className="bg-white rounded shadow-clinical p-6 sticky top-24 border border-gray-100">
+            <div className="bg-white rounded shadow-clinical p-4 sm:p-6 sticky top-24 border border-gray-100">
               <h2 className="font-heading text-lg font-bold text-charcoal-900 mb-6 flex items-center gap-2">
                 Order Summary
                 <Activity className="w-4 h-4 text-emerald-600" />

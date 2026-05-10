@@ -148,20 +148,20 @@ const Menu: React.FC<MenuProps> = ({ menuItems, addToCart, cartItems }) => {
 
         {/* ── Products Section ── */}
         <section
-          className="py-20 md:py-24"
+          className="py-10 sm:py-14 md:py-24"
           ref={productsRef}
           style={{ background: '#ffffff' }}
         >
-          <div className="container mx-auto px-5 md:px-8">
+          <div className="container mx-auto px-3 sm:px-5 md:px-8">
 
             {/* Section header */}
-            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+            <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 sm:gap-6 mb-6 sm:mb-8 md:mb-12">
               <div>
                 <p className="section-label mb-2">Catalog</p>
                 <div className="divider mb-4" style={{ margin: '0 0 1rem 0' }} />
                 <h2
                   className="font-heading font-light"
-                  style={{ fontSize: 'clamp(1.9rem, 3.5vw, 2.75rem)', color: '#0A1A2E' }}
+                  style={{ fontSize: 'clamp(1.4rem, 3.5vw, 2.75rem)', color: '#0A1A2E' }}
                 >
                   Our Peptide Collection
                 </h2>
@@ -241,7 +241,7 @@ const Menu: React.FC<MenuProps> = ({ menuItems, addToCart, cartItems }) => {
                 </div>
               </div>
             ) : (
-              <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-5">
+              <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2.5 sm:gap-4 md:gap-5">
                 {sortedListings.map(({ card, sourceProduct, variation }) => (
                   <MenuItemCard
                     key={card.id}
@@ -257,7 +257,7 @@ const Menu: React.FC<MenuProps> = ({ menuItems, addToCart, cartItems }) => {
         </section>
 
         {/* ── CTA Banner — soft luxury gradient ── */}
-        <section className="py-20 md:py-24 relative overflow-hidden">
+        <section className="py-10 sm:py-14 md:py-24 relative overflow-hidden">
           {/* Gradient background — gold gradient */}
           <div
             className="absolute inset-0"
@@ -270,12 +270,12 @@ const Menu: React.FC<MenuProps> = ({ menuItems, addToCart, cartItems }) => {
           <div className="absolute -bottom-20 -right-20 w-80 h-80 rounded-full pointer-events-none"
             style={{ background: 'radial-gradient(circle, #C7E2FB, transparent 65%)', opacity: 0.45, filter: 'blur(40px)' }} />
 
-          <div className="relative z-10 container mx-auto px-5 md:px-8 text-center max-w-2xl">
-            <p className="section-label mb-4">Get Started</p>
-            <div className="divider mb-6" />
+          <div className="relative z-10 container mx-auto px-3 sm:px-5 md:px-8 text-center max-w-2xl">
+            <p className="section-label mb-3 sm:mb-4">Get Started</p>
+            <div className="divider mb-4 sm:mb-6" />
             <h2
-              className="font-sans font-extrabold tracking-tight mb-5"
-              style={{ fontSize: 'clamp(1.9rem, 4vw, 3rem)', color: '#0A1A2E' }}
+              className="font-sans font-extrabold tracking-tight mb-3 sm:mb-5"
+              style={{ fontSize: 'clamp(1.3rem, 4vw, 3rem)', color: '#0A1A2E' }}
             >
               Browse the{' '}
               <span style={{
@@ -283,18 +283,18 @@ const Menu: React.FC<MenuProps> = ({ menuItems, addToCart, cartItems }) => {
                 WebkitBackgroundClip: 'text', backgroundClip: 'text', WebkitTextFillColor: 'transparent',
               }}>full collection.</span>
             </h2>
-            <p className="font-sans text-sm leading-relaxed mb-9" style={{ color: '#475A85' }}>
+            <p className="font-sans text-xs sm:text-sm leading-relaxed mb-5 sm:mb-7 md:mb-9" style={{ color: '#475A85' }}>
               Quality you can trust, supported by an empowering community — every step of your wellness journey.
             </p>
-            <div className="flex flex-col sm:flex-row gap-3 justify-center">
+            <div className="flex flex-col sm:flex-row gap-2.5 sm:gap-3 justify-center">
               <button
                 onClick={() => productsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
-                className="btn-mint px-9 py-4"
+                className="btn-mint px-5 py-3 sm:px-7 sm:py-3.5 md:px-9 md:py-4 text-xs sm:text-sm"
               >
                 Shop All Products
-                <ArrowRight className="w-4 h-4" />
+                <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
               </button>
-              <a href="/protocols" className="btn-outline px-9 py-4">
+              <a href="/protocols" className="btn-outline px-5 py-3 sm:px-7 sm:py-3.5 md:px-9 md:py-4 text-xs sm:text-sm">
                 View Protocols
               </a>
             </div>

@@ -537,8 +537,8 @@ Please confirm this order. Thank you!
     // Payment Step
     if (step === 'payment') {
         return (
-            <div className="min-h-screen bg-white py-8 md:py-12">
-                <div className="container mx-auto px-4 max-w-6xl">
+            <div className="min-h-screen bg-white py-4 sm:py-8 md:py-12">
+                <div className="container mx-auto px-3 sm:px-4 max-w-6xl">
                     <button
                         onClick={() => setStep('details')}
                         className="text-gray-500 hover:text-brand-600 font-medium mb-6 flex items-center gap-2 transition-colors group text-sm"
@@ -753,8 +753,8 @@ Please confirm this order. Thank you!
 
     // Details Step
     return (
-        <div className="min-h-screen py-8 md:py-12" style={{ background: 'linear-gradient(180deg, #FFFFFF 0%, #FAFAF7 100%)' }}>
-            <div className="container mx-auto px-4 max-w-6xl">
+        <div className="min-h-screen py-4 sm:py-8 md:py-12" style={{ background: 'linear-gradient(180deg, #FFFFFF 0%, #FAFAF7 100%)' }}>
+            <div className="container mx-auto px-3 sm:px-4 max-w-6xl">
                 <button
                     onClick={onBack}
                     className="text-gray-500 hover:text-brand-600 font-medium mb-6 flex items-center gap-2 transition-colors group text-sm"
