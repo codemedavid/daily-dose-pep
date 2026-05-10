@@ -1,5 +1,5 @@
 import React from 'react';
-import { FlaskConical, Truck, HelpCircle, FileText, BookOpen, Leaf, Facebook, Phone, ShieldCheck, Award, Lock, Heart } from 'lucide-react';
+import { FlaskConical, Truck, HelpCircle, FileText, BookOpen, Leaf, Facebook, Phone, ShieldCheck, Award, Lock, Heart, MessageSquare } from 'lucide-react';
 
 const TRUST_BADGES = [
   { icon: ShieldCheck, label: 'Third-Party Tested' },
@@ -121,6 +121,7 @@ const Footer: React.FC = () => {
                 { icon: FileText,    label: 'COA Documents',  href: '/coa' },
                 { icon: HelpCircle,  label: 'FAQ',            href: '/faq' },
                 { icon: Truck,       label: 'Track Order',    href: '/track-order' },
+                { icon: MessageSquare,label: 'Customer Reviews', href: '/reviews' },
                 { icon: FlaskConical,label: 'Product Catalog',href: '/' },
               ].map(({ icon: Icon, label, href }) => (
                 <li key={label}>

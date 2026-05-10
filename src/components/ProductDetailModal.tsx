@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { X, Package, ShoppingCart, Plus, Minus, FlaskConical, Thermometer, Weight, Hash } from 'lucide-react';
+import { X, Package, ShoppingCart, Plus, Minus, FlaskConical, Thermometer, Weight, Hash, Star } from 'lucide-react';
 import type { Product, ProductVariation } from '../types';
+import { useProductReviews } from '../hooks/useReviews';
 
 interface ProductDetailModalProps {
   product: Product;
@@ -17,6 +18,7 @@ const ProductDetailModal: React.FC<ProductDetailModalProps> = ({ product, onClos
   const [visible, setVisible] = useState(false);
   const [added, setAdded] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
+  const { reviews: productReviews } = useProductReviews(product.id);
 
   // Slide in on mount
   useEffect(() => {
@@ -557,6 +559,76 @@ const ProductDetailModal: React.FC<ProductDetailModalProps> = ({ product, onClos
                   )}
                 </div>
               </div>
+
+              {/* ── Customer Reviews ─────────────────────── */}
+              {productReviews.length > 0 && (
+                <div
+                  className="mt-4 rounded-2xl overflow-hidden"
+                  style={{ border: '1px solid rgba(10,26,46,0.07)' }}
+                >
+                  <div
+                    className="px-4 py-3 flex items-center justify-between"
+                    style={{ background: '#FBF5F4', borderBottom: '1px solid rgba(10,26,46,0.07)' }}
+                  >
+                    <p
+                      className="font-sans text-[11px] font-semibold uppercase tracking-widest"
+                      style={{ color: '#757575' }}
+                    >
+                      Customer Reviews ({productReviews.length})
+                    </p>
+                  </div>
+                  <div className="divide-y" style={{ background: 'white' }}>
+                    {productReviews.map(r => (
+                      <div key={r.id} className="px-4 py-4">
+                        <div className="flex items-center justify-between mb-1.5">
+                          <span
+                            className="font-sans text-sm font-semibold"
+                            style={{ color: '#0A1A2E' }}
+                          >
+                            {r.customer_name}
+                          </span>
+                          <div className="flex items-center gap-0.5">
+                            {[1, 2, 3, 4, 5].map(n => (
+                              <Star
+                                key={n}
+                                className={`w-3.5 h-3.5 ${
+                                  n <= r.rating
+                                    ? 'fill-amber-400 text-amber-400'
+                                    : 'text-gray-200'
+                                }`}
+                              />
+                            ))}
+                          </div>
+                        </div>
+                        {r.title && (
+                          <p
+                            className="font-sans text-sm font-semibold mb-1"
+                            style={{ color: '#142442' }}
+                          >
+                            {r.title}
+                          </p>
+                        )}
+                        {r.image_url && (
+                          <img
+                            src={r.image_url}
+                            alt={r.title || 'Review'}
+                            className="w-full max-h-56 object-cover rounded-lg mb-2"
+                            loading="lazy"
+                          />
+                        )}
+                        {r.content && (
+                          <p
+                            className="font-sans text-xs leading-relaxed whitespace-pre-line"
+                            style={{ color: '#424242' }}
+                          >
+                            {r.content}
+                          </p>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
 
               {/* Bottom safe area spacer */}
               <div className="h-4" />

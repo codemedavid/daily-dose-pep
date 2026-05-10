@@ -17,6 +17,7 @@ const FAQ = lazy(() => import('./components/FAQ'));
 const PeptideCalculator = lazy(() => import('./components/PeptideCalculator'));
 const OrderTracking = lazy(() => import('./components/OrderTracking'));
 const ProtocolGuide = lazy(() => import('./components/ProtocolGuide'));
+const Reviews = lazy(() => import('./components/Reviews'));
 
 import { useMenu } from './hooks/useMenu';
 // import { useCOAPageSetting } from './hooks/useCOAPageSetting';
@@ -112,6 +113,7 @@ function App() {
                     <Route path="/calculator" element={<PeptideCalculator />} />
                     <Route path="/track-order" element={<OrderTracking />} />
                     <Route path="/protocols" element={<ProtocolGuide />} />
+                    <Route path="/reviews" element={<Reviews />} />
                     <Route path="/admin" element={<AdminDashboard />} />
                 </Routes>
             </Suspense>
