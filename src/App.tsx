@@ -2,6 +2,7 @@ import { Suspense, lazy, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { useCart } from './hooks/useCart';
 import Header from './components/Header';
+import CommunityBanner from './components/CommunityBanner';
 import SubNav from './components/SubNav';
 import Menu from './components/Menu';
 import Cart from './components/Cart';
@@ -45,6 +46,7 @@ function MainApp() {
 
     return (
         <div className="min-h-screen bg-charcoal-900 font-inter flex flex-col">
+            <CommunityBanner />
             <Header
                 cartItemsCount={cart.getTotalItems()}
                 onCartClick={() => handleViewChange('cart')}
