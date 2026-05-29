@@ -1,5 +1,5 @@
 import React from 'react';
-import { FlaskConical, Truck, HelpCircle, FileText, BookOpen, Leaf, Facebook, Phone, ShieldCheck, Award, Lock, Heart, MessageSquare } from 'lucide-react';
+import { FlaskConical, Truck, HelpCircle, FileText, BookOpen, Leaf, Phone, ShieldCheck, Award, Lock, Heart, MessageSquare } from 'lucide-react';
 
 const TRUST_BADGES = [
   { icon: ShieldCheck, label: 'Third-Party Tested' },
@@ -63,18 +63,6 @@ const Footer: React.FC = () => {
             </div>
 
             <div className="flex flex-col gap-2.5">
-              <a
-                href="https://www.facebook.com/share/14hsbXd8st3/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 font-sans text-sm transition-colors"
-                style={{ color: 'rgba(255,255,255,0.6)' }}
-                onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.color = '#DDD6FE'; }}
-                onMouseLeave={e => { (e.currentTarget as HTMLAnchorElement).style.color = 'rgba(255,255,255,0.6)'; }}
-              >
-                <Facebook className="w-4 h-4" style={{ color: '#4FC9CE' }} />
-                Facebook Page
-              </a>
               <a
                 href="tel:09998207315"
                 className="flex items-center gap-2 font-sans text-sm transition-colors"

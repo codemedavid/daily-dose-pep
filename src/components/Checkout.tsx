@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ArrowLeft, ShieldCheck, Package, CreditCard, Activity, Copy, Check, MessageCircle, Tag, Upload, Database, Lock, Truck, Facebook, Phone } from 'lucide-react';
+import { ArrowLeft, ShieldCheck, Package, CreditCard, Activity, Copy, Check, MessageCircle, Tag, Upload, Database, Lock, Truck, Phone } from 'lucide-react';
 import type { CartItem } from '../types';
 import { usePaymentMethods } from '../hooks/usePaymentMethods';
 import { useShippingLocations } from '../hooks/useShippingLocations';
@@ -35,7 +35,7 @@ const Checkout: React.FC<CheckoutProps> = ({ cartItems, totalPrice, onBack }) =>
 
     // Payment
     const [selectedPaymentMethod, setSelectedPaymentMethod] = useState('');
-    const [contactMethod, setContactMethod] = useState<'facebook' | 'phone'>('facebook');
+    const [contactMethod, setContactMethod] = useState<'phone'>('phone');
     const [notes, setNotes] = useState('');
 
     const [orderMessage, setOrderMessage] = useState<string>('');
@@ -70,10 +70,8 @@ const Checkout: React.FC<CheckoutProps> = ({ cartItems, totalPrice, onBack }) =>
     const selectedLocation = shippingLocations.find(loc => loc.id === shippingLocation);
     const shippingFee = selectedLocation ? selectedLocation.fee : 0;
 
-    const ADMIN_FEE = 300;
-
-    // Calculate final total (Subtotal + Shipping + Admin Fee - Discount)
-    const finalTotal = Math.max(0, totalPrice + shippingFee + ADMIN_FEE - discountAmount);
+    // Calculate final total (Subtotal + Shipping - Discount)
+    const finalTotal = Math.max(0, totalPrice + shippingFee - discountAmount);
 
     // Handle Promo Code Application
     const handleApplyPromoCode = async () => {
@@ -339,7 +337,6 @@ ${cartItems.map(item => {
 💰 PRICING
 Product Total: ₱${totalPrice.toLocaleString('en-PH', { minimumFractionDigits: 0 })}
 Shipping Fee: ₱${shippingFee.toLocaleString('en-PH', { minimumFractionDigits: 0 })} (${shippingLocation.replace('_', ' & ')})
-Admin Fee: ₱${ADMIN_FEE.toLocaleString('en-PH', { minimumFractionDigits: 0 })}
 ${discountAmount > 0 ? `Discount (${appliedPromo?.code}): -₱${discountAmount.toLocaleString('en-PH', { minimumFractionDigits: 0 })}\n` : ''}Grand Total: ₱${finalTotal.toLocaleString('en-PH', { minimumFractionDigits: 0 })}
 
 💳 PAYMENT METHOD
@@ -350,7 +347,7 @@ ${paymentMethod?.name || 'N/A'}
 ${paymentProofUrl ? 'Screenshot attached to order.' : 'Pending'}
 
 📱 PREFERRED CONTACT METHOD
-${contactMethod === 'facebook' ? 'Facebook Page (https://www.facebook.com/share/14hsbXd8st3/)' : 'WhatsApp — 09998207315'}
+WhatsApp — 09998207315
 
 📋 ORDER NUMBER: ${customOrderNumber}
 
@@ -369,11 +366,6 @@ Please confirm this order. Thank you!
 
             // Show confirmation
             setStep('confirmation');
-
-            // Auto-open Facebook page
-            setTimeout(() => {
-                window.open('https://www.facebook.com/share/14hsbXd8st3/', '_blank');
-            }, 1500);
         } catch (error) {
             console.error('❌ Error placing order:', error);
             alert(`Failed to place order: ${error instanceof Error ? error.message : 'Unknown error'}. Please try again.`);
@@ -390,16 +382,6 @@ Please confirm this order. Thank you!
             // Fallback
             alert('Failed to copy. Please manually select and copy the message.');
         }
-    };
-
-    const handleOpenFacebook = async () => {
-        try {
-            await navigator.clipboard.writeText(orderMessage);
-            setCopied(true);
-        } catch (err) {
-            console.error('Failed to copy before opening Facebook:', err);
-        }
-        window.open('https://www.facebook.com/share/14hsbXd8st3/', '_blank');
     };
 
     const handleOpenWhatsApp = () => {
@@ -419,7 +401,7 @@ Please confirm this order. Thank you!
                             Order Confirmed
                         </h1>
                         <p className="text-gray-600 mb-4 text-base md:text-lg leading-relaxed">
-                            Your order details have been pre-filled. Send them via our Facebook page or call us to finalize your order!
+                            Your order details have been pre-filled. Send them via WhatsApp or call us to finalize your order!
                         </p>
 
                         {/* Order ID Display */}
@@ -473,14 +455,6 @@ Please confirm this order. Thank you!
                         {/* Action Buttons */}
                         <div className="space-y-3 mb-8">
                             <button
-                                onClick={handleOpenFacebook}
-                                className="w-full py-4 text-base flex items-center justify-center gap-2 shadow-lg rounded bg-[#0866ff] hover:bg-[#0556db] text-white font-medium transition-all"
-                            >
-                                <MessageCircle className="w-5 h-5" />
-                                Open Facebook Page & Paste
-                            </button>
-
-                            <button
                                 onClick={handleOpenWhatsApp}
                                 className="w-full py-4 text-base flex items-center justify-center gap-2 shadow-lg rounded bg-[#25D366] hover:bg-[#1ebe5d] text-white font-medium transition-all"
                             >
@@ -489,7 +463,7 @@ Please confirm this order. Thank you!
                             </button>
 
                             <p className="text-sm text-gray-500">
-                                Your order details are auto-copied. Send the message to our <span className="font-bold">Facebook Page</span> or via <span className="font-bold">WhatsApp 09998207315</span>.
+                                Your order details are auto-copied. Send the message via <span className="font-bold">WhatsApp 09998207315</span>.
                             </p>
                         </div>
 
@@ -727,10 +701,6 @@ Please confirm this order. Thank you!
                                         <span className="text-gray-600">Shipping</span>
                                         <span>₱{shippingFee.toLocaleString()}</span>
                                     </div>
-                                    <div className="flex justify-between">
-                                        <span className="text-gray-600">Admin Fee</span>
-                                        <span>₱{ADMIN_FEE.toLocaleString()}</span>
-                                    </div>
                                     {discountAmount > 0 && (
                                         <div className="flex justify-between text-emerald-600 font-medium">
                                             <span>Discount</span>
@@ -923,25 +893,7 @@ Please confirm this order. Thank you!
                             </h2>
                         </div>
                         <p className="text-xs text-gray-500 mb-5 -mt-1">Choose how you'd like us to confirm your order and send tracking updates.</p>
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                            <button
-                                type="button"
-                                onClick={() => setContactMethod('facebook')}
-                                className={`p-4 rounded-xl border-2 transition-all text-left flex items-center gap-3 ${contactMethod === 'facebook'
-                                    ? 'border-brand-500 bg-brand-50/40 shadow-[0_4px_18px_rgba(139,92,246,0.18)]'
-                                    : 'border-gray-200 hover:border-brand-300 hover:bg-brand-50/20'
-                                    }`}
-                            >
-                                <div className="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0" style={{ background: '#0A1A2E', color: '#DDD6FE' }}>
-                                    <Facebook className="w-5 h-5" />
-                                </div>
-                                <div className="flex-1">
-                                    <p className="font-semibold text-charcoal-900 text-sm">Facebook Page</p>
-                                    <p className="text-xs text-gray-500 mt-0.5">Message us on Facebook</p>
-                                </div>
-                                {contactMethod === 'facebook' && <Check className="w-5 h-5 flex-shrink-0" style={{ color: '#7C3AED' }} />}
-                            </button>
-
+                        <div className="grid grid-cols-1 gap-3">
                             <button
                                 type="button"
                                 onClick={() => setContactMethod('phone')}
@@ -1139,10 +1091,6 @@ Please confirm this order. Thank you!
                                 <span className="text-gray-600">Subtotal</span>
                                 <span className="font-medium text-charcoal-900">₱{totalPrice.toLocaleString()}</span>
                             </div>
-                            <div className="flex justify-between">
-                                <span className="text-gray-600">Admin Fee</span>
-                                <span className="font-medium text-charcoal-900">₱{ADMIN_FEE.toLocaleString()}</span>
-                            </div>
                             {discountAmount > 0 && (
                                 <div className="flex justify-between text-emerald-600 font-medium">
                                     <span>Discount</span>
@@ -1151,7 +1099,7 @@ Please confirm this order. Thank you!
                             )}
                             <div className="flex justify-between font-bold text-charcoal-900 text-lg pt-3 mt-2 border-t" style={{ borderColor: 'rgba(139,92,246,0.30)' }}>
                                 <span>Total Estimate</span>
-                                <span style={{ color: '#6D28D9' }}>₱{Math.max(0, totalPrice + ADMIN_FEE - discountAmount).toLocaleString()}</span>
+                                <span style={{ color: '#6D28D9' }}>₱{Math.max(0, totalPrice - discountAmount).toLocaleString()}</span>
                             </div>
                             <p className="text-xs text-gray-400 text-right italic">+ Shipping fee added at payment</p>
                         </div>
